@@ -1,0 +1,14 @@
+{
+  "root": "https://www.navercorp.com/story",
+  "maxDepth": 5,
+  "authMode": "guest",
+  "nodes": [
+    {"path": "/story", "type": "story-list", "status": "public", "depth": 0},
+    {"path": "/story/storyDetail?seq=10034642", "type": "story-detail", "status": "public", "depth": 1},
+    {"path": "/story/storyDetail?seq=10034596", "type": "story-detail", "status": "public", "depth": 1},
+    {"path": "/story/storyDetail?seq=10034509", "type": "story-detail", "status": "public", "depth": 1},
+    {"path": "/story?keyword=AI", "type": "filtered-list", "status": "public", "depth": 1},
+    {"path": "/story?keyword=로보틱스", "type": "filtered-list", "status": "public", "depth": 1}
+  ],
+  "shared": ["SiteHeader", "MobileNavigation", "NavigationBehavior", "SiteFooter", "StoryFilters", "StoryCard", "StoryGrid"]
+}

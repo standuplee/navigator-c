@@ -1,0 +1,41 @@
+{
+  "root": "https://www.navercorp.com/media/pressReleases",
+  "maxDepth": 5,
+  "authMode": "guest",
+  "navigation": {
+    "gnb": [
+      {"path": "/company/about", "label": "회사소개", "status": "public", "depth": 1},
+      {"path": "/service/featuredServices", "label": "서비스", "status": "public", "depth": 1},
+      {"path": "/tech/innovation", "label": "기술", "status": "public", "depth": 1},
+      {"path": "/esg/sustainability", "label": "지속가능성", "status": "public", "depth": 1},
+      {"path": "/investment/irUpdates", "label": "투자정보", "status": "public", "depth": 1},
+      {"path": "/media/pressReleases", "label": "미디어", "status": "public", "depth": 1},
+      {"path": "/story", "label": "스토리", "status": "public", "depth": 1}
+    ],
+    "footer": [
+      {"path": "/company/contact", "label": "Contact", "status": "public", "depth": 1},
+      {"path": "/company/partnership", "label": "제휴 제안", "status": "public", "depth": 1},
+      {"path": "/media/naverReports", "label": "네이버 리포트", "status": "public", "depth": 1},
+      {"path": "/company/brandGuide", "label": "브랜드 리소스", "status": "public", "depth": 1}
+    ]
+  },
+  "nodes": [
+    {"path": "/media/pressReleases", "type": "list", "status": "public", "depth": 0},
+    {"path": "/media/pressReleasesDetail?seq=10034640", "type": "detail", "status": "public", "depth": 1},
+    {"path": "/media/pressReleasesDetail?seq=10034637", "type": "detail", "status": "public", "depth": 1},
+    {"path": "/media/pressReleasesDetail?seq=10034636", "type": "detail", "status": "public", "depth": 1},
+    {"path": "/media/pressReleasesDetail?seq=10034634", "type": "detail", "status": "public", "depth": 1},
+    {"path": "/media/pressReleasesDetail?seq=10034633", "type": "detail", "status": "public", "depth": 1},
+    {"path": "/media/pressReleasesDetail?seq=10034628", "type": "detail", "status": "public", "depth": 1},
+    {"path": "/media/pressReleasesDetail?seq=10034627", "type": "detail", "status": "public", "depth": 1},
+    {"path": "/media/pressReleasesDetail?seq=10034626", "type": "detail", "status": "public", "depth": 1},
+    {"path": "/media/pressReleasesDetail?seq=10034623", "type": "detail", "status": "public", "depth": 1},
+    {"path": "/media/pressReleasesDetail?seq=10034621", "type": "detail", "status": "public", "depth": 1},
+    {"path": "/media/pressReleasesDetail?seq=10034619", "type": "detail", "status": "public", "depth": 1},
+    {"path": "/media/pressReleases?page=2", "type": "list", "status": "public", "depth": 1},
+    {"path": "/media/pressReleases?page=3", "type": "list", "status": "public", "depth": 1},
+    {"path": "/media/pressReleases?keyword=NAVER", "type": "filtered-list", "status": "public", "depth": 1},
+    {"path": "/media/pressReleases?keyword=AI%20%EB%B8%8C%EB%A6%AC%ED%95%91", "type": "filtered-list", "status": "public", "depth": 1}
+  ],
+  "shared": ["SiteHeader", "MobileNavigation", "NavigationBehavior", "SiteFooter", "SearchField", "YearMonthFilter", "PressReleaseCard", "Pagination"]
+}

@@ -1,0 +1,166 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Every public route is represented here. The renderer selects a page layout
+// and then renders its ordered, database-authored sections.
+model SitePage {
+  id          String        @id @default(cuid())
+  route       String        @unique
+  title       String
+  pageType    PageType
+  isPublished Boolean       @default(true)
+  sections    PageSection[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model PageSection {
+  id            String   @id @default(cuid())
+  pageId        String
+  page          SitePage @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  key           String
+  componentType ComponentType
+  sortOrder     Int
+  data          Json     // component props; image values reference MediaAsset.id
+  isPublished   Boolean  @default(true)
+  @@unique([pageId, key])
+  @@index([pageId, sortOrder])
+}
+
+model ContentEntry {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  title       String
+  kind        ContentKind
+  category    String?
+  excerpt     String?
+  markdown    String?       @db.Text
+  publishedAt DateTime?
+  isPublished Boolean       @default(false)
+  assets      ContentAsset[]
+  tags        EntryTag[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  @@index([kind, isPublished, publishedAt])
+}
+
+model ContentAsset {
+  entryId String
+  assetId String
+  role    String   // thumbnail, body, gallery, attachment
+  sortOrder Int    @default(0)
+  entry   ContentEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  asset   MediaAsset   @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  @@id([entryId, assetId, role])
+}
+
+model EntryTag {
+  entryId String
+  tagId   String
+  entry   ContentEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  tag     Tag          @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  @@id([entryId, tagId])
+}
+
+model Story {
+  id          String      @id @default(cuid())
+  seq         String      @unique
+  title       String
+  category    StoryCategory
+  publishedAt DateTime
+  markdown    String      @db.Text
+  thumbnailId String?
+  thumbnail   MediaAsset? @relation(fields: [thumbnailId], references: [id])
+  tags        StoryTag[]
+  blocks      StoryBlock[]
+  isPublished Boolean     @default(false)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  @@index([category, publishedAt])
+}
+
+model StoryBlock {
+  id        String   @id @default(cuid())
+  storyId   String
+  story     Story    @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  sortOrder Int
+  type      String   // heading, paragraph, image, quote, list, embed
+  payload   Json
+  @@unique([storyId, sortOrder])
+}
+
+model Tag {
+  id      String     @id @default(cuid())
+  name    String     @unique
+  stories StoryTag[]
+  entries EntryTag[]
+}
+
+model StoryTag {
+  storyId String
+  tagId   String
+  story   Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  tag     Tag   @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  @@id([storyId, tagId])
+}
+
+model MediaAsset {
+  id        String   @id @default(cuid())
+  url       String
+  alt       String   @default("")
+  mimeType  String?
+  width     Int?
+  height    Int?
+  createdAt DateTime @default(now())
+  stories   Story[]
+  usages    ContentAsset[]
+}
+
+enum PageType {
+  MAIN
+  SERVICE_LIST
+  SERVICE_DETAIL
+  PRESS_RELEASE_LIST
+  PRESS_RELEASE_DETAIL
+  STORY_LIST
+  STORY_DETAIL
+}
+
+enum ComponentType {
+  SITE_HEADER
+  HERO
+  TICKER
+  FEATURED_CAROUSEL
+  CARD_GALLERY
+  CONTENT_CARD
+  BANNER
+  SERVICE_SUMMARY
+  TAB_PANEL
+  FILTER_BAR
+  RICH_TEXT
+  MEDIA_GALLERY
+  RELATED_CONTENT
+  SITE_FOOTER
+}
+
+enum ContentKind {
+  STORY
+  PRESS_RELEASE
+  SERVICE
+  NEWS
+}
+
+enum StoryCategory {
+  LEADERS_VIEW
+  CULTURE
+  SERVICE
+  PEOPLE
+  TECH
+  IMPACT
+}

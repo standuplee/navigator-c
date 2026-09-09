@@ -1,0 +1,5 @@
+import type { StoryDetail } from "@/types/story";
+import { stories } from "./story";
+
+const rich: StoryDetail = { seq: "10034596", category: "Leader's View", date: "2026.07.24", title: stories[1].title, tags: ["FROM CHAIRMAN"], markdown: `네이버와 엔비디아가 지난 6월 발표한 기가와트(GW)급 AI 팩토리 구축 협약이 7월 두 건의 계약으로 구체화됐습니다. 네이버는 브룩필드와 90억 달러 규모의 사전 계약을 맺은 뒤 엔비디아와 전략적 투자 계약을 체결했습니다.\n\n## AI 팩토리 시대를 준비해 온 네이버\n\n전 세계적으로 AI 수요가 급증하면서 대규모 컴퓨팅 자원을 확보하려는 경쟁이 치열해지고 있습니다. 네이버는 데이터센터, GPU 클러스터, AI 플랫폼과 자체 모델을 직접 운영하며 AI 팩토리의 전 영역을 준비해왔습니다.\n\n## 글로벌 AI 인프라 사업자로 도약\n\n네이버는 파트너들과 함께 **100억 달러 규모의 AI 팩토리**를 구축하고 글로벌 AI 컴퓨팅 시장을 선도해 나갈 계획입니다.\n\n> 다양한 AI가 공존하는 세상을 위해 기술과 연구에 더욱 힘쓰겠습니다.` };
+export function getStoryDetail(seq?: string): StoryDetail { if (seq === rich.seq) return rich; const story = stories.find((item) => item.seq === seq) ?? stories[0]; return { ...story, markdown: `# ${story.title}\n\n네이버의 서비스와 기술 이야기를 소개합니다.\n\n## 새로운 가능성을 만드는 네이버\n\n${story.title}에 담긴 배경과 의미를 전합니다. **네이버는 사용자와 파트너의 일상을 연결합니다.**` }; }
