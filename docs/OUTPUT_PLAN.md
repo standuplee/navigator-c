@@ -1,8 +1,8 @@
 # NAVER reference clone — output plan
 
 - App root: /Users/seora/Github/navigator-c
-- Sources: https://www.navercorp.com/main, /service/featuredServices, /service/search, /service/advertisement, /service/commerce, /service/map, /tech/innovation, /media/pressReleases, /media/pressReleasesDetail?seq=10034634, /story
-- Destinations: `/`, `/main`, `/service/*`, `/tech/innovation`, `/media/pressReleases`, `/media/pressReleasesDetail`, `/story`
+- Sources: https://www.navercorp.com/main, /company/about, /service/portal, /service/featuredServices, /service/search, /service/advertisement, /service/commerce, /service/map, /tech/innovation, /esg/sustainability, /media/pressReleases, /media/pressReleasesDetail?seq=10034637, /investment/irUpdates, /story
+- Destinations: `/`, `/main`, `/company/*`, `/service/*`, `/tech/*`, `/esg/*`, `/investment/*`, `/media/*`, `/story/*`
 - Site key: navercorp-65983208
 - Page key: main-c98712e4
 - Research: docs/research/navercorp-65983208/main-c98712e4/
