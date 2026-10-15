@@ -1,5 +1,19 @@
-import { StoryDetailPage } from "@/features/navercorp/components/story/StoryDetailPage";
-import { findStory } from "@/lib/content/story-repository";
+import { PageChrome } from "@/components/content/main/PageChrome";
+import { StoryDetailTemplate } from "@/components/content/StoryDetailTemplate";
+import { getStoryDetail } from "@/lib/data/storyRepository";
 
-export async function generateMetadata({ searchParams }: { searchParams: Promise<{ seq?: string }> }) { const story = await findStory((await searchParams).seq); return { title: `${story.title} l NAVER Corp.` }; }
-export default async function StoryDetailRoute({ searchParams }: { searchParams: Promise<{ seq?: string }> }) { return <StoryDetailPage story={await findStory((await searchParams).seq)} />; }
+export async function generateMetadata({ searchParams }: { searchParams: Promise<{ seq?: string }> }) {
+  const { seq } = await searchParams;
+  const story = await getStoryDetail(seq);
+  return { title: `${story.title} l NOVA` };
+}
+
+export default async function StoryDetailRoute({ searchParams }: { searchParams: Promise<{ seq?: string }> }) {
+  const { seq } = await searchParams;
+  const story = await getStoryDetail(seq);
+  return (
+    <PageChrome>
+      <StoryDetailTemplate story={story} />
+    </PageChrome>
+  );
+}

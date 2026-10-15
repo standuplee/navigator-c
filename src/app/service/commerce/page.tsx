@@ -1,4 +1,14 @@
-import { ServiceDetailAdapter } from "@/features/navercorp/components/service/ServiceDetailAdapter";
-import { commerceService } from "@/features/navercorp/data/services/commerce";
-export const metadata = { title: "커머스 l NAVER Corp." };
-export default function CommercePage() { return <ServiceDetailAdapter detail={commerceService} />; }
+import { PageChrome } from "@/components/content/main/PageChrome";
+import { ServiceDetailTemplate } from "@/components/content/ServiceDetailTemplate";
+import { getServiceDetail } from "@/lib/data/serviceRepository";
+
+export const metadata = { title: "커머스 l NOVA" };
+
+export default async function CommercePage() {
+  const content = await getServiceDetail("commerce");
+  return (
+    <PageChrome overDarkHero>
+      <ServiceDetailTemplate content={content} />
+    </PageChrome>
+  );
+}

@@ -26,12 +26,12 @@
 - 회사: `/company/about`, `/company/brandGuide`, `/company/contact`, `/company/partnership`
 - 우리의 사역: `/service/featuredServices`, `/service/search`, `/service/advertisement`, `/service/commerce`, `/service/map`
 - 우리의 활동: `/tech/innovation`
-- 지속가능성: `/esg/sustainability`, `/esg/esgReports`
-- 투자정보: `/investment/irUpdates`, `/investment/earnings`, `/investment/stock`, `/investment/corporateGovernance`
 - 미디어: `/media/pressReleases`, `/media/pressReleasesDetail`, `/media/mediaEvents`, `/media/naverReports`, `/media/aiInNaver`
 - 스토리: `/story`, `/story/storyDetail`
 
 ## DB 주도 렌더링 규칙
+
+지속가능성, 투자정보, 채용 영역은 현재 제품 범위에서 제외한다.
 
 1. `SitePage.route`로 URL과 페이지 타입을 등록한다.
 2. `PageSection.sortOrder` 순서로 섹션을 읽는다.

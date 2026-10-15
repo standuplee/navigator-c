@@ -42,7 +42,7 @@ export function MainBehavior() {
   }
   const tech=all<HTMLElement>('.main-tech-items');
   const activate=(index:number)=>tech.forEach((e,i)=>{e.closest('.list-cell')?.classList.toggle('active',i===index);e.setAttribute('aria-expanded',String(i===index));});
-  tech.forEach((e,i)=>{const click=(event:Event)=>{if(!(event.target as HTMLElement).closest('a'))activate(i);};const key=(event:KeyboardEvent)=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();activate(i);} if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();const n=(i+(event.key==='ArrowRight'?1:2))%3;activate(n);tech[n].focus();}};e.addEventListener('click',click);e.addEventListener('keydown',key);disposers.push(()=>{e.removeEventListener('click',click);e.removeEventListener('keydown',key);});});
+  tech.forEach((e,i)=>{const click=(event:Event)=>{if(!(event.target as HTMLElement).closest('a'))activate(i);};const key=(event:KeyboardEvent)=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();activate(i);} if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();const n=(i+(event.key==='ArrowRight'?1:tech.length-1))%tech.length;activate(n);tech[n].focus();}};e.addEventListener('click',click);e.addEventListener('keydown',key);disposers.push(()=>{e.removeEventListener('click',click);e.removeEventListener('keydown',key);});});
   const tabs=all<HTMLButtonElement>('.main-partner [role="tab"]');
   tabs.forEach((tab,i)=>{
    const choose=()=>{tabs.forEach((t,j)=>{t.classList.toggle('active',i===j);t.setAttribute('aria-selected',String(i===j));t.tabIndex=i===j?0:-1;const panel=document.getElementById(t.getAttribute('aria-controls')||'');panel?.classList.toggle('active',i===j);if(panel)panel.hidden=i!==j;});};

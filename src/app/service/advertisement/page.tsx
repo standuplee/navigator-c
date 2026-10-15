@@ -1,4 +1,14 @@
-import { ServiceDetailAdapter } from "@/features/navercorp/components/service/ServiceDetailAdapter";
-import { advertisementService } from "@/features/navercorp/data/services/advertisement";
-export const metadata = { title: "광고 l NAVER Corp." };
-export default function AdvertisementPage() { return <ServiceDetailAdapter detail={advertisementService} />; }
+import { PageChrome } from "@/components/content/main/PageChrome";
+import { ServiceDetailTemplate } from "@/components/content/ServiceDetailTemplate";
+import { getServiceDetail } from "@/lib/data/serviceRepository";
+
+export const metadata = { title: "광고 l NOVA" };
+
+export default async function AdvertisementPage() {
+  const content = await getServiceDetail("advertisement");
+  return (
+    <PageChrome overDarkHero>
+      <ServiceDetailTemplate content={content} />
+    </PageChrome>
+  );
+}

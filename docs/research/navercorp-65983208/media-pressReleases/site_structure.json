@@ -7,8 +7,6 @@
       {"path": "/company/about", "label": "회사소개", "status": "public", "depth": 1},
       {"path": "/service/featuredServices", "label": "서비스", "status": "public", "depth": 1},
       {"path": "/tech/innovation", "label": "기술", "status": "public", "depth": 1},
-      {"path": "/esg/sustainability", "label": "지속가능성", "status": "public", "depth": 1},
-      {"path": "/investment/irUpdates", "label": "투자정보", "status": "public", "depth": 1},
       {"path": "/media/pressReleases", "label": "미디어", "status": "public", "depth": 1},
       {"path": "/story", "label": "스토리", "status": "public", "depth": 1}
     ],

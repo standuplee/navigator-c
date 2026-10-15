@@ -1,5 +1,14 @@
-import { ServiceDetailAdapter } from "@/features/navercorp/components/service/ServiceDetailAdapter";
-import { searchService } from "@/features/navercorp/data/services/search";
+import { PageChrome } from "@/components/content/main/PageChrome";
+import { ServiceDetailTemplate } from "@/components/content/ServiceDetailTemplate";
+import { getServiceDetail } from "@/lib/data/serviceRepository";
 
-export const metadata = { title: "검색 l NAVER Corp.", description: "네이버 검색 서비스" };
-export default function SearchServicePage() { return <ServiceDetailAdapter detail={searchService} />; }
+export const metadata = { title: "검색 l NOVA" };
+
+export default async function SearchServicePage() {
+  const content = await getServiceDetail("search");
+  return (
+    <PageChrome overDarkHero>
+      <ServiceDetailTemplate content={content} />
+    </PageChrome>
+  );
+}

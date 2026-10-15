@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 export const metadata: Metadata = {
-  title: "NAVER Corp. — Reference",
-  description: "NAVER 기업 사이트 메인 페이지 레퍼런스 구현",
+  title: "NOVA",
+  description: "기업 사이트 메인 페이지 UI/UX 패턴 템플릿",
   robots: { index: false, follow: false },
 };
 export default function RootLayout({children}: Readonly<{children: React.ReactNode}>) {

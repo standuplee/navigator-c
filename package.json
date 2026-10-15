@@ -1,18 +1,15 @@
 {
-  "name": "ai-website-clone-template",
+  "name": "navigator-c",
   "version": "0.4.0",
   "private": true,
-  "description": "Clone any website into a clean, modern Next.js codebase using AI coding agents",
-  "author": "JCodesMore",
-  "license": "MIT",
+  "type": "module",
+  "description": "중앙대 네비게이토 C지구",
+  "author": "Seora Lee",
   "repository": {
     "type": "git",
     "url": "https://github.com/JCodesMore/ai-website-cloner-template.git"
   },
   "homepage": "https://github.com/JCodesMore/ai-website-cloner-template",
-  "bugs": {
-    "url": "https://github.com/JCodesMore/ai-website-cloner-template/issues"
-  },
   "keywords": [
     "claude-code",
     "website-clone",
@@ -32,15 +29,21 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "check": "npm run lint && npm run typecheck && npm run build"
+    "check": "npm run lint && npm run typecheck && npm run build",
+    "seed": "tsx scripts/seedPayload.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.3.0",
+    "@payloadcms/db-sqlite": "^3.89.0",
+    "@payloadcms/next": "^3.89.0",
+    "@payloadcms/richtext-lexical": "^3.89.0",
     "@prisma/client": "^7.10.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "graphql": "^16.14.2",
     "lucide-react": "^1.6.0",
     "next": "16.3.0",
+    "payload": "^3.89.0",
     "prisma": "^8.0.0-rc.13",
     "react": "19.2.4",
     "react-dom": "19.2.4",

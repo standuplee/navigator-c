@@ -1,3 +1,11 @@
+/* Tailwind utilities for the brand-neutral template (docs/HANDOFF.md rebuild).
+   Preflight is intentionally NOT imported here: the NAVER reference pages under
+   features/navercorp still rely on reference.css's own reset, and Tailwind's
+   preflight would change their appearance globally. Only theme tokens + utility
+   classes are enabled. */
+@import "tailwindcss/theme.css";
+@import "tailwindcss/utilities.css";
+
 /* Source design tokens, fonts and responsive rules are retained in reference.css. */
 /* The reference stylesheet hides the document until its original loader runs.
    The page is server-rendered here, so make the extracted UI visible immediately. */

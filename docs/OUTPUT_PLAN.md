@@ -1,8 +1,8 @@
 # NAVER reference clone — output plan
 
 - App root: /Users/seora/Github/navigator-c
-- Sources: https://www.navercorp.com/main, /company/about, /service/portal, /service/featuredServices, /service/search, /service/advertisement, /service/commerce, /service/map, /tech/innovation, /esg/sustainability, /media/pressReleases, /media/pressReleasesDetail?seq=10034637, /investment/irUpdates, /story
-- Destinations: `/`, `/main`, `/company/*`, `/service/*`, `/tech/*`, `/esg/*`, `/investment/*`, `/media/*`, `/story/*`
+- Sources: https://www.navercorp.com/main, /company/about, /service/portal, /service/featuredServices, /service/search, /service/advertisement, /service/commerce, /service/map, /tech/innovation, /media/pressReleases, /media/pressReleasesDetail?seq=10034637, /story
+- Destinations: `/`, `/main`, `/company/*`, `/service/*`, `/tech/*`, `/media/*`, `/story/*`
 - Site key: navercorp-65983208
 - Page key: main-c98712e4
 - Research: docs/research/navercorp-65983208/main-c98712e4/
@@ -35,6 +35,7 @@
 - Interactive sections use client components; static data and display sections remain server-compatible.
 - Third-party analytics and tracking are excluded.
 - Admin/CMS is deferred.
+- Sustainability, investment information, and recruiting sections are excluded from the product scope.
 - Story archive uses reusable `StoryGrid`, `StoryFilters`, and `StoryCard` components with category tabs, keyword routes, tag links, and responsive three-to-one column layout.
 
 ## Verification queue
