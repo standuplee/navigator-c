@@ -23,9 +23,15 @@ export default async function MainPage() {
         본문 바로가기
       </a>
       <SiteHeader brandName={content.brandName} navItems={content.navMenuItems} variant="main" />
-      <main id="content" className="mx-auto max-w-7xl px-5 md:px-8">
+      <main id="content" className="pt-12 xl:pt-[100px]">
         <HeadlineSection slides={content.headlineSlides} shortcuts={content.shortcutCards} />
-        <NewsMasonryGrid items={content.newsCards} moreHref="/media/pressReleases" />
+        <NewsMasonryGrid
+          items={content.newsCards}
+          links={[
+            { label: "스토리 전체보기", href: "/story" },
+            { label: "보도자료 전체보기", href: "/media/pressReleases" },
+          ]}
+        />
         <PromotionCarousel slides={content.promotionSlides} />
         <SummaryPanels panels={content.summaryPanels} />
         <PartnerTabs groups={content.partnerTabs} />

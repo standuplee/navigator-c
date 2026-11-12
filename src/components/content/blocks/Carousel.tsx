@@ -47,6 +47,8 @@ export function Carousel({
   onSlideChange,
   renderArrows,
   arrowsAfter = false,
+  controlsClassName = "mt-4",
+  controlsTone = "light",
 }: {
   preset: CarouselPreset;
   children: ReactNode;
@@ -57,6 +59,11 @@ export function Carousel({
   renderArrows?: (api: CarouselApi) => ReactNode;
   /** Render the arrows under the slides (reference media banners) instead of above. */
   arrowsAfter?: boolean;
+  /** Classes for the bullets + pause row (default: in flow under the slides). Pass absolute
+   * positioning to overlay it, as the main headline / promo do. */
+  controlsClassName?: string;
+  /** "dark" = white controls for dark backgrounds. */
+  controlsTone?: "light" | "dark";
 }) {
   const config = CAROUSEL_PRESETS[preset];
   const reduced = useReducedMotion();
@@ -127,7 +134,7 @@ export function Carousel({
       {arrowsAfter && renderArrows?.(api)}
 
       {(config.bullets || autoplayOn) && slides.length > 1 && (
-        <div className="mt-4 flex items-center gap-3">
+        <div className={`z-10 flex items-center gap-3 ${controlsClassName}`}>
           {config.bullets && (
             <div className="flex items-center gap-2">
               {slides.map((_, index) => (
@@ -137,12 +144,12 @@ export function Carousel({
                   aria-label={`${index + 1}번 슬라이드 보기`}
                   aria-current={index === active ? "true" : undefined}
                   onClick={() => (config.loop ? swiper?.slideToLoop(index) : swiper?.slideTo(index))}
-                  className={`relative h-1 overflow-hidden rounded-full bg-zinc-300 transition-[width] duration-200 ease-smooth ${index === active ? "w-10" : "w-4"}`}
+                  className={`relative h-1 overflow-hidden rounded-full transition-[width] duration-200 ease-smooth ${controlsTone === "dark" ? "bg-white/30" : "bg-zinc-300"} ${index === active ? "w-10" : "w-4"}`}
                 >
                   {index === active && (
                     <span
                       key={`${active}-${playing}`}
-                      className="absolute inset-0 origin-left bg-zinc-900"
+                      className={`absolute inset-0 origin-left ${controlsTone === "dark" ? "bg-white" : "bg-zinc-900"}`}
                       style={playing ? { animation: `carousel-progress ${config.autoplay}ms linear forwards` } : undefined}
                     />
                   )}
@@ -156,7 +163,7 @@ export function Carousel({
               aria-pressed={paused}
               aria-label={paused ? "자동 재생 시작" : "자동 재생 멈춤"}
               onClick={() => setPaused((value) => !value)}
-              className="grid size-8 place-items-center rounded-full text-xs text-zinc-600 transition-colors duration-200 hover:bg-zinc-100"
+              className={`grid size-8 place-items-center rounded-full text-xs transition-colors duration-200 ${controlsTone === "dark" ? "text-white hover:bg-white/15" : "text-zinc-600 hover:bg-zinc-100"}`}
             >
               <span aria-hidden="true">{paused ? "▶" : "❚❚"}</span>
             </button>

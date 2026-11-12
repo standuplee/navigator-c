@@ -1,100 +1,54 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Swiper from "swiper";
-import { Autoplay, Pagination, A11y } from "swiper/modules";
+import { useState } from "react";
 import type { PromotionSlide } from "@/types/mainTemplate";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { PlaceholderVisual } from "./PlaceholderVisual";
+import { Carousel } from "../blocks/Carousel";
+import { MediaSlot } from "../blocks/MediaSlot";
 
-/** Promotion carousel (docs/animations.md §4): slide transition + background-color
- * crossfade, both 400ms, autoplay 4000ms — confirmed live against the reference site. */
+/** Promotion band (PRD §7.11, measured 718 / 532 / 675 tall, 5 slides): full-bleed band whose
+ * background crossfades to each slide's colour (400ms). Desktop: text (32px title, 18px desc,
+ * "자세히 보기") | 576×324 visual; tablet the same at half widths; mobile visual on top.
+ * Bullets + pause sit under the text on tablet/desktop and centred 80px above the band bottom on mobile. Offsets from the reference: content starts
+ * 80 / 80 / 96px down, controls at +606 / +324 / +447, band 718 / 532 / 675 tall.
+ * State only changes from Swiper's slide-change callback, never inside an effect. */
 export function PromotionCarousel({ slides }: { slides: PromotionSlide[] }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const paginationRef = useRef<HTMLDivElement>(null);
-  const swiperRef = useRef<Swiper | null>(null);
-  const [paused, setPaused] = useState(false);
-  const [activeColor, setActiveColor] = useState(slides[0]?.backgroundColor ?? "#ffffff");
-  const [activeTone, setActiveTone] = useState<"light" | "dark">(slides[0]?.tone ?? "light");
-  const reducedMotion = useReducedMotion();
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const sync = (s: Swiper) => {
-      const slide = slides[s.realIndex];
-      if (!slide) return;
-      setActiveColor(slide.backgroundColor);
-      setActiveTone(slide.tone);
-    };
-    const swiper = new Swiper(containerRef.current, {
-      modules: [Autoplay, Pagination, A11y],
-      loop: true,
-      speed: 400,
-      autoplay: reducedMotion ? false : { delay: 4000, disableOnInteraction: false },
-      pagination: paginationRef.current ? { el: paginationRef.current, clickable: true } : undefined,
-      a11y: { enabled: true },
-      on: { init: sync, slideChange: sync },
-    });
-    swiperRef.current = swiper;
-    if (reducedMotion) setPaused(true);
-    return () => swiper.destroy(true, true);
-  }, [reducedMotion, slides]);
-
-  const togglePause = () => {
-    const swiper = swiperRef.current;
-    if (!swiper) return;
-    const next = !paused;
-    setPaused(next);
-    if (next) swiper.autoplay.stop();
-    else swiper.autoplay.start();
-  };
+  const [active, setActive] = useState(0);
+  const current = slides[active] ?? slides[0];
+  const dark = current?.tone === "dark";
 
   return (
     <section
-      className="rounded-3xl py-16 transition-colors duration-[400ms] ease-[cubic-bezier(.33,1,.68,1)]"
-      style={{ backgroundColor: activeColor }}
       aria-label="프로모션"
+      className="transition-colors duration-[400ms] ease-smooth"
+      style={{ backgroundColor: current?.backgroundColor }}
     >
-      <div className="swiper" ref={containerRef}>
-        <div className="swiper-wrapper">
-          {slides.map((slide) => (
-            <div className="swiper-slide" key={slide.id}>
-              <div className="mx-auto grid max-w-5xl items-center gap-8 px-6 md:grid-cols-2">
-                <PlaceholderVisual label="프로모션 비주얼" tone={slide.tone} className="aspect-[4/3] rounded-2xl" />
-                <div className={`transition-colors duration-[400ms] ease-[cubic-bezier(.33,1,.68,1)] ${slide.tone === "dark" ? "text-white" : "text-zinc-900"}`}>
-                  <p className="text-2xl font-bold leading-snug md:text-3xl">{slide.title}</p>
-                  <p className={`mt-3 text-sm md:text-base ${slide.tone === "dark" ? "text-white/70" : "text-zinc-600"}`}>{slide.description}</p>
-                  <a
-                    href={slide.href}
-                    target="_blank"
-                    rel="noopener"
-                    className={`mt-6 inline-flex items-center gap-1 text-sm font-semibold underline-offset-4 hover:underline ${slide.tone === "dark" ? "text-white" : "text-zinc-900"}`}
-                  >
-                    {slide.ctaLabel} →
-                  </a>
-                </div>
+      <Carousel
+        preset="promo"
+        label="프로모션"
+        className="relative"
+        onSlideChange={setActive}
+        controlsTone={dark ? "dark" : "light"}
+        controlsClassName="absolute inset-x-0 bottom-20 justify-center md:right-auto md:left-[max(var(--page-gutter),calc((100%-1280px)/2+var(--page-gutter)))] md:bottom-44 md:justify-start xl:bottom-[196px]"
+      >
+        {slides.map((slide) => {
+          const slideDark = slide.tone === "dark";
+          return (
+            <div key={slide.id} className="mx-auto grid max-w-[1280px] gap-6 px-gutter pb-[264px] pt-20 md:grid-cols-2 md:items-start md:gap-7 md:pb-44 md:pt-20 xl:gap-8 xl:pb-48 xl:pt-24">
+              <div className="overflow-hidden rounded-lg md:order-2 xl:ml-auto xl:w-[576px]">
+                <MediaSlot src={slide.image} alt="" label="프로모션 비주얼" tone={slideDark ? "dark" : "light"} ratio="16/9" />
+              </div>
+              <div className={`min-h-[162px] md:order-1 md:min-h-[276px] xl:min-h-[387px] ${slideDark ? "text-white" : "text-ink"}`}>
+                <p className="text-[26px] font-semibold leading-tight xl:text-[32px]">{slide.title}</p>
+                <p className={`mt-4 text-base leading-relaxed xl:mt-6 xl:text-lg ${slideDark ? "text-white/70" : "text-zinc-600"}`}>{slide.description}</p>
+                <a href={slide.href} className="group mt-6 inline-flex items-center gap-1 text-base font-semibold underline-offset-4 hover:underline xl:mt-8">
+                  {slide.ctaLabel}
+                  <span aria-hidden="true" className="motion-safe:can-hover:group-hover:animate-nudge-x">›</span>
+                </a>
               </div>
             </div>
-          ))}
-        </div>
-      </div>
-      <div className="mt-6 flex items-center justify-center gap-3">
-        <div ref={paginationRef} className={`promo-pagination flex gap-1.5 ${activeTone === "dark" ? "promo-pagination--dark" : ""}`} />
-        <button
-          type="button"
-          className={`rounded-full px-3 py-1 text-xs font-medium ${activeTone === "dark" ? "bg-white/15 text-white" : "bg-zinc-900/10 text-zinc-900"}`}
-          aria-pressed={paused}
-          onClick={togglePause}
-        >
-          {paused ? "자동재생" : "자동멈춤"}
-        </button>
-      </div>
-      <style>{`
-        .promo-pagination .swiper-pagination-bullet { width: 8px; height: 8px; border-radius: 9999px; background: rgba(0,0,0,.25); opacity: 1; transition: background-color .2s; }
-        .promo-pagination .swiper-pagination-bullet-active { background: rgba(0,0,0,.8); }
-        .promo-pagination--dark .swiper-pagination-bullet { background: rgba(255,255,255,.35); }
-        .promo-pagination--dark .swiper-pagination-bullet-active { background: #fff; }
-      `}</style>
+          );
+        })}
+      </Carousel>
     </section>
   );
 }

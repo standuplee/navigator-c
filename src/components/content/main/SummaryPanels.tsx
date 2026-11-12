@@ -2,81 +2,84 @@
 
 import { useState } from "react";
 import type { SummaryPanel } from "@/types/mainTemplate";
-import { PlaceholderVisual } from "./PlaceholderVisual";
+import { MediaSlot } from "../blocks/MediaSlot";
 
-/** Expanding panel summary (docs/animations.md §5): width/opacity transition at
- * 600ms cubic-bezier(.25,1,.5,1), with the CTA link appearing only after the panel
- * has finished expanding (same delay as the panel transition). */
+/** "주요 서비스와 기술 요약" (PRD §7.11, docs/animations.md §5; measured 847 / 1261 / 757 tall).
+ * - desktop: three panels in a row, 475px tall; the open one grows to 781 : 177 against the others
+ *   (flex-grow, .6s soft ease) and shows a 380px visual | coloured info half
+ * - mobile/tablet: an accordion — open panel 503 / 809px, closed ones 70 / 94px bars
+ * Panels open on click, focus or (desktop) hover. Each panel's header is a real button with
+ * aria-expanded + aria-controls; the "자세히 보기" link fades in after the panel has opened. */
 export function SummaryPanels({ panels }: { panels: SummaryPanel[] }) {
   const [active, setActive] = useState(0);
 
-  const onKeyDown = (event: React.KeyboardEvent, index: number) => {
-    if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setActive(index); }
-    if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
-      event.preventDefault();
-      setActive((index + (event.key === "ArrowRight" ? 1 : panels.length - 1)) % panels.length);
-    }
-  };
-
   return (
-    <section className="py-20" aria-labelledby="summary-heading">
-      <h2 id="summary-heading" className="text-2xl font-bold tracking-tight">주요 제품과 기술 요약</h2>
-      <div className="mt-8 flex h-[420px] gap-2 overflow-hidden rounded-3xl">
+    <section aria-labelledby="summary-heading" className="mx-auto max-w-[1280px] px-gutter pb-5 pt-20 md:py-20 xl:py-24">
+      <h2 id="summary-heading" className="text-[26px] font-semibold text-ink xl:text-[32px]">주요 서비스와 기술 요약</h2>
+      <div className="mt-8 flex flex-col gap-4 md:gap-5 xl:mt-12 xl:h-[475px] xl:flex-row xl:gap-6">
         {panels.map((panel, index) => {
-          const isActive = active === index;
+          const open = active === index;
+          const dark = panel.tone !== "light";
+          const panelId = `summary-panel-${panel.id}`;
           return (
             <div
               key={panel.id}
-              role="region"
-              aria-expanded={isActive}
-              tabIndex={0}
-              style={{ width: isActive ? "70%" : "30%" }}
-              className="relative cursor-pointer overflow-hidden bg-zinc-900 transition-[width] duration-[600ms] ease-[cubic-bezier(.25,1,.5,1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
-              onClick={() => setActive(index)}
-              onKeyDown={(event) => onKeyDown(event, index)}
+              onMouseEnter={() => window.matchMedia("(hover: hover) and (min-width: 1280px)").matches && setActive(index)}
+              className={`relative overflow-hidden rounded-lg bg-zinc-800 transition-[flex-grow,height] duration-600 ease-smooth-soft xl:h-full xl:basis-0 ${
+                open ? "h-[503px] md:h-[809px] xl:grow-[781]" : "h-[70px] md:h-[94px] xl:grow-[177]"
+              }`}
             >
-              <PlaceholderVisual
-                label="제품·기술 비주얼"
+              <MediaSlot
+                src={panel.image}
+                alt=""
+                label={`${panel.label} 비주얼`}
                 tone="dark"
-                className={`absolute inset-0 h-full w-full transition-transform duration-[600ms] ease-[cubic-bezier(.25,1,.5,1)] ${
-                  isActive ? "scale-100" : "scale-[1.15]"
-                }`}
+                className={`absolute inset-x-0 top-0 transition-transform duration-600 ease-smooth-soft xl:bottom-0 xl:right-auto xl:w-[380px] ${open ? "bottom-[220px] scale-100 md:bottom-[260px] xl:bottom-0" : "bottom-0 scale-110"}`}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-              <p
-                className={`absolute left-6 top-6 text-sm font-medium text-white transition-opacity duration-300 ease-[cubic-bezier(.25,1,.5,1)] ${
-                  isActive ? "opacity-100" : "opacity-70"
-                }`}
-              >
-                {panel.label}
-              </p>
-              <div className="absolute inset-x-6 bottom-6 text-white">
-                <p
-                  className={`font-bold leading-snug transition-[opacity,transform] duration-[600ms] ease-[cubic-bezier(.25,1,.5,1)] ${
-                    isActive ? "translate-y-0 text-2xl opacity-100" : "translate-y-2 text-base opacity-80"
-                  }`}
+              <h3>
+                <button
+                  type="button"
+                  aria-expanded={open}
+                  aria-controls={panelId}
+                  onClick={() => setActive(index)}
+                  onFocus={() => setActive(index)}
+                  className={`absolute inset-x-0 top-0 z-10 flex h-[70px] items-center px-5 text-left text-base font-semibold text-white md:h-[94px] md:px-6 xl:h-auto xl:pt-6 ${open ? "xl:inset-0" : "xl:inset-0 xl:items-start"}`}
                 >
+                  <span className={`transition-opacity duration-300 ${open ? "opacity-0" : "opacity-100"}`}>{panel.label}</span>
+                </button>
+              </h3>
+              <div
+                id={panelId}
+                aria-hidden={!open}
+                className={`absolute inset-x-0 bottom-0 flex h-[220px] flex-col p-5 transition-opacity duration-300 md:h-[260px] md:p-6 xl:inset-y-0 xl:left-[380px] xl:right-0 xl:h-auto ${
+                  open ? "opacity-100 delay-300" : "pointer-events-none opacity-0"
+                } ${dark ? "text-white" : "text-ink"}`}
+                style={{ backgroundColor: panel.color }}
+              >
+                <p className="text-base font-semibold">{panel.label}</p>
+                <p className="mt-6 text-xl font-semibold leading-snug md:text-[26px] xl:mt-12">
                   {panel.title}
+                  {panel.titleEn && (
+                    <>
+                      <br />
+                      <span className="font-medium">{panel.titleEn}</span>
+                    </>
+                  )}
                 </p>
-                {isActive && (
-                  <>
-                    <p className="mt-2 max-w-md text-sm text-white/80">{panel.description}</p>
-                    <a
-                      href={panel.href}
-                      className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-white motion-safe:[animation:fadeIn_200ms_ease-out_600ms_both] motion-reduce:opacity-100"
-                    >
-                      자세히 보기 →
-                    </a>
-                  </>
-                )}
+                <p className={`mt-3 line-clamp-3 text-base leading-relaxed xl:mt-5 xl:text-lg ${dark ? "text-white/80" : "text-ink/80"}`}>{panel.description}</p>
+                <a
+                  href={panel.href}
+                  tabIndex={open ? 0 : -1}
+                  aria-label={`${panel.label} 자세히 보기`}
+                  className={`ml-auto mt-auto grid size-9 place-items-center rounded-full transition-opacity duration-300 ${open ? "opacity-100 delay-600" : "opacity-0"} ${dark ? "bg-white text-ink" : "bg-ink text-white"}`}
+                >
+                  <span aria-hidden="true">→</span>
+                </a>
               </div>
             </div>
           );
         })}
       </div>
-      <style>{`
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-      `}</style>
     </section>
   );
 }

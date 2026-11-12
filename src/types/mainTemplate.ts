@@ -14,6 +14,10 @@ export type NewsCardItem = {
   tags?: string[];
   href: string;
   tone: "light" | "dark";
+  /** News grid: "image" cards show the visual with the text over it, "text" cards are a plain
+   * tinted box (reference masonry mixes both). Default "image". */
+  kind?: "image" | "text";
+  image?: string;
 };
 
 export type ShortcutCard = {
@@ -32,14 +36,21 @@ export type PromotionSlide = {
   href: string;
   backgroundColor: string;
   tone: "light" | "dark";
+  image?: string;
 };
 
 export type SummaryPanel = {
   id: string;
   label: string;
   title: string;
+  /** Optional English line under the title (reference `span.en`). */
+  titleEn?: string;
   description: string;
   href: string;
+  /** Background of the info half when the panel is open. */
+  color: string;
+  tone?: "light" | "dark";
+  image?: string;
 };
 
 export type PartnerLink = { label: string; href: string };

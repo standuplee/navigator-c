@@ -50,9 +50,12 @@ export function MediaSlot({
   }, [reduced]);
 
   const style = ratio ? { aspectRatio: ratio } : undefined;
+  // `relative` would override a caller's `absolute`/`fixed` (same property, later in the
+  // generated CSS), collapsing the slot to 0px — only add it when no position is given.
+  const positioned = /(^|\s)(absolute|fixed|sticky)(\s|$)/.test(className);
 
   return (
-    <div className={`relative overflow-hidden ${className}`} style={style}>
+    <div className={`${positioned ? "" : "relative "}overflow-hidden ${className}`} style={style}>
       {!src && <PlaceholderVisual label={label} tone={tone} className={`absolute inset-0 h-full w-full ${mediaClassName}`} />}
       {src && kind === "image" && (
         // eslint-disable-next-line @next/next/no-img-element -- sources may be CMS/remote; next/image config comes with the content stage

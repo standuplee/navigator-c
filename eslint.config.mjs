@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Read-only NAVER clone kept as reference material (see src/app/main/page.tsx); it is
+    // not rendered by any route, so it is not linted.
+    "src/features/navercorp/components/**",
   ]),
 ]);
 

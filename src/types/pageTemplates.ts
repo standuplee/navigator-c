@@ -129,19 +129,6 @@ export type ServiceDirectoryContent = {
   items: ServiceDirectoryItem[];
 };
 
-/** `narrative-scrollytelling` (docs/routes.md): scroll-revealed chronology + stats
- * + a company-facts table. Used by /company/about. */
-export type NarrativeChapter = { era: string; title: string; description: string };
-export type NarrativeStat = { label: string; value: string };
-export type NarrativeFact = { label: string; value: string };
-export type NarrativeContent = {
-  heroTitle: string;
-  heroDescription: string;
-  chapters: NarrativeChapter[];
-  stats: NarrativeStat[];
-  facts: NarrativeFact[];
-};
-
 /** `timeline-list` (docs/routes.md): tab-scoped year/event list. Used by /company/history. */
 /** One history entry. `month` ("06월") is optional; events with the same year are grouped
  * under one year heading (reference: year column 403px | month 120px + title). */
