@@ -77,6 +77,7 @@
   @media (width >= 1280px) { font-size: 20px; }
 }
 @utility px-gutter { padding-inline: var(--page-gutter); }
+@utility -mx-gutter { margin-inline: calc(var(--page-gutter) * -1); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

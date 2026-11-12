@@ -77,6 +77,28 @@ export type FeatureDetailContent = {
   related: NewsCardItem[];
 };
 
+/** `tech-detail` (docs/PRD-navercorp-ui-parity.md §7.3): dark page — title + key copy + video
+ * card, anchor-nav sections of image/text rows, contained CTA card, related carousel. */
+export type TechItem = { title: string; description: string; image?: ServiceMedia; links?: ServiceLink[] };
+export type TechSection = {
+  id: string;
+  title: string;
+  description?: string;
+  /** Wide visual(s) under the headline (slider when more than one). */
+  wideImages?: ServiceMedia[];
+  /** Horizontal card carousel (e.g. a model lineup). */
+  cards?: { title: string; description: string }[];
+  items: TechItem[];
+};
+export type TechDetailContent = {
+  title: string;
+  keycopy: string;
+  heroMedia?: ServiceMedia & { kind?: "image" | "video" };
+  sections: TechSection[];
+  cta?: { title: string; description?: string; href: string; ctaLabel?: string };
+  related: { id: string; title: string; href: string; date?: string; category?: string }[];
+};
+
 /** `service-directory` (docs/routes.md): category tabs + A-Z toggle over a link grid. */
 export type ServiceDirectoryItem = { name: string; category: string; href: string };
 export type ServiceDirectoryContent = {

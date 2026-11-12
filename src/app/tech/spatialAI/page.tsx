@@ -1,14 +1,14 @@
 import { PageChrome } from "@/components/content/main/PageChrome";
-import { FeatureDetailPage } from "@/components/content/FeatureDetailPage";
-import { getFeatureDetail } from "@/lib/data/featureRepository";
+import { TechDetailPage } from "@/components/content/TechDetailPage";
+import { getTechDetail } from "@/lib/data/techRepository";
 
 export const metadata = { title: "공간지능 l NOVA" };
 
 export default async function SpatialAIPage() {
-  const content = await getFeatureDetail("spatialAI");
+  const content = await getTechDetail("spatialAI");
   return (
     <PageChrome headerTheme="dark">
-      <FeatureDetailPage content={content} />
+      <TechDetailPage content={content} />
     </PageChrome>
   );
 }

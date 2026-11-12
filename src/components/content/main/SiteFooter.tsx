@@ -50,7 +50,7 @@ export function SiteFooter({ brandName, groups }: { brandName: string; groups: F
           {groups.map((group) => (
             <li key={group.title}>
               <p className="text-sm font-semibold text-zinc-900">{group.title}</p>
-              <ul className="mt-3 space-y-2">
+              <ul className="mt-3 flex flex-col gap-2">
                 {group.links.map((link) => (
                   <li key={link.label}>
                     <a href={link.href} className="text-sm text-zinc-500 transition-colors duration-200 hover:text-zinc-900">
