@@ -6,6 +6,7 @@ import { lexicalToParagraphs } from "@/lib/payload/lexical";
 import { pressReleaseList as fallbackList, getPressRelease as fallbackGet } from "@/features/main-template/pressReleases";
 import { mediaEvents } from "@/features/main-template/mediaEvents";
 import { naverReportsList } from "@/features/main-template/naverReports";
+import { aiServiceCategories, aiServiceList, buildingAiList } from "@/features/main-template/aiInNaver";
 
 /** Repository boundary for /media/*. Press releases are Payload-backed (docs/progress.md
  * "방침 변경: Payload CMS 실제 설치"); mediaEvents/naverReports stay mock-only for now
@@ -95,4 +96,38 @@ export async function getNaverReport(seq?: string): Promise<ArticleDetail & { ta
       "리포트 원문은 아래 다운로드 버튼으로 내려받을 수 있습니다.",
     ],
   };
+}
+
+/** Generic article built from a list entry — mock detail for events and AI articles until
+ * they move to the CMS (same shape as press releases). */
+function mockArticle(item: { category: string; title: string; date: string; tags?: string[] }): ArticleDetail & { tags: string[] } {
+  return {
+    category: item.category,
+    title: item.title,
+    date: item.date,
+    publishedAt: item.date,
+    tags: item.tags ?? [],
+    images: [{ src: "", alt: "본문 이미지", caption: "" }],
+    paragraphs: [
+      "본문 첫 문단 자리입니다. 실제 내용은 어드민에서 입력합니다.",
+      "두 번째 문단 자리입니다. 일정, 장소, 참여 방법 같은 세부 정보를 적습니다.",
+    ],
+  };
+}
+
+export async function getMediaEvent(seq?: string) {
+  const rows = mediaEvents.rows;
+  const index = Math.max(0, rows.findIndex((row) => row.href?.endsWith(`seq=${seq}`)));
+  const row = rows[index];
+  return mockArticle({ category: "미디어 행사", title: row.title, date: row.date });
+}
+
+export async function getAiInNaver() {
+  return { categories: aiServiceCategories, services: aiServiceList, building: buildingAiList };
+}
+
+export async function getAiArticle(kind: "service" | "building", seq?: string) {
+  const list = kind === "service" ? aiServiceList : buildingAiList;
+  const item = list.find((entry) => entry.id === seq) ?? list[0];
+  return { article: mockArticle(item), related: list.filter((entry) => entry.id !== item.id).slice(0, 6) };
 }
