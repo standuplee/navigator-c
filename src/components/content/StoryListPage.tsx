@@ -1,65 +1,151 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import type { Story, StoryCategory } from "@/types/story";
-import { PlaceholderVisual } from "./main/PlaceholderVisual";
+import { Carousel, CarouselArrows } from "./blocks/Carousel";
+import { MediaSlot } from "./blocks/MediaSlot";
+import { Pagination } from "./blocks/Pagination";
 
-const CATEGORIES: ("All" | StoryCategory)[] = ["All", "Leader's View", "Culture", "Service", "People", "Tech", "Impact"];
+const PAGE_SIZE = 12;
+const CATEGORIES: ("전체" | StoryCategory)[] = ["전체", "Leader's View", "Culture", "Service", "People", "Tech", "Impact"];
 
-/** `story-list` template (docs/routes.md): category tabs + search over a card grid. */
-export function StoryListPage({ stories, initialQuery = "" }: { stories: Story[]; initialQuery?: string }) {
-  const [category, setCategory] = useState<"All" | StoryCategory>("All");
-  const [query, setQuery] = useState(initialQuery);
+export type StoryListQuery = { category?: string; keyword?: string; page?: string };
+
+const detailHref = (story: Story) => `/story/storyDetail?seq=${story.seq}`;
+
+/** `story-list` v2 (docs/PRD-navercorp-ui-parity.md §7.8).
+ * - Recommended stories: 740×493 cards on desktop (335×414 mobile) in the `recommend`
+ *   carousel; the following slides peek at 60% opacity; arrows under the slider.
+ * - Category chips (free-mode row, 60 / 50px tall) + 240×44 search.
+ * - Card grid 1 / 2 / 3 columns, 12 per page, URL state (?category= ?keyword= ?page=),
+ *   desktop-only image zoom to 1.05. */
+export function StoryListPage({ stories, query = {} }: { stories: Story[]; query?: StoryListQuery }) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const [draft, setDraft] = useState(query.keyword ?? "");
+  const category = query.category ?? "";
+  const keyword = query.keyword ?? "";
+  const page = Math.max(1, Number(query.page) || 1);
+
   const filtered = useMemo(
-    () => stories.filter((story) => (category === "All" || story.category === category) && (!query || `${story.title} ${story.tags.join(" ")}`.toLowerCase().includes(query.toLowerCase()))),
-    [stories, category, query]
+    () =>
+      stories.filter(
+        (story) =>
+          (!category || story.category === category) &&
+          (!keyword || `${story.title} ${story.tags.join(" ")}`.toLowerCase().includes(keyword.toLowerCase())),
+      ),
+    [stories, category, keyword],
   );
+  const total = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const visible = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
+  const build = (next: StoryListQuery) => {
+    const params = new URLSearchParams();
+    Object.entries({ category, keyword, ...next }).forEach(([key, value]) => value && params.set(key, String(value)));
+    const qs = params.toString();
+    return qs ? `${pathname}?${qs}` : pathname;
+  };
+  const go = (next: StoryListQuery) => router.replace(build({ ...next, page: undefined }), { scroll: false });
 
   return (
-    <main className="mx-auto max-w-7xl px-gutter pb-24 pt-4 md:pt-8">
+    <main className="pb-16">
+      {stories.length > 0 && (
+        <section aria-label="추천 스토리" className="mx-auto max-w-[1280px] overflow-hidden px-gutter pb-16 xl:pb-20">
+          <Carousel
+            preset="recommend"
+            label="추천 스토리"
+            className="[&_.swiper]:!overflow-visible"
+            slideClassName="!w-[335px] md:!w-[560px] xl:!w-[740px] transition-opacity duration-200 [&:not(.swiper-slide-active)]:opacity-60"
+            arrowsAfter
+            renderArrows={(api) => <CarouselArrows api={api} className="mt-6 justify-end" />}
+          >
+            {stories.slice(0, 10).map((story) => (
+              <a key={story.seq} href={detailHref(story)} className="group block overflow-hidden rounded-3xl bg-zinc-100">
+                <MediaSlot label={story.category} className="aspect-[4/3] md:aspect-[740/353]" mediaClassName="transition-transform duration-200 ease-smooth can-hover:group-hover:scale-105" />
+                <div className="flex h-[163px] flex-col p-5 md:h-[150px] xl:h-[140px] xl:p-6">
+                  <p className="text-sm text-zinc-500">{story.category}</p>
+                  <p className="mt-2 line-clamp-2 text-base font-bold leading-snug xl:text-xl">{story.title}</p>
+                </div>
+              </a>
+            ))}
+          </Carousel>
+        </section>
+      )}
 
-      <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
-        <div role="tablist" aria-label="스토리 카테고리" className="flex flex-wrap gap-2">
-          {CATEGORIES.map((item) => (
-            <button
-              key={item}
-              type="button"
-              role="tab"
-              aria-selected={category === item}
-              className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-200 ${
-                category === item ? "bg-zinc-900 text-white" : "border border-zinc-200 text-zinc-600 hover:bg-zinc-100"
-              }`}
-              onClick={() => setCategory(item)}
-            >
-              {item}
+      <section aria-label="스토리 목록" className="mx-auto max-w-[1280px] px-gutter">
+        <div className="flex flex-col-reverse gap-4 border-b border-zinc-200 md:flex-row md:items-center md:justify-between">
+          <nav aria-label="스토리 분류" className="-mx-gutter overflow-x-auto px-gutter [scrollbar-width:none] md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden">
+            <ul className="flex h-[50px] items-center gap-6 md:h-[60px]">
+              {CATEGORIES.map((item) => {
+                const value = item === "전체" ? "" : item;
+                const active = category === value;
+                return (
+                  <li key={item} className="shrink-0">
+                    <button
+                      type="button"
+                      aria-pressed={active}
+                      onClick={() => go({ category: value })}
+                      className={`relative h-[50px] whitespace-nowrap text-base transition-colors duration-200 md:h-[60px] md:text-lg ${
+                        active ? "font-bold text-ink after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-ink" : "text-zinc-500 hover:text-ink"
+                      }`}
+                    >
+                      {item}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+          <form
+            role="search"
+            className="flex h-11 w-full items-center rounded-lg bg-zinc-100 pl-4 md:w-[240px]"
+            onSubmit={(event) => {
+              event.preventDefault();
+              go({ keyword: draft.trim() });
+            }}
+          >
+            <input value={draft} onChange={(event) => setDraft(event.target.value)} placeholder="스토리 검색" aria-label="스토리 검색" className="min-w-0 flex-1 bg-transparent text-sm outline-none" />
+            <button type="submit" aria-label="검색" className="grid size-9 place-items-center">
+              <span aria-hidden="true">⌕</span>
             </button>
-          ))}
+          </form>
         </div>
-        <form role="search" onSubmit={(event) => event.preventDefault()}>
-          <input aria-label="스토리 검색" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="스토리 내 검색" className="rounded-full border border-zinc-200 px-4 py-1.5 text-sm" />
-        </form>
-      </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {filtered.map((story) => (
-          <a key={story.seq} href={`/story/storyDetail?seq=${story.seq}`} className="group overflow-hidden rounded-2xl border border-zinc-200">
-            <div className="relative aspect-[4/3] overflow-hidden">
-              <PlaceholderVisual label="스토리 썸네일" tone="light" className="absolute inset-0 h-full w-full transition-transform duration-200 min-[1024px]:group-hover:scale-105 motion-reduce:scale-100!" />
-            </div>
-            <div className="p-5">
-              <div className="flex items-center gap-2 text-xs text-zinc-500">
-                <span>{story.category}</span>
-                <time>{story.date}</time>
-              </div>
-              <p className="mt-2 text-base font-semibold leading-snug">{story.title}</p>
-              <div className="mt-3 flex flex-wrap gap-1.5">
-                {story.tags.map((tag) => <span key={tag} className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs text-zinc-600">{tag}</span>)}
-              </div>
-            </div>
-          </a>
-        ))}
-      </div>
-      {!filtered.length && <p className="mt-10 text-center text-zinc-500">검색 결과가 없습니다.</p>}
+        {keyword && (
+          <p className="pt-6 text-sm text-zinc-600">
+            ‘{keyword}’ 검색 결과 {filtered.length}건 <a href={build({ keyword: "" })} className="ml-2 underline">전체 보기</a>
+          </p>
+        )}
+
+        {visible.length ? (
+          <ul className="grid gap-x-6 gap-y-10 pt-10 md:grid-cols-2 xl:grid-cols-3 xl:gap-y-14">
+            {visible.map((story) => (
+              <li key={story.seq}>
+                <a href={detailHref(story)} className="group block">
+                  <MediaSlot label={story.category} ratio="379/252" className="rounded-2xl" mediaClassName="transition-transform duration-200 ease-smooth can-hover:group-hover:scale-105" />
+                  <p className="mt-5 text-sm text-zinc-500">{story.category}</p>
+                  <p className="mt-2 line-clamp-2 text-lg font-bold leading-snug group-hover:underline">{story.title}</p>
+                  <time className="mt-3 block text-sm text-zinc-400">{story.date}</time>
+                </a>
+                {story.tags.length > 0 && (
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {story.tags.map((tag) => (
+                      <li key={tag}>
+                        <a href={build({ keyword: tag, category: "" })} className="text-sm text-zinc-500 hover:text-ink">#{tag}</a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="py-24 text-center text-zinc-500">검색 결과가 없습니다.</p>
+        )}
+
+        <Pagination current={Math.min(page, total)} total={total} hrefFor={(value) => build({ page: String(value) })} />
+      </section>
     </main>
   );
 }
