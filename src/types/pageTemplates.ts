@@ -183,3 +183,13 @@ export type ResourceItem = {
 export type ResourceSection = { id: string; title: string; items: ResourceItem[] };
 export type ResourceConsent = { title: string; text: string; cancelLabel: string; confirmLabel: string };
 export type ResourcePageContent = { title: string; sections: ResourceSection[]; consent: ResourceConsent };
+
+/** Privacy policy (PRD §7.11, future Payload collection `policies`): versions listed newest
+ * first; each version is a document of structured blocks (stand-in for Payload rich text). */
+export type PolicyBlock =
+  | { type: "heading"; text: string }
+  | { type: "paragraph"; text: string }
+  | { type: "list"; items: string[] }
+  | { type: "table"; columns: string[]; rows: string[][] };
+export type PolicyVersion = { seq: string; title: string; date: string; effectiveDate?: string; blocks: PolicyBlock[] };
+export type PolicyContent = { title: string; listTitle: string; note?: string; versions: PolicyVersion[] };
