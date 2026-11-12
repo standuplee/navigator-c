@@ -1,14 +1,14 @@
 import { PageChrome } from "@/components/content/main/PageChrome";
-import { SimpleInfoPage } from "@/components/content/SimpleInfoPage";
-import { getSimpleInfo } from "@/lib/data/companyRepository";
+import { ContactPage } from "@/components/content/company/ContactPage";
+import { getContact } from "@/lib/data/companyRepository";
 
 export const metadata = { title: "Contact l NOVA" };
 
 export default async function CompanyContactPage() {
-  const content = await getSimpleInfo("contact");
+  const content = await getContact();
   return (
     <PageChrome title={content.title}>
-      <SimpleInfoPage content={content} />
+      <ContactPage content={content} />
     </PageChrome>
   );
 }

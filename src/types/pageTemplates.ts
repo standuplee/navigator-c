@@ -104,6 +104,23 @@ export type TechDetailContent = {
   related: { id: string; title: string; href: string; date?: string; category?: string }[];
 };
 
+/** Company info pages (docs/PRD-navercorp-ui-parity.md §7.6). */
+export type InfoLinkCard = { title: string; text: string; href: string };
+export type AffiliatesContent = {
+  title: string;
+  items: { name: string; tagline: string; description: string; href: string; image?: { src?: string; label?: string } }[];
+};
+export type ContactContent = {
+  title: string;
+  groups: { title: string; entries: { name: string; address: string; addressEn?: string; tel?: string }[]; map?: boolean }[];
+  support: { title: string; cards: InfoLinkCard[] };
+};
+export type PartnershipContent = {
+  title: string;
+  sections: { title: string; description: string; cards: InfoLinkCard[] }[];
+  cta?: { label: string; href: string };
+};
+
 /** `service-directory` (docs/routes.md): category tabs + A-Z toggle over a link grid. */
 export type ServiceDirectoryItem = { name: string; category: string; href: string };
 export type ServiceDirectoryContent = {

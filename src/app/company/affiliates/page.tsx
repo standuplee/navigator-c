@@ -1,14 +1,14 @@
 import { PageChrome } from "@/components/content/main/PageChrome";
-import { SimpleInfoPage } from "@/components/content/SimpleInfoPage";
-import { getSimpleInfo } from "@/lib/data/companyRepository";
+import { AffiliatesPage } from "@/components/content/company/AffiliatesPage";
+import { getAffiliates } from "@/lib/data/companyRepository";
 
 export const metadata = { title: "주요 계열사 l NOVA" };
 
-export default async function AffiliatesPage() {
-  const content = await getSimpleInfo("affiliates");
+export default async function CompanyAffiliatesRoute() {
+  const content = await getAffiliates();
   return (
     <PageChrome title={content.title}>
-      <SimpleInfoPage content={content} />
+      <AffiliatesPage content={content} />
     </PageChrome>
   );
 }
