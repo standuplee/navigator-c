@@ -19,8 +19,8 @@ export function ServiceHero({ hero }: { hero: ServiceHeroData }) {
         <MediaSlot kind={hero.media?.kind ?? "image"} src={hero.media?.src} label={`${hero.title} 히어로`} tone="dark" className="absolute inset-0" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" aria-hidden="true" />
         <div ref={ref} className="relative mx-auto w-full max-w-[1920px] px-gutter pb-24 md:pb-28">
-          <h1 className={`text-page-title transition-[opacity,transform] duration-800 ease-smooth ${inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>{hero.title}</h1>
-          <p className={`mt-4 max-w-xl text-lg text-white/85 transition-[opacity,transform] delay-200 duration-800 ease-smooth md:text-xl ${inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
+          <h1 className={`text-page-title transition-[opacity,transform] duration-800 ease-hero ${inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>{hero.title}</h1>
+          <p className={`mt-4 max-w-xl text-lg text-white/85 transition-[opacity,transform] delay-200 duration-800 ease-hero md:text-xl ${inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
             {hero.description}
           </p>
         </div>
@@ -42,7 +42,7 @@ export function ServiceHero({ hero }: { hero: ServiceHeroData }) {
               <li
                 key={label}
                 style={{ transitionDelay: inView ? `${index * 0.08}s` : "0s" }}
-                className={`size-9 overflow-hidden rounded-xl transition-[opacity,transform] duration-800 ease-smooth md:size-14 md:rounded-2xl xl:size-[78px] ${
+                className={`size-9 overflow-hidden rounded-xl transition-[opacity,transform] duration-800 ease-hero md:size-14 md:rounded-2xl xl:size-[78px] ${
                   inView ? "translate-x-0 opacity-100" : fromLeft ? "-translate-x-12 opacity-0" : "translate-x-12 opacity-0"
                 }`}
               >

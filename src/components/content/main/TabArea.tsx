@@ -29,8 +29,8 @@ export function TabArea({ items, label = "페이지 탭" }: { items: TabAreaItem
               <a
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`relative flex items-center whitespace-nowrap text-base transition-colors duration-200 md:text-lg ${
-                  active ? "font-bold text-ink after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-ink" : "text-zinc-500 hover:text-ink"
+                className={`relative flex items-center whitespace-nowrap text-lg font-semibold transition-colors duration-100 ease-in-out xl:text-xl ${
+                  active ? "text-ink after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-ink" : "text-[#717680] hover:text-ink"
                 }`}
               >
                 {item.label}
@@ -79,8 +79,8 @@ export function TabAreaButtons({
               tabIndex={active ? 0 : -1}
               onClick={() => onSelect(index)}
               onKeyDown={(event) => onKeyDown(event, index)}
-              className={`relative flex shrink-0 items-center whitespace-nowrap text-base transition-colors duration-200 md:text-lg ${
-                active ? "font-bold text-ink after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-ink" : "text-zinc-500 hover:text-ink"
+              className={`relative flex shrink-0 items-center whitespace-nowrap text-lg font-semibold transition-colors duration-100 ease-in-out xl:text-xl ${
+                active ? "text-ink after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-ink" : "text-[#717680] hover:text-ink"
               }`}
             >
               {item}

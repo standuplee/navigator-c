@@ -16,7 +16,7 @@ export function ServiceDetailTemplate({ content }: { content: ServiceDetailConte
     <main>
       <ServiceHero hero={content.hero} />
       <div className="relative z-10 bg-white">
-        {content.layout === "sticky-visual" ? <StickyVisualProducts products={content.products} /> : <StackedProducts products={content.products} />}
+        {content.layout === "sticky-visual" ? <StickyVisualProducts products={content.products} title={content.title} /> : <StackedProducts products={content.products} title={content.title} />}
         {content.growTogether && <GrowTogetherSection data={content.growTogether} />}
         {content.cta && <CtaBanner title={content.cta.title} description={content.cta.description} href={content.cta.href} ctaLabel={content.cta.ctaLabel} />}
         <RelatedCarousel items={content.related} />

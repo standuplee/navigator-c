@@ -7,6 +7,7 @@ import { EndingStatement } from "./EndingStatement";
 import { HighlightStatement } from "./HighlightStatement";
 import { LineupPanels } from "./LineupPanels";
 import { TimelineCards } from "./TimelineCards";
+import { Reveal } from "../blocks/Reveal";
 
 function Chapter({ chapter }: { chapter: AboutChapter }) {
   const titleId = `${chapter.id}-title`;
@@ -15,7 +16,11 @@ function Chapter({ chapter }: { chapter: AboutChapter }) {
     <section id={chapter.id} aria-labelledby={titleId} className="pb-24 pt-2 xl:pb-[120px]">
       <CopyTitle copy={chapter.copy} id={titleId} />
       <div className="mt-16 xl:mt-[150px]">
-        {chapter.kind === "timeline" && <TimelineCards cards={chapter.cards} label={label} />}
+        {chapter.kind === "timeline" && (
+          <Reveal animate delay={0.5}>
+            <TimelineCards cards={chapter.cards} label={label} />
+          </Reveal>
+        )}
         {chapter.kind === "lineup" && <LineupPanels panels={chapter.panels} />}
         {chapter.kind === "groups" && <CardGroups groups={chapter.groups} />}
       </div>

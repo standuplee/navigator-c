@@ -7,9 +7,9 @@ import { Reveal } from "../blocks/Reveal";
 /** Full-width product sections for image-heavy pages (advertisement, cloud, data center,
  * office space) — PRD §7.1 `feature-list`. Heading row (title | description), then either a
  * card grid (1 / 2 columns, desktop-only image zoom) or a wide visual / inline slider. */
-export function StackedProducts({ products }: { products: ServiceProduct[] }) {
+export function StackedProducts({ products, title }: { products: ServiceProduct[]; title?: string }) {
   return (
-    <AnchorSection items={products.map((product) => ({ id: product.id, label: product.title }))}>
+    <AnchorSection title={title} items={products.map((product) => ({ id: product.id, label: product.title }))}>
       {products.map((product) => (
         <section key={product.id} id={product.id} className="border-b border-zinc-100 py-20 last:border-none md:py-24 xl:py-32">
           <div className="mx-auto max-w-[1280px] px-gutter">

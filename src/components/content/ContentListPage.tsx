@@ -6,6 +6,7 @@ import type { NewsCardItem } from "@/types/mainTemplate";
 import { Carousel, CarouselArrows } from "./blocks/Carousel";
 import { MediaSlot } from "./blocks/MediaSlot";
 import { Pagination } from "./blocks/Pagination";
+import { AnchorSection } from "./blocks/AnchorNav";
 
 const PAGE_SIZE = 12;
 
@@ -96,7 +97,8 @@ export function ContentListPage({
         </section>
       )}
 
-      <section className="mx-auto max-w-[1280px] px-gutter" aria-label={`${title} 목록`}>
+      <AnchorSection items={[{ id: "content-list", label: title }]}>
+      <section id="content-list" className="mx-auto max-w-[1280px] px-gutter" aria-label={`${title} 목록`}>
         <div className="sticky top-[var(--header-h)] z-20 flex flex-col gap-3 border-b border-ink bg-white py-3 transition-[top] duration-400 ease-smooth scroll-down:top-0 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-6">
             <label className="relative">
@@ -152,12 +154,12 @@ export function ContentListPage({
           <ul>
             {visible.map((item) => (
               <li key={item.id} className="border-b border-zinc-200">
-                <a href={item.href} className="group flex min-h-[144px] items-center gap-6 py-5 md:min-h-[200px] xl:min-h-[250px] xl:gap-8 xl:py-8">
+                <a href={item.href} className="group flex min-h-[144px] items-center gap-6 py-5 transition-colors duration-400 ease-in-out-strong can-hover:hover:bg-[#e9eaeb] md:min-h-[200px] xl:min-h-[250px] xl:gap-8 xl:py-8">
                   <div className="flex min-w-0 flex-1 flex-col gap-2 md:flex-row md:gap-8">
                     <time className="shrink-0 text-sm text-zinc-500 md:w-40 md:text-base xl:w-52">{item.date}</time>
-                    <p className="line-clamp-2 text-base font-bold leading-snug group-hover:underline md:text-lg xl:max-w-[480px] xl:text-xl">{item.title}</p>
+                    <p className="line-clamp-2 text-base leading-snug transition-colors duration-200 ease-smooth hover:text-[#717680] md:text-lg xl:max-w-[480px] xl:text-xl">{item.title}</p>
                   </div>
-                  <MediaSlot label={item.category} className="hidden aspect-[278/186] w-[200px] shrink-0 rounded-xl md:block xl:w-[278px]" mediaClassName="transition-transform duration-200 ease-smooth can-hover:group-hover:scale-[1.08]" />
+                  <MediaSlot label={item.category} className="hidden aspect-[278/186] w-[200px] shrink-0 rounded-xl md:block xl:w-[278px]" mediaClassName="transition-transform duration-400 ease-in-out-strong can-hover:group-hover:scale-[1.08]" />
                 </a>
               </li>
             ))}
@@ -168,6 +170,7 @@ export function ContentListPage({
 
         <Pagination current={Math.min(page, total)} total={total} hrefFor={(value) => build({ page: String(value) })} />
       </section>
+      </AnchorSection>
 
       {quickLinks && quickLinks.length > 0 && (
         <section aria-label="바로가기" className="mx-auto max-w-[1280px] px-gutter pb-8 pt-20 xl:pt-[121px]">

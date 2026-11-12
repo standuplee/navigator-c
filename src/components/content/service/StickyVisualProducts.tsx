@@ -14,7 +14,7 @@ import { ProductBody } from "./ProductBody";
  * visual, with vertical bullet bars to jump between products; right half scrolls the product
  * sections (one screen each). <1024: no sticky column — each section shows its own visuals
  * (single image, or the auto-advancing inline slider when there are several). */
-export function StickyVisualProducts({ products }: { products: ServiceProduct[] }) {
+export function StickyVisualProducts({ products, title }: { products: ServiceProduct[]; title?: string }) {
   const [active, setActive] = useState(0);
   const reduced = useReducedMotion();
 
@@ -35,10 +35,10 @@ export function StickyVisualProducts({ products }: { products: ServiceProduct[] 
   };
 
   return (
-    <AnchorSection items={products.map((product) => ({ id: product.id, label: product.title }))}>
+    <AnchorSection title={title} items={products.map((product) => ({ id: product.id, label: product.title }))}>
       <div className="mx-auto max-w-[1920px] lg:grid lg:grid-cols-2">
         <div className="hidden lg:block">
-          <div className="sticky top-[calc(var(--header-h)+56px)] flex h-[calc(100svh-var(--header-h)-56px)] items-center justify-center transition-[top] duration-400 ease-smooth scroll-down:top-14">
+          <div className="sticky top-[calc(var(--header-h)+48px)] flex h-[calc(100svh-var(--header-h)-48px)] items-center justify-center transition-[top] duration-400 ease-smooth scroll-down:top-12">
             <div className="relative aspect-[9/16] h-[78%] max-h-[760px]">
               {products.map((product, index) => (
                 <div
@@ -70,7 +70,7 @@ export function StickyVisualProducts({ products }: { products: ServiceProduct[] 
             <section
               key={product.id}
               id={product.id}
-              className="flex min-h-[calc(100svh-56px)] flex-col justify-center border-b border-zinc-100 px-gutter py-16 last:border-none lg:pl-0 xl:py-24"
+              className="flex min-h-[calc(100svh-48px)] flex-col justify-center border-b border-zinc-100 px-gutter py-16 last:border-none lg:pl-0 xl:py-24"
             >
               <Reveal>
                 <ProductBody product={product} />

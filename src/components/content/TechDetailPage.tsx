@@ -32,7 +32,7 @@ export function TechDetailPage({ content }: { content: TechDetailContent }) {
         </Reveal>
       </header>
 
-      <AnchorSection tone="dark" items={content.sections.map((section) => ({ id: section.id, label: section.title }))}>
+      <AnchorSection tone="dark" title={content.title} items={content.sections.map((section) => ({ id: section.id, label: section.title }))}>
         {content.sections.map((section) => (
           <TechSectionBlock key={section.id} section={section} />
         ))}

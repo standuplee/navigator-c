@@ -122,7 +122,7 @@ export function ResourcePage({ content }: { content: ResourcePageContent }) {
 
   return (
     <main>
-      <AnchorSection items={items.map((item) => ({ id: item.id, label: item.title }))}>
+      <AnchorSection title={content.title} items={items.map((item) => ({ id: item.id, label: item.title }))}>
         {content.sections.map((section) => (
           <section key={section.id} aria-labelledby={`${section.id}-title`}>
             <div className="mx-auto max-w-[1280px] px-gutter pb-12 pt-16 xl:pb-24 xl:pt-24">

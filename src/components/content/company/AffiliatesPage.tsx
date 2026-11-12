@@ -1,13 +1,15 @@
 import type { AffiliatesContent } from "@/types/pageTemplates";
 import { MediaSlot } from "../blocks/MediaSlot";
 import { Reveal } from "../blocks/Reveal";
+import { AnchorSection } from "../blocks/AnchorNav";
 
 /** /company/affiliates (PRD §7.6): one affiliate per row on every screen size — 592×388
  * visual left, content right (title 32px desktop, 16px text, dark "바로가기" button);
  * stacked on mobile; 160px between rows on desktop. */
 export function AffiliatesPage({ content }: { content: AffiliatesContent }) {
   return (
-    <main className="mx-auto max-w-[1280px] px-gutter py-16 xl:py-24">
+    <AnchorSection items={[{ id: "affiliates", label: content.title }]}>
+    <main id="affiliates" className="mx-auto max-w-[1280px] px-gutter py-16 xl:py-24">
       <ul className="flex flex-col gap-16 md:gap-24 xl:gap-40">
         {content.items.map((item) => (
           <Reveal as="li" key={item.name} className="grid gap-8 md:grid-cols-2 md:items-center md:gap-10 xl:gap-0">
@@ -32,5 +34,6 @@ export function AffiliatesPage({ content }: { content: AffiliatesContent }) {
         ))}
       </ul>
     </main>
+    </AnchorSection>
   );
 }

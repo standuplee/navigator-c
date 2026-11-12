@@ -72,6 +72,7 @@ export function AiInServicePage({
       </section>
 
       <AnchorSection
+        title={title}
         items={[
           { id: "ai-services", label: "서비스 속의 AI" },
           { id: "ai-building", label: "AI를 만드는 방식" },

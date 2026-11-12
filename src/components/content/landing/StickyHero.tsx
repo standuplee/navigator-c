@@ -59,7 +59,7 @@ export function StickyHero({ line1, line2, tiles = 8, theme = "light" }: { line1
   }, [reduced]);
 
   const on = reduced || entered;
-  const line = "inline-block transition-[opacity,transform] duration-800 ease-smooth";
+  const line = "inline-block transition-[opacity,transform] duration-800 ease-copy";
 
   const next = () => {
     const section = sectionRef.current;
@@ -74,7 +74,7 @@ export function StickyHero({ line1, line2, tiles = 8, theme = "light" }: { line1
           {TILES.slice(0, tiles).map((tile, index) => (
             <div
               key={index}
-              className="absolute w-20 md:w-28 xl:w-36"
+              className="absolute w-20 transition-transform duration-[1600ms] ease-drift md:w-28 xl:w-36"
               style={{
                 left: `${tile.left}%`,
                 top: `${tile.top}svh`,

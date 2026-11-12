@@ -1,10 +1,12 @@
 import type { SimpleTableListContent } from "@/types/pageTemplates";
+import { AnchorSection } from "./blocks/AnchorNav";
 
 /** `simple-table-list` (PRD §7.10, /media/mediaEvents): section title (32px) and a two-column
  * table — title | date — with 67px rows; whole row links to the event detail. */
 export function SimpleTableListPage({ content }: { content: SimpleTableListContent }) {
   return (
-    <main className="mx-auto max-w-[1280px] px-gutter pb-24 pt-16 xl:pt-20">
+    <AnchorSection items={[{ id: "table-list", label: content.title }]}>
+    <main id="table-list" className="mx-auto max-w-[1280px] px-gutter pb-24 pt-16 xl:pt-20">
       <h2 className="text-section-title">{content.title}</h2>
       {content.rows.length ? (
         <div className="mt-10" role="table" aria-label={content.title}>
@@ -30,5 +32,6 @@ export function SimpleTableListPage({ content }: { content: SimpleTableListConte
         <p className="mt-10 text-center text-zinc-500">예정된 행사가 없습니다.</p>
       )}
     </main>
+    </AnchorSection>
   );
 }

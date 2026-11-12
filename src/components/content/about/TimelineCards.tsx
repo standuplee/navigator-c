@@ -17,7 +17,7 @@ export function TimelineCards({ cards, label }: { cards: AboutTimelineCard[]; la
         renderArrows={(api) => <CarouselArrows api={api} tone="dark" className="mt-8 justify-center xl:mt-10" />}
       >
         {cards.map((card) => (
-          <article key={`${card.year}-${card.title}`} className="flex flex-col">
+          <article key={`${card.year}-${card.title}`} className="group flex flex-col">
             <div className="flex h-[200px] flex-col justify-between px-4 py-4 xl:h-[260px] xl:px-5 xl:py-5">
               <div>
                 <span className="text-base font-semibold text-white/60">{card.year}</span>
@@ -25,7 +25,7 @@ export function TimelineCards({ cards, label }: { cards: AboutTimelineCard[]; la
               </div>
               <p className="whitespace-pre-line text-base leading-relaxed text-white/80 xl:text-lg">{card.description}</p>
             </div>
-            <MediaSlot src={card.image} alt={card.title} label={card.title} tone="dark" ratio="1/1" className="rounded-2xl" />
+            <MediaSlot src={card.image} alt={card.title} label={card.title} tone="dark" ratio="1/1" className="rounded-2xl" mediaClassName="transition-transform duration-300 ease-[ease] can-hover:group-hover:scale-105" />
           </article>
         ))}
       </Carousel>

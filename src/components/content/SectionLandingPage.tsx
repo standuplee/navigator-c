@@ -30,7 +30,7 @@ export function SectionLandingPage({ content }: { content: SectionLandingContent
               <h2 id="research-heading" className="text-section-title">{content.body.research.title}</h2>
               <ul className="mt-10 grid gap-6 md:grid-cols-2">
                 {content.body.research.items.map((item) => (
-                  <Reveal as="li" key={item.title}>
+                  <Reveal as="li" key={item.title} animate duration={0.6} ease="soft">
                     <a href={item.href ?? "#"} className="group block rounded-3xl bg-white/5 p-8 ring-1 ring-white/10 transition-colors duration-200 hover:bg-white/10 xl:p-10">
                       <p className="text-xl font-bold xl:text-2xl">{item.title}</p>
                       <p className="mt-2 text-white/70">{item.text}</p>

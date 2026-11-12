@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { TimelineContent, TimelineEvent } from "@/types/pageTemplates";
 import { TabAreaButtons } from "./main/TabArea";
 import { Reveal } from "./blocks/Reveal";
+import { AnchorSection } from "./blocks/AnchorNav";
 
 function groupByYear(events: TimelineEvent[]) {
   const groups: { year: string; events: TimelineEvent[] }[] = [];
@@ -35,6 +36,7 @@ export function TimelinePage({ content }: { content: TimelineContent }) {
           idPrefix="history-tab"
         />
       )}
+      <AnchorSection items={[{ id: "history-tab-panel", label: tab.label }]}>
       <main
         id="history-tab-panel"
         role={content.tabs.length > 1 ? "tabpanel" : undefined}
@@ -64,6 +66,7 @@ export function TimelinePage({ content }: { content: TimelineContent }) {
           ))}
         </ol>
       </main>
+      </AnchorSection>
     </>
   );
 }

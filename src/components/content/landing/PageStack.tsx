@@ -63,7 +63,7 @@ export function PageStackDomain({ domain }: { domain: LandingStackDomain }) {
           className={
             reduced
               ? ""
-              : "lg:sticky lg:top-[calc(var(--header-h)+56px)] lg:h-[calc(100svh-56px)] lg:overflow-hidden lg:transition-[top] lg:duration-400 lg:ease-smooth lg:scroll-down:top-14"
+              : "lg:sticky lg:top-[calc(var(--header-h)+48px)] lg:h-[calc(100svh-48px)] lg:overflow-hidden lg:transition-[top] lg:duration-400 lg:ease-smooth lg:scroll-down:top-12"
           }
         >
           <ol className="mx-auto max-w-[1280px] px-gutter">
@@ -81,17 +81,17 @@ export function PageStackDomain({ domain }: { domain: LandingStackDomain }) {
                     <div
                       className={`order-2 origin-top-left transition-[transform] duration-[1060ms] ease-stack ${hidden ? "-translate-y-6" : "translate-y-0"}`}
                     >
-                      <p className={`text-sm font-semibold text-white/50 transition-opacity duration-400 ${hidden ? "opacity-0" : "opacity-100"}`}>{String(index + 1).padStart(2, "0")}</p>
+                      <p className={`text-sm font-semibold text-white/50 transition-opacity duration-[1060ms] ease-stack ${hidden ? "opacity-0" : "opacity-100"}`}>{String(index + 1).padStart(2, "0")}</p>
                       <p className={`mt-1 origin-left text-[26px] font-bold transition-[scale] duration-[1060ms] ease-stack xl:text-[32px] ${hidden ? "scale-[.625]" : "scale-100"}`}>
                         {point.title}
                       </p>
-                      <p className={`mt-3 text-base text-white/70 transition-opacity duration-400 xl:text-lg ${hidden ? "opacity-0" : "opacity-100"}`}>{point.text}</p>
+                      <p className={`mt-3 text-base text-white/70 transition-opacity duration-[1060ms] ease-stack xl:text-lg ${hidden ? "opacity-0" : "opacity-100"}`}>{point.text}</p>
                     </div>
                     <MediaSlot
                       kind={domain.media?.kind}
                       label={`${domain.title} · ${point.title}`}
                       tone="dark"
-                      className={`order-1 aspect-[335/419] rounded-3xl transition-opacity duration-400 md:ml-auto md:aspect-auto md:h-[333px] md:w-[266px] lg:ml-0 lg:aspect-[477/447] lg:h-auto lg:w-auto ${hidden ? "opacity-0" : "opacity-100"}`}
+                      className={`order-1 aspect-[335/419] rounded-3xl transition-opacity duration-[1060ms] ease-stack md:ml-auto md:aspect-auto md:h-[333px] md:w-[266px] lg:ml-0 lg:aspect-[477/447] lg:h-auto lg:w-auto ${hidden ? "opacity-0" : "opacity-100"}`}
                     />
                   </div>
                 </li>

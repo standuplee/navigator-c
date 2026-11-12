@@ -2,15 +2,20 @@ import type { ContactContent } from "@/types/pageTemplates";
 import { MediaSlot } from "../blocks/MediaSlot";
 import { Reveal } from "../blocks/Reveal";
 import { InfoCards } from "./InfoCards";
+import { AnchorSection } from "../blocks/AnchorNav";
 
 /** /company/contact (PRD §7.6): each group is title (403px column, 32px) | entries
  * (name | Korean + English address + tel), HQ followed by a full-bleed 480px map slot,
  * then the support cards. */
 export function ContactPage({ content }: { content: ContactContent }) {
   return (
+    <AnchorSection
+      title={content.title}
+      items={[...content.groups.map((group, index) => ({ id: `contact-${index}`, label: group.title })), { id: "contact-support", label: content.support.title }]}
+    >
     <main className="pb-16 xl:pb-24">
-      {content.groups.map((group) => (
-        <section key={group.title} className="pt-16 xl:pt-24">
+      {content.groups.map((group, index) => (
+        <section key={group.title} id={`contact-${index}`} className="pt-16 xl:pt-24">
           <Reveal className="mx-auto grid max-w-[1280px] gap-6 px-gutter lg:grid-cols-[403px_1fr]">
             <h2 className="text-section-title">{group.title}</h2>
             <dl className="flex flex-col">
@@ -34,12 +39,13 @@ export function ContactPage({ content }: { content: ContactContent }) {
         </section>
       ))}
 
-      <section className="mx-auto max-w-[1280px] px-gutter pt-16 xl:pt-24">
+      <section id="contact-support" className="mx-auto max-w-[1280px] px-gutter pt-16 xl:pt-24">
         <h2 className="text-section-title">{content.support.title}</h2>
         <div className="mt-8 xl:mt-12">
           <InfoCards cards={content.support.cards} />
         </div>
       </section>
     </main>
+    </AnchorSection>
   );
 }

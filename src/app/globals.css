@@ -16,6 +16,8 @@
   --breakpoint-3xl: 1920px;
 
   --ease-smooth: cubic-bezier(.33, 1, .68, 1);
+  /* reference hovers default to bon-ease-Out; unspecified `transition-*` utilities use it too */
+  --default-transition-timing-function: cubic-bezier(.33, 1, .68, 1);
   --ease-smooth-soft: cubic-bezier(.25, 1, .5, 1);
   --ease-standard: cubic-bezier(.15, 0, .15, 1);
   --ease-in-out-strong: cubic-bezier(.65, 0, .35, 1);
@@ -24,6 +26,10 @@
   --ease-stack: cubic-bezier(.28, 0, .15, 1);
   --ease-arrow: cubic-bezier(.455, .03, .515, .955);
   --ease-search: cubic-bezier(.78, 0, .38, 1.01);
+  /* measured on the reference: service hero entrance, landing hero drift and its copy */
+  --ease-hero: cubic-bezier(.65, .04, .35, 1);
+  --ease-drift: cubic-bezier(.07, .82, .17, 1);
+  --ease-copy: cubic-bezier(.17, .84, .44, 1);
 
   --color-ink: #1a1d24;
   --color-ink-dark-bg: rgb(10 13 18);
@@ -42,7 +48,7 @@
 :root {
   --header-h: 48px;
   --page-gutter: 20px;
-  --anchor-nav-h: 56px;
+  --anchor-nav-h: 48px;
 }
 @media (width >= 1024px) { :root { --page-gutter: 32px; } }
 @media (width >= 1280px) { :root { --header-h: 64px; --page-gutter: 48px; } }

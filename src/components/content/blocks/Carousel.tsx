@@ -16,7 +16,7 @@ export const CAROUSEL_PRESETS = {
   "inline-images": { effect: "slide", speed: 300, autoplay: 2000, loop: true, perView: 1, gap: 0, bullets: false, arrows: false },
   "feature-fade": { effect: "fade", speed: 300, autoplay: 0, loop: false, perView: 1, gap: 0, bullets: true, arrows: false },
   cards: { effect: "slide", speed: 400, autoplay: 0, loop: false, perView: "auto", gap: 24, bullets: false, arrows: true },
-  story: { effect: "slide", speed: 400, autoplay: 0, loop: false, perView: "auto", gap: 20, bullets: false, arrows: true },
+  story: { effect: "slide", speed: 500, autoplay: 0, loop: false, perView: "auto", gap: 20, bullets: false, arrows: true },
   recommend: { effect: "slide", speed: 400, autoplay: 0, loop: false, perView: 1, gap: 24, bullets: false, arrows: true },
   banner: { effect: "slide", speed: 400, autoplay: 0, loop: false, perView: "auto", gap: 24, bullets: false, arrows: true },
   "free-list": { effect: "slide", speed: 300, autoplay: 0, loop: false, perView: "auto", gap: 0, bullets: false, arrows: false },

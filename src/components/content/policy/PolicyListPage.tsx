@@ -2,6 +2,7 @@
 
 import type { PolicyContent } from "@/types/pageTemplates";
 import { Pagination } from "../blocks/Pagination";
+import { AnchorSection } from "../blocks/AnchorNav";
 
 const PER_PAGE = 10;
 
@@ -14,7 +15,8 @@ export function PolicyListPage({ content, page }: { content: PolicyContent; page
   const rows = content.versions.slice((current - 1) * PER_PAGE, current * PER_PAGE);
 
   return (
-    <main className="mx-auto max-w-[1280px] px-gutter pb-24 pt-16 xl:pb-32 xl:pt-20">
+    <AnchorSection items={[{ id: "policy-list", label: content.title }]}>
+    <main id="policy-list" className="mx-auto max-w-[1280px] px-gutter pb-24 pt-16 xl:pb-32 xl:pt-20">
       <h2 className="text-section-title">{content.listTitle}</h2>
       <table className="mt-8 w-full border-collapse text-left xl:mt-10">
         <caption className="sr-only">제목, 공지일자로 구성된 {content.listTitle}</caption>
@@ -44,5 +46,6 @@ export function PolicyListPage({ content, page }: { content: PolicyContent; page
         </div>
       )}
     </main>
+    </AnchorSection>
   );
 }

@@ -8,14 +8,16 @@ export function Pagination({ current, total, hrefFor, label = "페이지" }: { c
   const start = Math.max(1, Math.min(current - 2, total - 4));
   const end = Math.min(total, start + 4);
   const pages = Array.from({ length: end - start + 1 }, (_, index) => start + index);
-  const cell = "grid size-10 place-items-center rounded-full text-sm transition-colors duration-200 md:text-base";
+  const cell = "grid size-10 place-items-center rounded-full text-sm transition-all duration-150 ease-in-out md:text-base";
+  /** prev / next: .3s ease on the reference, page numbers .15s ease-in-out. */
+  const edge = "!duration-300 !ease-[ease]";
   return (
     <nav aria-label={label} className="flex items-center justify-center gap-2 py-12 xl:py-12">
       <a
         href={current > 1 ? hrefFor(current - 1) : undefined}
         aria-disabled={current <= 1}
         aria-label="이전 페이지"
-        className={`${cell} border border-zinc-300 ${current <= 1 ? "pointer-events-none opacity-30" : "hover:bg-zinc-100"}`}
+        className={`${cell} ${edge} border border-zinc-300 ${current <= 1 ? "pointer-events-none opacity-30" : "hover:bg-zinc-100"}`}
       >
         <span aria-hidden="true">‹</span>
       </a>
@@ -40,7 +42,7 @@ export function Pagination({ current, total, hrefFor, label = "페이지" }: { c
         href={current < total ? hrefFor(current + 1) : undefined}
         aria-disabled={current >= total}
         aria-label="다음 페이지"
-        className={`${cell} border border-zinc-300 ${current >= total ? "pointer-events-none opacity-30" : "hover:bg-zinc-100"}`}
+        className={`${cell} ${edge} border border-zinc-300 ${current >= total ? "pointer-events-none opacity-30" : "hover:bg-zinc-100"}`}
       >
         <span aria-hidden="true">›</span>
       </a>

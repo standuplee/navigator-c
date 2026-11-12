@@ -1,5 +1,6 @@
 import type { ServiceDirectoryContent, ServiceDirectoryItem, ServiceDirectoryLink } from "@/types/pageTemplates";
 import { Reveal } from "./blocks/Reveal";
+import { AnchorSection } from "./blocks/AnchorNav";
 
 const CHOSEONG = "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ";
 const BASE: Record<string, string> = { ㄲ: "ㄱ", ㄸ: "ㄷ", ㅃ: "ㅂ", ㅆ: "ㅅ", ㅉ: "ㅈ" };
@@ -67,9 +68,10 @@ function LinkIcon({ link, name }: { link: ServiceDirectoryLink; name: string }) 
 export function ServiceDirectoryPage({ content, mode }: { content: ServiceDirectoryContent; mode: "topic" | "alphabet" }) {
   const groups = groupsFor(content, mode);
   return (
+    <AnchorSection title={content.title} items={groups.map((group, index) => ({ id: `dir-group-${index}`, label: group.title }))}>
     <main className="pb-20 pt-6 md:pt-12 xl:pb-32 xl:pt-24">
-      {groups.map((group) => (
-        <section key={group.title} aria-labelledby={`dir-${group.title}`} className="mx-auto max-w-[1280px] px-gutter pt-8 first:pt-0 lg:pt-20">
+      {groups.map((group, index) => (
+        <section key={group.title} id={`dir-group-${index}`} aria-labelledby={`dir-${group.title}`} className="mx-auto max-w-[1280px] px-gutter pt-8 first:pt-0 lg:pt-20">
           <Reveal className="lg:grid lg:grid-cols-[368px_1fr] lg:gap-8">
             <h2 id={`dir-${group.title}`} className="text-xl font-semibold text-ink lg:text-[26px]">{group.title}</h2>
             <ul className="mt-5 grid md:grid-cols-2 md:gap-x-6 lg:mt-0 lg:-translate-y-5 lg:grid-cols-[repeat(2,380px)]">
@@ -94,5 +96,6 @@ export function ServiceDirectoryPage({ content, mode }: { content: ServiceDirect
         </section>
       ))}
     </main>
+    </AnchorSection>
   );
 }
