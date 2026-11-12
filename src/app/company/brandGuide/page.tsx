@@ -7,7 +7,7 @@ export const metadata = { title: "브랜드 리소스 l NOVA" };
 export default async function BrandGuidePage() {
   const content = await getSimpleInfo("brandGuide");
   return (
-    <PageChrome>
+    <PageChrome title={content.title}>
       <SimpleInfoPage content={content} />
     </PageChrome>
   );

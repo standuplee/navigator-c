@@ -16,8 +16,7 @@ export function StoryListPage({ stories, initialQuery = "" }: { stories: Story[]
   );
 
   return (
-    <main className="mx-auto max-w-7xl px-5 pb-24 pt-28 md:px-8 md:pt-32">
-      <h1 className="text-4xl font-bold tracking-tight md:text-6xl">스토리</h1>
+    <main className="mx-auto max-w-7xl px-gutter pb-24 pt-4 md:pt-8">
 
       <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
         <div role="tablist" aria-label="스토리 카테고리" className="flex flex-wrap gap-2">

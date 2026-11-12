@@ -34,8 +34,7 @@ export function ContentListPage({ title, items, initialQuery = "" }: { title: st
   const current = featured[featuredIndex];
 
   return (
-    <main className="mx-auto max-w-7xl px-5 pb-24 pt-28 md:px-8 md:pt-32">
-      <h1 className="text-4xl font-bold tracking-tight md:text-6xl">{title}</h1>
+    <main className="mx-auto max-w-7xl px-gutter pb-24 pt-0" aria-label={title}>
 
       {current && (
         <section className="mt-12 grid items-stretch gap-6 md:grid-cols-[96px_1fr_72px]" aria-label="주요 소식">

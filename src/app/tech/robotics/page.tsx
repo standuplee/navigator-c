@@ -7,7 +7,7 @@ export const metadata = { title: "로보틱스 l NOVA" };
 export default async function RoboticsPage() {
   const content = await getFeatureDetail("robotics");
   return (
-    <PageChrome overDarkHero>
+    <PageChrome headerTheme="dark">
       <FeatureDetailPage content={content} />
     </PageChrome>
   );

@@ -1,17 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+const QUERY = "(prefers-reduced-motion: reduce)";
+
+function subscribe(onChange: () => void) {
+  const query = window.matchMedia(QUERY);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
 
 /** Tracks prefers-reduced-motion so carousels/panels can skip autoplay and
- * large transform/width transitions (docs/animations.md §8). */
+ * large transform/width transitions (docs/animations.md §8). Server render assumes
+ * motion is allowed; the client value takes over on hydration. */
 export function useReducedMotion() {
-  const [reduced, setReduced] = useState(false);
-  useEffect(() => {
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(query.matches);
-    const onChange = (event: MediaQueryListEvent) => setReduced(event.matches);
-    query.addEventListener("change", onChange);
-    return () => query.removeEventListener("change", onChange);
-  }, []);
-  return reduced;
+  return useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia(QUERY).matches,
+    () => false,
+  );
 }

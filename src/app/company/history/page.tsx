@@ -7,7 +7,7 @@ export const metadata = { title: "연혁 l NOVA" };
 export default async function CompanyHistoryPage() {
   const content = await getTimeline();
   return (
-    <PageChrome>
+    <PageChrome title={content.title}>
       <TimelinePage content={content} />
     </PageChrome>
   );

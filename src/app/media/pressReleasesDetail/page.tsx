@@ -12,7 +12,7 @@ export default async function PressReleasesDetailPage({ searchParams }: { search
   const { seq } = await searchParams;
   const article = await getPressRelease(seq);
   return (
-    <PageChrome>
+    <PageChrome headerTheme="transparent">
       <PressReleaseDetailView article={article} />
     </PageChrome>
   );

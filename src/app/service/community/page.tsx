@@ -7,7 +7,7 @@ export const metadata = { title: "커뮤니티 l NOVA" };
 export default async function CommunityPage() {
   const content = await getServiceDetail("community");
   return (
-    <PageChrome overDarkHero>
+    <PageChrome>
       <ServiceDetailTemplate content={content} />
     </PageChrome>
   );

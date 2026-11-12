@@ -4,9 +4,8 @@ import type { SimpleTableListContent } from "@/types/pageTemplates";
  * filter or pagination. Used by /media/mediaEvents. */
 export function SimpleTableListPage({ content }: { content: SimpleTableListContent }) {
   return (
-    <main className="mx-auto max-w-3xl px-5 pb-24 pt-28 md:px-8 md:pt-32">
-      <h1 className="text-4xl font-bold tracking-tight md:text-6xl">{content.title}</h1>
-      <ul className="mt-12 divide-y divide-zinc-200 border-y border-zinc-200">
+    <main className="mx-auto max-w-3xl px-gutter pb-24 pt-8 md:pt-12">
+      <ul className=" divide-y divide-zinc-200 border-y border-zinc-200">
         {content.rows.map((row) => {
           const Row = row.href ? "a" : "div";
           return (

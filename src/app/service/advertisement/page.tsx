@@ -7,7 +7,7 @@ export const metadata = { title: "광고 l NOVA" };
 export default async function AdvertisementPage() {
   const content = await getServiceDetail("advertisement");
   return (
-    <PageChrome overDarkHero>
+    <PageChrome>
       <ServiceDetailTemplate content={content} />
     </PageChrome>
   );

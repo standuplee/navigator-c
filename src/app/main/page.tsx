@@ -5,6 +5,7 @@ import { PromotionCarousel } from "@/components/content/main/PromotionCarousel";
 import { SummaryPanels } from "@/components/content/main/SummaryPanels";
 import { PartnerTabs } from "@/components/content/main/PartnerTabs";
 import { SiteFooter } from "@/components/content/main/SiteFooter";
+import { ScrollState } from "@/components/layouts/ScrollState";
 import { getMainTemplateContent } from "@/lib/data/mainTemplateRepository";
 
 export const metadata = { title: "NOVA — Main" };
@@ -17,10 +18,11 @@ export default async function MainPage() {
   const content = await getMainTemplateContent();
   return (
     <div className="min-h-screen bg-white text-zinc-900">
+      <ScrollState />
       <a href="#content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-black focus:px-4 focus:py-2 focus:text-white">
         본문 바로가기
       </a>
-      <SiteHeader brandName={content.brandName} navItems={content.navMenuItems} />
+      <SiteHeader brandName={content.brandName} navItems={content.navMenuItems} variant="main" />
       <main id="content" className="mx-auto max-w-7xl px-5 md:px-8">
         <HeadlineSection slides={content.headlineSlides} shortcuts={content.shortcutCards} />
         <NewsMasonryGrid items={content.newsCards} moreHref="/media/pressReleases" />

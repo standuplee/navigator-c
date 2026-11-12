@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { FooterLinkGroup } from "@/types/mainTemplate";
 
 /** Placeholder social channels — generic monograms, not any real platform's logo
@@ -11,24 +11,51 @@ const socialLinks = [
   { label: "커뮤니티", mark: "C", href: "#" },
 ];
 
-/** Footer (docs/animations.md §7): desktop grid, mobile accordion (instant show/hide,
- * chevron rotates 200ms — the source has no height transition on the accordion either). */
+/** Placeholder related sites for the "family site" disclosure. */
+const familySites = [
+  { label: "관련 사이트 1", href: "#" },
+  { label: "관련 사이트 2", href: "#" },
+  { label: "관련 사이트 3", href: "#" },
+];
+
+/** Footer (docs/PRD-navercorp-ui-parity.md §6.10). The reference keeps every link group
+ * expanded on mobile too (no accordion) — 2 columns on mobile, 4 from tablet — and has a
+ * single "family site" disclosure whose chevron rotates in 200ms. */
 export function SiteFooter({ brandName, groups }: { brandName: string; groups: FooterLinkGroup[] }) {
-  const [openGroup, setOpenGroup] = useState<string | null>(null);
+  const [familyOpen, setFamilyOpen] = useState(false);
+  const familyRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!familyOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setFamilyOpen(false);
+    };
+    const onClick = (event: MouseEvent) => {
+      if (familyRef.current && !familyRef.current.contains(event.target as Node)) setFamilyOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("click", onClick);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("click", onClick);
+    };
+  }, [familyOpen]);
 
   return (
-    <footer className="border-t border-zinc-200 bg-zinc-50 py-14">
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
+    <footer className="border-t border-zinc-200 bg-zinc-50 pb-12 pt-12 md:pt-16">
+      <div className="mx-auto max-w-[1920px] px-gutter">
         <p className="text-lg font-bold">{brandName}</p>
 
-        <ul className="mt-8 hidden grid-cols-4 gap-8 md:grid">
+        <ul className="mt-8 grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-4 md:gap-8">
           {groups.map((group) => (
             <li key={group.title}>
               <p className="text-sm font-semibold text-zinc-900">{group.title}</p>
               <ul className="mt-3 space-y-2">
                 {group.links.map((link) => (
                   <li key={link.label}>
-                    <a href={link.href} className="text-sm text-zinc-500 transition-colors duration-200 hover:text-zinc-900">{link.label}</a>
+                    <a href={link.href} className="text-sm text-zinc-500 transition-colors duration-200 hover:text-zinc-900">
+                      {link.label}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -36,53 +63,53 @@ export function SiteFooter({ brandName, groups }: { brandName: string; groups: F
           ))}
         </ul>
 
-        <ul className="mt-8 md:hidden">
-          {groups.map((group) => {
-            const isOpen = openGroup === group.title;
-            return (
-              <li key={group.title} className="border-b border-zinc-200">
-                <button
-                  type="button"
-                  className="flex w-full items-center justify-between py-3 text-left text-sm font-semibold"
-                  aria-expanded={isOpen}
-                  onClick={() => setOpenGroup(isOpen ? null : group.title)}
-                >
-                  {group.title}
-                  <span className={`inline-block transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} aria-hidden="true">⌄</span>
-                </button>
-                {isOpen && (
-                  <ul className="space-y-2 pb-4">
-                    {group.links.map((link) => (
-                      <li key={link.label}><a href={link.href} className="text-sm text-zinc-500">{link.label}</a></li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            );
-          })}
-        </ul>
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-zinc-200 pt-8">
+          <div className="flex items-center gap-3">
+            {socialLinks.map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                aria-label={social.label}
+                className="group relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-zinc-200 text-xs font-semibold"
+              >
+                {/* docs/animations.md 7-4: two stacked layers crossfade via opacity, 200ms. */}
+                <span className="absolute inset-0 flex items-center justify-center bg-zinc-100 text-zinc-600 opacity-100 transition-opacity duration-200 group-hover:opacity-0">{social.mark}</span>
+                <span className="absolute inset-0 flex items-center justify-center bg-zinc-900 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">{social.mark}</span>
+              </a>
+            ))}
+          </div>
 
-        <div className="mt-10 flex items-center gap-3 border-t border-zinc-200 pt-8">
-          {socialLinks.map((social) => (
-            <a
-              key={social.label}
-              href={social.href}
-              aria-label={social.label}
-              className="group relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-zinc-200 text-xs font-semibold"
+          <div ref={familyRef} className="relative">
+            <button
+              type="button"
+              aria-expanded={familyOpen}
+              aria-controls="footer-family-sites"
+              className="flex h-10 min-w-44 items-center justify-between gap-6 rounded-md border border-zinc-300 bg-white px-4 text-sm text-zinc-700 transition-colors duration-200 hover:border-zinc-500"
+              onClick={() => setFamilyOpen((value) => !value)}
             >
-              {/* docs/animations.md 7-4: two stacked layers crossfade via opacity, 200ms. */}
-              <span className="absolute inset-0 flex items-center justify-center bg-zinc-100 text-zinc-600 opacity-100 transition-opacity duration-200 group-hover:opacity-0">{social.mark}</span>
-              <span className="absolute inset-0 flex items-center justify-center bg-zinc-900 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">{social.mark}</span>
-            </a>
-          ))}
+              패밀리 사이트
+              <span aria-hidden="true" className={`inline-block transition-transform duration-200 ${familyOpen ? "rotate-180" : ""}`}>⌄</span>
+            </button>
+            {familyOpen && (
+              <ul id="footer-family-sites" className="absolute bottom-full right-0 mb-2 w-full min-w-44 rounded-md border border-zinc-200 bg-white py-2 shadow-lg">
+                {familySites.map((site) => (
+                  <li key={site.label}>
+                    <a href={site.href} className="block px-4 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900">
+                      {site.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
 
         <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-zinc-200 pt-6 text-sm text-zinc-500">
-          <a href="/company/contact" className="hover:text-zinc-900">Contact</a>
-          <a href="/company/partnership" className="hover:text-zinc-900">제휴 제안</a>
-          <a href="#" className="hover:text-zinc-900">이용약관</a>
-          <a href="#" className="hover:text-zinc-900">개인정보 처리방침</a>
-          <span className="ml-auto">© {brandName}</span>
+          <a href="/company/contact" className="transition-colors duration-200 hover:text-zinc-900">Contact</a>
+          <a href="/company/partnership" className="transition-colors duration-200 hover:text-zinc-900">제휴 제안</a>
+          <a href="#" className="transition-colors duration-200 hover:text-zinc-900">이용약관</a>
+          <a href="#" className="font-semibold text-zinc-700 transition-colors duration-200 hover:text-zinc-900">개인정보 처리방침</a>
+          <span className="w-full md:ml-auto md:w-auto">© {brandName}</span>
         </div>
       </div>
     </footer>

@@ -7,7 +7,7 @@ export const metadata = { title: "클라우드 l NOVA" };
 export default async function CloudPage() {
   const content = await getServiceDetail("cloud");
   return (
-    <PageChrome overDarkHero>
+    <PageChrome>
       <ServiceDetailTemplate content={content} />
     </PageChrome>
   );

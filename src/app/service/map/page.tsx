@@ -7,7 +7,7 @@ export const metadata = { title: "지도 l NOVA" };
 export default async function MapPage() {
   const content = await getServiceDetail("map");
   return (
-    <PageChrome overDarkHero>
+    <PageChrome>
       <ServiceDetailTemplate content={content} />
     </PageChrome>
   );

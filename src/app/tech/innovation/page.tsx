@@ -7,7 +7,7 @@ export const metadata = { title: "기술 l NOVA" };
 export default async function InnovationPage() {
   const content = await getSectionLanding("tech");
   return (
-    <PageChrome>
+    <PageChrome headerTheme="dark">
       <SectionLandingPage content={content} />
     </PageChrome>
   );

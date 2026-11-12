@@ -7,7 +7,7 @@ export const metadata = { title: "전체 서비스 l NOVA" };
 export default async function ServiceAllPage() {
   const content = await getServiceDirectory();
   return (
-    <PageChrome>
+    <PageChrome title={content.title}>
       <ServiceDirectoryPage content={content} />
     </PageChrome>
   );

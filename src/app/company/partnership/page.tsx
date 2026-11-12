@@ -7,7 +7,7 @@ export const metadata = { title: "제휴 제안 l NOVA" };
 export default async function PartnershipPage() {
   const content = await getSimpleInfo("partnership");
   return (
-    <PageChrome>
+    <PageChrome title={content.title}>
       <SimpleInfoPage content={content} />
     </PageChrome>
   );

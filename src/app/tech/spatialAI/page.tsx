@@ -7,7 +7,7 @@ export const metadata = { title: "공간지능 l NOVA" };
 export default async function SpatialAIPage() {
   const content = await getFeatureDetail("spatialAI");
   return (
-    <PageChrome overDarkHero>
+    <PageChrome headerTheme="dark">
       <FeatureDetailPage content={content} />
     </PageChrome>
   );

@@ -7,7 +7,7 @@ export const metadata = { title: "검색 l NOVA" };
 export default async function SearchServicePage() {
   const content = await getServiceDetail("search");
   return (
-    <PageChrome overDarkHero>
+    <PageChrome>
       <ServiceDetailTemplate content={content} />
     </PageChrome>
   );

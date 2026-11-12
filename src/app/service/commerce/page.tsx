@@ -7,7 +7,7 @@ export const metadata = { title: "커머스 l NOVA" };
 export default async function CommercePage() {
   const content = await getServiceDetail("commerce");
   return (
-    <PageChrome overDarkHero>
+    <PageChrome>
       <ServiceDetailTemplate content={content} />
     </PageChrome>
   );

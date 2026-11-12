@@ -7,7 +7,7 @@ export const metadata = { title: "Contact l NOVA" };
 export default async function CompanyContactPage() {
   const content = await getSimpleInfo("contact");
   return (
-    <PageChrome>
+    <PageChrome title={content.title}>
       <SimpleInfoPage content={content} />
     </PageChrome>
   );

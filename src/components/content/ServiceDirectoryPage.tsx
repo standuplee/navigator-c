@@ -15,10 +15,9 @@ export function ServiceDirectoryPage({ content }: { content: ServiceDirectoryCon
   }, [content.items, category, sortAlpha]);
 
   return (
-    <main className="mx-auto max-w-7xl px-5 pb-24 pt-28 md:px-8 md:pt-32">
-      <h1 className="text-4xl font-bold tracking-tight md:text-6xl">{content.title}</h1>
+    <main className="mx-auto max-w-7xl px-gutter pb-24 pt-8 md:pt-12">
 
-      <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-b border-zinc-200 pb-4">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-200 pb-4">
         <div role="tablist" aria-label="서비스 카테고리" className="flex flex-wrap gap-2">
           {["전체", ...content.categories].map((item) => (
             <button

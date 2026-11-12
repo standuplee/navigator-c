@@ -7,7 +7,7 @@ export const metadata = { title: "이머시브 미디어 l NOVA" };
 export default async function ImmersiveMediaPage() {
   const content = await getFeatureDetail("immersiveMedia");
   return (
-    <PageChrome overDarkHero>
+    <PageChrome headerTheme="dark">
       <FeatureDetailPage content={content} />
     </PageChrome>
   );

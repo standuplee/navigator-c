@@ -7,7 +7,7 @@ export const metadata = { title: "핀테크 l NOVA" };
 export default async function FintechPage() {
   const content = await getServiceDetail("fintech");
   return (
-    <PageChrome overDarkHero>
+    <PageChrome>
       <ServiceDetailTemplate content={content} />
     </PageChrome>
   );

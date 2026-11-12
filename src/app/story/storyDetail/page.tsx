@@ -12,7 +12,7 @@ export default async function StoryDetailRoute({ searchParams }: { searchParams:
   const { seq } = await searchParams;
   const story = await getStoryDetail(seq);
   return (
-    <PageChrome>
+    <PageChrome headerTheme="transparent">
       <StoryDetailTemplate story={story} />
     </PageChrome>
   );

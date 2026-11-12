@@ -7,7 +7,7 @@ export const metadata = { title: "데이터센터 l NOVA" };
 export default async function DatacenterPage() {
   const content = await getServiceDetail("datacenterGak");
   return (
-    <PageChrome overDarkHero>
+    <PageChrome>
       <ServiceDetailTemplate content={content} />
     </PageChrome>
   );

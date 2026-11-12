@@ -8,7 +8,7 @@ export default async function PressReleasesPage({ searchParams }: { searchParams
   const { keyword = "" } = await searchParams;
   const items = await getPressReleaseList();
   return (
-    <PageChrome>
+    <PageChrome title="보도자료" titleSize="compact">
       <ContentListPage title="보도자료" items={items} initialQuery={keyword} />
     </PageChrome>
   );

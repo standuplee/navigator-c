@@ -7,7 +7,7 @@ export const metadata = { title: "파운데이션 모델 l NOVA" };
 export default async function FoundationModelPage() {
   const content = await getFeatureDetail("foundationModel");
   return (
-    <PageChrome overDarkHero>
+    <PageChrome headerTheme="dark">
       <FeatureDetailPage content={content} />
     </PageChrome>
   );
