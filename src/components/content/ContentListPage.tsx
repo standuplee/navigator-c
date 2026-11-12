@@ -170,7 +170,7 @@ export function ContentListPage({
       </section>
 
       {quickLinks && quickLinks.length > 0 && (
-        <section aria-label="바로가기" className="mx-auto max-w-[1280px] px-gutter py-10">
+        <section aria-label="바로가기" className="mx-auto max-w-[1280px] px-gutter pb-8 pt-20 xl:pt-[121px]">
           <ul className="grid gap-4 md:grid-cols-3 md:gap-6">
             {quickLinks.map((link) => (
               <li key={link.title}>

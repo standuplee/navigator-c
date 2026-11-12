@@ -10,11 +10,12 @@ function inline(text: string): ReactNode[] {
 }
 
 /** Tiny markdown-ish renderer for story bodies (docs/DATABASE_PLAN.md keeps the
- * Markdown source authoritative). No external deps. */
+ * Markdown source authoritative). Block spacing uses flex gap: the global reference.css
+ * zeroes the margins that space-y relies on. No external deps. */
 export function MarkdownRenderer({ markdown }: { markdown: string }) {
   const blocks = markdown.trim().split(/\n{2,}/);
   return (
-    <div className="space-y-4 text-base leading-relaxed text-zinc-700 [&_a]:text-zinc-900 [&_a]:underline [&_blockquote]:border-l-4 [&_blockquote]:border-zinc-300 [&_blockquote]:pl-4 [&_blockquote]:italic [&_h1]:text-3xl [&_h1]:font-bold [&_h1]:text-zinc-900 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-zinc-900 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-zinc-900 [&_li]:ml-1 [&_ul]:list-disc [&_ul]:pl-5">
+    <div className="flex flex-col gap-4 text-base leading-relaxed text-zinc-700 [&_a]:text-zinc-900 [&_a]:underline [&_blockquote]:border-l-4 [&_blockquote]:border-zinc-300 [&_blockquote]:pl-4 [&_blockquote]:italic [&_h1]:text-3xl [&_h1]:font-bold [&_h1]:text-zinc-900 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-zinc-900 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-zinc-900 [&_li]:ml-1 [&_ul]:list-disc [&_ul]:pl-5">
       {blocks.map((block, index) => {
         const lines = block.split("\n");
         if (/^#{1,4} /.test(lines[0])) {

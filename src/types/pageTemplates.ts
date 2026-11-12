@@ -122,7 +122,10 @@ export type PartnershipContent = {
 };
 
 /** `service-directory` (docs/routes.md): category tabs + A-Z toggle over a link grid. */
-export type ServiceDirectoryItem = { name: string; category: string; href: string };
+/** One directory row (future Payload collection `services`). `href` is the in-site detail
+ * page when there is one; `links` are the outbound shortcuts shown as icon buttons. */
+export type ServiceDirectoryLink = { kind: "home" | "app"; href: string };
+export type ServiceDirectoryItem = { name: string; category: string; href: string; links?: ServiceDirectoryLink[] };
 export type ServiceDirectoryContent = {
   title: string;
   categories: string[];

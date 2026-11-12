@@ -3,7 +3,8 @@ import { MediaSlot } from "../blocks/MediaSlot";
 import { Reveal } from "../blocks/Reveal";
 
 /** Featured items after the landing hero (reference /service/featuredServices: four items,
- * one column, each with a video; text stays pinned beside the video on desktop). */
+ * one column, each with a video; text stays pinned beside the video on desktop). Video 4:5,
+ * except 16:10 on tablet where it spans the full column. */
 export function FeaturedList({ items }: { items: LandingFeaturedItem[] }) {
   return (
     <div className="mx-auto max-w-[1280px] px-gutter py-16 xl:py-24">
@@ -23,7 +24,7 @@ export function FeaturedList({ items }: { items: LandingFeaturedItem[] }) {
             </Reveal>
           </div>
           <Reveal delay={0.1}>
-            <MediaSlot kind={item.media?.kind ?? "video"} src={item.media?.src} label={item.media?.label ?? item.title} ratio="4/5" className="rounded-3xl" />
+            <MediaSlot kind={item.media?.kind ?? "video"} src={item.media?.src} label={item.media?.label ?? item.title} className="aspect-[4/5] rounded-3xl md:aspect-[16/10] lg:aspect-[4/5]" />
           </Reveal>
         </section>
       ))}
