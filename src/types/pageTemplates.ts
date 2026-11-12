@@ -69,19 +69,6 @@ export type ArticleContent = {
   imageCount: number;
 };
 
-/** `feature-detail-with-related` (docs/routes.md): hero + variant cards + product
- * links + a related-content carousel. Used by /tech/* detail pages, /media/aiInNaver. */
-export type FeatureVariant = { name: string; description: string };
-export type FeatureProduct = { title: string; description: string; href: string };
-export type FeatureDetailContent = {
-  eyebrow: string;
-  title: string;
-  description: string;
-  variants: FeatureVariant[];
-  products: FeatureProduct[];
-  related: NewsCardItem[];
-};
-
 /** `tech-detail` (docs/PRD-navercorp-ui-parity.md §7.3): dark page — title + key copy + video
  * card, anchor-nav sections of image/text rows, contained CTA card, related carousel. */
 export type TechItem = { title: string; description: string; image?: ServiceMedia; links?: ServiceLink[] };
@@ -138,12 +125,6 @@ export type ServiceDirectoryContent = {
 export type TimelineEvent = { year: string; month?: string; title: string; description?: string };
 export type TimelineTab = { id: string; label: string; events: TimelineEvent[] };
 export type TimelineContent = { title: string; tabs: TimelineTab[] };
-
-/** `simple-info` (docs/routes.md): static content, no list/filter/pagination.
- * Used by /company/contact, /company/brandGuide, /company/affiliates, /company/partnership. */
-export type SimpleInfoCard = { title: string; description: string };
-export type SimpleInfoSection = { heading: string; body?: string; cards?: SimpleInfoCard[]; links?: { label: string; href: string }[] };
-export type SimpleInfoContent = { title: string; intro?: string; sections: SimpleInfoSection[] };
 
 /** `simple-table-list` (docs/routes.md): plain date/title rows, no filter/pagination.
  * Used by /media/mediaEvents. */
