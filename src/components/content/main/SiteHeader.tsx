@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { NavMenuItem } from "@/types/mainTemplate";
 import { MobileNav } from "./MobileNav";
@@ -96,7 +97,7 @@ export function SiteHeader({
         }`}
       >
         <div className={`mx-auto flex max-w-[1920px] items-center justify-between px-gutter transition-[height] duration-400 ease-smooth ${height}`}>
-          <a href="/" className={`text-lg font-bold tracking-tight ${t.text}`}>{brandName}</a>
+          <Link href="/" className={`text-lg font-bold tracking-tight ${t.text}`}>{brandName}</Link>
 
           <nav className="hidden lg:block" aria-label="주요 메뉴">
             <ul className="flex items-center gap-1">
