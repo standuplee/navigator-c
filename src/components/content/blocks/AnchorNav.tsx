@@ -69,6 +69,7 @@ export function AnchorSection({ items, children, tone = "light", label = "페이
   const activeLabel = items.find((item) => item.id === active)?.label ?? items[0]?.label;
   const bar = dark ? "bg-ink-dark-bg/95 text-white shadow-[0_1px_0_0_rgb(255_255_255/0.1)]" : "bg-white/95 text-ink shadow-[0_1px_0_0_rgb(228_228_231)]";
   const muted = dark ? "text-white/50 hover:text-white" : "text-zinc-500 hover:text-ink";
+  const current = dark ? "font-bold text-white" : "font-bold text-ink";
 
   return (
     <div ref={rootRef} data-anchor-root className="relative">
@@ -92,7 +93,7 @@ export function AnchorSection({ items, children, tone = "light", label = "페이
                   event.preventDefault();
                   go(item.id);
                 }}
-                className={`whitespace-nowrap text-base transition-colors duration-200 ease-smooth ${active === item.id ? "font-bold" : muted}`}
+                className={`whitespace-nowrap text-base transition-colors duration-200 ease-smooth ${active === item.id ? current : muted}`}
               >
                 {item.label}
               </a>
@@ -102,7 +103,7 @@ export function AnchorSection({ items, children, tone = "light", label = "페이
 
         {/* <768: current section + dropdown */}
         <div className="flex h-full items-center px-gutter md:hidden">
-          <button type="button" aria-expanded={open} aria-controls="anchor-nav-list" onClick={() => setOpen((value) => !value)} className="flex w-full items-center justify-between text-base font-bold">
+          <button type="button" aria-expanded={open} aria-controls="anchor-nav-list" onClick={() => setOpen((value) => !value)} className={`flex w-full items-center justify-between text-base ${current}`}>
             {activeLabel}
             <span aria-hidden="true" className={`inline-block transition-transform duration-200 ease-smooth ${open ? "rotate-180" : ""}`}>⌄</span>
           </button>
@@ -126,7 +127,7 @@ export function AnchorSection({ items, children, tone = "light", label = "페이
                   event.preventDefault();
                   go(item.id);
                 }}
-                className={`block py-3 text-base ${active === item.id ? "font-bold" : muted}`}
+                className={`block py-3 text-base ${active === item.id ? current : muted}`}
               >
                 {item.label}
               </a>
