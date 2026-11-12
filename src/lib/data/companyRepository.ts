@@ -1,4 +1,5 @@
 import { narrative } from "@/features/main-template/narrative";
+import { aboutStory } from "@/features/main-template/aboutStory";
 import { timeline } from "@/features/main-template/timeline";
 import { simpleInfoPages } from "@/features/main-template/simpleInfo";
 import { affiliates, contact, partnership } from "@/features/main-template/companyInfo";
@@ -41,4 +42,8 @@ export async function getGallery() {
 
 export async function getBrandResourcesTabs() {
   return brandResourcesTabs;
+}
+
+export async function getAboutStory() {
+  return aboutStory;
 }

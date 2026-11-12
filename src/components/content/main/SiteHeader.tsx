@@ -4,11 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import type { NavMenuItem } from "@/types/mainTemplate";
 import { MobileNav } from "./MobileNav";
 
-export type HeaderTheme = "white" | "transparent" | "dark";
+export type HeaderTheme = "white" | "transparent" | "dark" | "transparent-dark";
 
 /** Per-theme classes. `transparent` turns white once the page scrolls (scrolled: variant,
  * driven by ScrollState) — used on the about page and article detail pages. `dark` is the
- * tech section look (PRD §4.7, §6.1). */
+ * tech section look; `transparent-dark` (about story) stays white-on-dark and only gains a
+ * translucent dark bar once scrolled (PRD §4.7, §6.1). */
 const THEMES: Record<HeaderTheme, { bar: string; text: string; hover: string; panelOffset: string }> = {
   white: {
     bar: "bg-white shadow-[0_1px_0_0_rgb(228_228_231)]",
@@ -24,6 +25,12 @@ const THEMES: Record<HeaderTheme, { bar: string; text: string; hover: string; pa
   },
   dark: {
     bar: "bg-ink-dark-bg shadow-[0_1px_0_0_rgb(255_255_255/0.1)]",
+    text: "text-white",
+    hover: "hover:bg-white/10 focus-visible:bg-white/10",
+    panelOffset: "",
+  },
+  "transparent-dark": {
+    bar: "bg-transparent scrolled:bg-ink-dark-bg/90 scrolled:shadow-[0_1px_0_0_rgb(255_255_255/0.1)] scrolled:backdrop-blur",
     text: "text-white",
     hover: "hover:bg-white/10 focus-visible:bg-white/10",
     panelOffset: "",

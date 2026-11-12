@@ -27,18 +27,15 @@
 
   --color-ink: #1a1d24;
   --color-ink-dark-bg: rgb(10 13 18);
+  /* story highlight colour (reference uses its brand green; ours is a neutral placeholder) */
+  --color-accent: #5eead4;
 
   --animate-nudge-down: nudge-down 1.6s var(--ease-arrow) infinite;
   --animate-nudge-x: nudge-x 1.6s var(--ease-arrow) infinite;
 
   @keyframes nudge-down { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
   @keyframes nudge-x { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
-  @keyframes fade-in {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: none; }
-}
-
-@keyframes carousel-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes carousel-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 }
 
 /* Layout measurements shared by header, title band, anchor nav (PRD §3.3). */
@@ -395,4 +392,11 @@ html body { opacity: 1 !important; }
   .service-card__content { grid-column: 2; }
   .service-cards__heading { padding-inline: 20px; }
   .service-all { padding: 90px 20px 180px; }
+}
+
+/* Used through arbitrary animate-[fade-in_…] values (consent dialog, about hero), so it lives
+ * outside @theme where Tailwind would only emit it for an --animate-* token. */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
 }

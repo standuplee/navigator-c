@@ -193,3 +193,29 @@ export type PolicyBlock =
   | { type: "table"; columns: string[]; rows: string[][] };
 export type PolicyVersion = { seq: string; title: string; date: string; effectiveDate?: string; blocks: PolicyBlock[] };
 export type PolicyContent = { title: string; listTitle: string; note?: string; versions: PolicyVersion[] };
+
+/** /company/about scroll story (PRD §7.5, future Payload global `about-page`).
+ * Mirrors the reference sequence: video hero → highlight statement → three chapters
+ * (timeline cards / lineup panels / card groups) → extending ending statement → info. */
+export type AboutCopy = { lead: string; highlight: string; tail: string };
+export type AboutTimelineCard = { year: string; title: string; description: string; image?: string };
+export type AboutLineupItem = { year: string; title: string; description: string };
+export type AboutLineupPanel = {
+  label: string;
+  title: string;
+  image?: string;
+  items: AboutLineupItem[];
+  feature?: AboutLineupItem & { image?: string };
+};
+export type AboutCardGroup = { title: string; description: string; cards: { eyebrow: string; title: string; image?: string }[] };
+export type AboutChapter =
+  | { id: string; copy: AboutCopy; kind: "timeline"; cards: AboutTimelineCard[] }
+  | { id: string; copy: AboutCopy; kind: "lineup"; panels: AboutLineupPanel[] }
+  | { id: string; copy: AboutCopy; kind: "groups"; groups: AboutCardGroup[] };
+export type AboutStoryContent = {
+  hero: { text: string; video?: string; poster?: string };
+  intro: { lead: string; statement: string };
+  chapters: AboutChapter[];
+  ending: { lead: string; before: string; after: string; highlight: string; tail: string };
+  info: { image?: string; logoText: string; items: { label: string; value: string }[] };
+};
