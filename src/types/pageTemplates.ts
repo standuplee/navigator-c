@@ -16,14 +16,42 @@ export type SectionLandingContent = {
   ctaHref: string;
 };
 
-export type ServiceDetailSection = { title: string; body: string };
-export type ServiceDetailContent = {
-  eyebrow: string;
+/** `service-detail` v2 (docs/PRD-navercorp-ui-parity.md §7.1, §11).
+ * Shape doubles as the future Payload blocks schema. */
+export type ServiceLink = { label: string; href: string };
+export type ServiceMedia = { src?: string; label?: string };
+export type ServiceHero =
+  | { variant: "icon-grid"; title: string; description: string; icons: string[] }
+  | { variant: "fullscreen"; title: string; description: string; media?: ServiceMedia & { kind?: "image" | "video" } };
+export type ServiceDetailItem = { title: string; description: string; image?: ServiceMedia };
+export type ServiceProduct = {
+  id: string;
   title: string;
   description: string;
-  introTitle: string;
-  introDescription: string;
-  sections: ServiceDetailSection[];
+  links?: ServiceLink[];
+  /** Visual slots: one slide in the desktop sticky column / one slider page on mobile per entry. */
+  images: ServiceMedia[];
+  /** "세부 서비스" list under the description. */
+  detailServices?: { title: string; description: string }[];
+  /** Card grid (e.g. ad products, data-center features) — used by the stacked layout. */
+  items?: ServiceDetailItem[];
+};
+export type GrowTogether = {
+  title: string;
+  banner?: { title: string; text: string; href: string; image?: ServiceMedia };
+  groups: { title: string; text: string; cards: { title: string; text: string; href: string }[] }[];
+};
+export type ServiceDetailContent = {
+  /** Page name used for the hero title and metadata. */
+  title: string;
+  hero: ServiceHero;
+  /** sticky-visual: desktop left sticky image column + right product sections (most pages).
+   *  stacked: full-width sections with card grids (advertisement, cloud, data center, 1784). */
+  layout: "sticky-visual" | "stacked";
+  products: ServiceProduct[];
+  growTogether?: GrowTogether;
+  cta?: { title: string; description?: string; href: string; ctaLabel?: string };
+  related: { id: string; title: string; href: string; date?: string; category?: string }[];
 };
 
 export type ArticleContent = {
