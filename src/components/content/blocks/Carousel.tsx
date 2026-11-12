@@ -45,6 +45,7 @@ export function Carousel({
   className = "",
   onSlideChange,
   renderArrows,
+  arrowsAfter = false,
 }: {
   preset: CarouselPreset;
   children: ReactNode;
@@ -53,6 +54,8 @@ export function Carousel({
   className?: string;
   onSlideChange?: (index: number) => void;
   renderArrows?: (api: CarouselApi) => ReactNode;
+  /** Render the arrows under the slides (reference media banners) instead of above. */
+  arrowsAfter?: boolean;
 }) {
   const config = CAROUSEL_PRESETS[preset];
   const reduced = useReducedMotion();
@@ -89,7 +92,7 @@ export function Carousel({
 
   return (
     <div ref={rootRef} className={className} role="region" aria-roledescription="carousel" aria-label={label}>
-      {renderArrows?.(api)}
+      {!arrowsAfter && renderArrows?.(api)}
       <Swiper
         modules={[A11y, Autoplay, EffectFade, FreeMode, Keyboard]}
         effect={config.effect}
@@ -120,6 +123,7 @@ export function Carousel({
           </SwiperSlide>
         ))}
       </Swiper>
+      {arrowsAfter && renderArrows?.(api)}
 
       {(config.bullets || autoplayOn) && slides.length > 1 && (
         <div className="mt-4 flex items-center gap-3">

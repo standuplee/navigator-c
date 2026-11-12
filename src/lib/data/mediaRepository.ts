@@ -77,3 +77,22 @@ export async function getMediaEvents() {
 export async function getNaverReportsList() {
   return naverReportsList;
 }
+
+/** Report detail (PRD §7.9). Mock: builds a neutral article from the list entry until
+ * reports move to the CMS. */
+export async function getNaverReport(seq?: string): Promise<ArticleDetail & { tags: string[] }> {
+  const item = naverReportsList.find((report) => report.id === seq) ?? naverReportsList[0];
+  return {
+    category: item.category,
+    title: item.title,
+    date: item.date,
+    publishedAt: item.date,
+    tags: item.tags ?? [],
+    images: [{ src: "", alt: "리포트 표지", caption: "" }],
+    paragraphs: [
+      "리포트의 배경과 목적을 소개하는 첫 문단 자리입니다.",
+      "주요 발견과 수치를 요약하는 문단 자리입니다. 실제 리포트 내용은 어드민에서 입력합니다.",
+      "리포트 원문은 아래 다운로드 버튼으로 내려받을 수 있습니다.",
+    ],
+  };
+}

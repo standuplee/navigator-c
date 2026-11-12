@@ -1,103 +1,191 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import type { NewsCardItem } from "@/types/mainTemplate";
-import { PlaceholderVisual } from "./main/PlaceholderVisual";
+import { Carousel, CarouselArrows } from "./blocks/Carousel";
+import { MediaSlot } from "./blocks/MediaSlot";
+import { Pagination } from "./blocks/Pagination";
 
-const PAGE_SIZE = 8;
+const PAGE_SIZE = 12;
 
-/** `content-list-filter-pagination` template (docs/routes.md): heading + featured
- * carousel + year/month filter + search + paginated card grid.
- * Used by /media/pressReleases (and reusable for /media/naverReports later). */
-export function ContentListPage({ title, items, initialQuery = "" }: { title: string; items: NewsCardItem[]; initialQuery?: string }) {
-  const [featuredIndex, setFeaturedIndex] = useState(0);
-  const [year, setYear] = useState("전체 연도");
-  const [month, setMonth] = useState("전체 월");
-  const [query, setQuery] = useState(initialQuery);
-  const [page, setPage] = useState(1);
+export type ContentListQuery = { keyword?: string; page?: string; year?: string; month?: string };
+export type QuickLink = { title: string; text: string; href: string };
+
+/** `content-list` v2 (docs/PRD-navercorp-ui-parity.md §7.7) — /media/pressReleases, /media/naverReports.
+ * - Featured banner: up to nine cards (379×492 desktop / 276 wide mobile) with arrows below.
+ * - Sticky filter bar: year + month selects (20px / 18px), search box (238×44, full width on mobile).
+ * - One-column list on every screen size: date | title (20px) | 278×186 thumbnail on desktop,
+ *   date + title only on mobile; rows separated by rules; desktop-only thumbnail zoom.
+ * - URL state: ?keyword= ?year= ?month= ?page= (shareable, back-button friendly).
+ * - Optional quick links (three cards). */
+export function ContentListPage({
+  title,
+  items,
+  query = {},
+  searchPlaceholder,
+  quickLinks,
+}: {
+  title: string;
+  items: NewsCardItem[];
+  query?: ContentListQuery;
+  searchPlaceholder?: string;
+  quickLinks?: QuickLink[];
+}) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const [draft, setDraft] = useState(query.keyword ?? "");
+  const keyword = query.keyword ?? "";
+  const year = query.year ?? "";
+  const month = query.month ?? "";
+  const page = Math.max(1, Number(query.page) || 1);
 
   const years = useMemo(() => Array.from(new Set(items.map((item) => item.date.slice(0, 4)))).sort().reverse(), [items]);
   const filtered = useMemo(
     () =>
-      items.filter(
-        (item) =>
-          (!query || item.title.toLowerCase().includes(query.toLowerCase()) || item.tags?.some((tag) => tag.toLowerCase().includes(query.toLowerCase()))) &&
-          (year === "전체 연도" || item.date.startsWith(year)) &&
-          (month === "전체 월" || item.date.slice(5, 7) === month)
-      ),
-    [items, query, year, month]
+      items.filter((item) => {
+        if (year && !item.date.startsWith(year)) return false;
+        if (month && item.date.slice(5, 7) !== month.padStart(2, "0")) return false;
+        if (keyword && !`${item.title} ${(item.tags ?? []).join(" ")}`.toLowerCase().includes(keyword.toLowerCase())) return false;
+        return true;
+      }),
+    [items, year, month, keyword],
   );
-  const pages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const total = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const visible = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
-  const featured = items.slice(0, 6);
-  const current = featured[featuredIndex];
+  const build = (next: ContentListQuery) => {
+    const params = new URLSearchParams();
+    const merged = { keyword, year, month, ...next };
+    Object.entries(merged).forEach(([key, value]) => value && params.set(key, String(value)));
+    const qs = params.toString();
+    return qs ? `${pathname}?${qs}` : pathname;
+  };
+  const go = (next: ContentListQuery) => router.replace(build({ ...next, page: undefined }), { scroll: false });
+
+  const select = "appearance-none bg-transparent pr-6 text-lg font-bold text-ink outline-offset-4 md:text-xl";
 
   return (
-    <main className="mx-auto max-w-7xl px-gutter pb-24 pt-0" aria-label={title}>
-
-      {current && (
-        <section className="mt-12 grid items-stretch gap-6 md:grid-cols-[96px_1fr_72px]" aria-label="주요 소식">
-          <div className="hidden flex-col justify-between md:flex">
-            <span className="text-sm font-medium text-zinc-500">주요 소식</span>
-            <strong className="text-3xl font-bold text-zinc-300">{String(featuredIndex + 1).padStart(2, "0")}</strong>
-          </div>
-          <a href={current.href} className="group relative block aspect-[16/7] overflow-hidden rounded-3xl">
-            <PlaceholderVisual label="주요 소식 비주얼" tone={current.tone} className="absolute inset-0 h-full w-full transition-transform duration-200 min-[1024px]:group-hover:scale-105 motion-reduce:scale-100!" />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
-              <time className="text-sm text-white/80">{current.date}</time>
-              <p className="mt-1 text-xl font-semibold leading-snug">{current.title}</p>
-            </div>
-          </a>
-          <div className="flex gap-2 md:flex-col md:justify-center">
-            <button type="button" aria-label="이전 소식" disabled={featuredIndex === 0} className="flex-1 rounded-full border border-zinc-200 py-2 text-sm disabled:opacity-30" onClick={() => setFeaturedIndex((value) => Math.max(0, value - 1))}>↑</button>
-            <button type="button" aria-label="다음 소식" disabled={featuredIndex === featured.length - 1} className="flex-1 rounded-full border border-zinc-200 py-2 text-sm disabled:opacity-30" onClick={() => setFeaturedIndex((value) => Math.min(featured.length - 1, value + 1))}>↓</button>
-          </div>
+    <main className="pb-16" aria-label={title}>
+      {items.length > 0 && (
+        <section aria-label="주요 소식" className="mx-auto max-w-[1280px] px-gutter pb-16 xl:pb-20">
+          <Carousel
+            preset="banner"
+            label={`${title} 주요 소식`}
+            slideClassName="!w-[276px] md:!w-[320px] xl:!w-[379px]"
+            arrowsAfter
+            renderArrows={(api) => <CarouselArrows api={api} className="mt-6 justify-end" />}
+          >
+            {items.slice(0, 9).map((item) => (
+              <a key={item.id} href={item.href} className="group block overflow-hidden rounded-2xl bg-zinc-100">
+                <MediaSlot label={item.category} ratio="379/252" mediaClassName="transition-transform duration-200 ease-smooth can-hover:group-hover:scale-[1.08]" />
+                <div className="flex h-[220px] flex-col p-5 xl:h-[240px] xl:p-6">
+                  <time className="text-xs text-zinc-500">{item.date}</time>
+                  <p className="mt-2 line-clamp-3 text-base font-bold leading-snug xl:text-lg">{item.title}</p>
+                  {item.tags && item.tags.length > 0 && (
+                    <p className="mt-auto flex flex-wrap gap-x-3 text-sm text-zinc-500">
+                      {item.tags.map((tag) => (
+                        <span key={tag}>#{tag}</span>
+                      ))}
+                    </p>
+                  )}
+                </div>
+              </a>
+            ))}
+          </Carousel>
         </section>
       )}
 
-      <div className="mt-16 flex flex-wrap items-center gap-3 border-y border-zinc-200 py-4">
-        <select aria-label="연도" value={year} onChange={(event) => { setYear(event.target.value); setPage(1); }} className="rounded-full border border-zinc-200 px-3 py-1.5 text-sm">
-          <option>전체 연도</option>
-          {years.map((y) => <option key={y}>{y}</option>)}
-        </select>
-        <select aria-label="월" value={month} onChange={(event) => { setMonth(event.target.value); setPage(1); }} disabled={year === "전체 연도"} className="rounded-full border border-zinc-200 px-3 py-1.5 text-sm disabled:opacity-40">
-          <option>전체 월</option>
-          {Array.from({ length: 12 }, (_, i) => <option key={i}>{String(i + 1).padStart(2, "0")}</option>)}
-        </select>
-        <form role="search" className="ml-auto flex items-center gap-2" onSubmit={(event) => event.preventDefault()}>
-          <input aria-label="검색" value={query} onChange={(event) => { setQuery(event.target.value); setPage(1); }} placeholder="검색" className="rounded-full border border-zinc-200 px-4 py-1.5 text-sm" />
-        </form>
-      </div>
-
-      <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {visible.map((item) => (
-          <a key={item.id} href={item.href} className="group overflow-hidden rounded-2xl border border-zinc-200">
-            <div className="relative aspect-[4/3] overflow-hidden">
-              <PlaceholderVisual label="썸네일" tone="light" className="absolute inset-0 h-full w-full transition-transform duration-200 min-[1024px]:group-hover:scale-105 motion-reduce:scale-100!" />
-            </div>
-            <div className="p-4">
-              <time className="text-xs text-zinc-500">{item.date}</time>
-              <p className="mt-1 text-sm font-semibold leading-snug">{item.title}</p>
-            </div>
-          </a>
-        ))}
-      </div>
-      {!visible.length && <p className="mt-8 text-center text-zinc-500">검색 결과가 없습니다.</p>}
-
-      <nav aria-label="페이지네이션" className="mt-10 flex justify-center gap-1">
-        {Array.from({ length: pages }, (_, i) => (
-          <button
-            key={i + 1}
-            type="button"
-            aria-current={page === i + 1 ? "page" : undefined}
-            className={`h-9 w-9 rounded-full text-sm font-medium ${page === i + 1 ? "bg-zinc-900 text-white" : "text-zinc-600 hover:bg-zinc-100"}`}
-            onClick={() => setPage(i + 1)}
+      <section className="mx-auto max-w-[1280px] px-gutter" aria-label={`${title} 목록`}>
+        <div className="sticky top-[var(--header-h)] z-20 flex flex-col gap-3 border-b border-ink bg-white py-3 transition-[top] duration-400 ease-smooth scroll-down:top-0 md:flex-row md:items-center md:justify-between">
+          <div className="flex items-center gap-6">
+            <label className="relative">
+              <span className="sr-only">연도</span>
+              <select className={select} value={year} onChange={(event) => go({ year: event.target.value, month: event.target.value ? month : "" })}>
+                <option value="">전체 연도</option>
+                {years.map((value) => (
+                  <option key={value} value={value}>{value}년</option>
+                ))}
+              </select>
+              <span aria-hidden="true" className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 text-sm">⌄</span>
+            </label>
+            <label className="relative">
+              <span className="sr-only">월</span>
+              <select className={select} value={month} onChange={(event) => go({ month: event.target.value })}>
+                <option value="">전체 월</option>
+                {Array.from({ length: 12 }, (_, index) => String(index + 1)).map((value) => (
+                  <option key={value} value={value}>{value}월</option>
+                ))}
+              </select>
+              <span aria-hidden="true" className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 text-sm">⌄</span>
+            </label>
+          </div>
+          <form
+            role="search"
+            className="flex h-11 w-full items-center rounded-lg bg-zinc-100 pl-4 md:w-[238px]"
+            onSubmit={(event) => {
+              event.preventDefault();
+              go({ keyword: draft.trim() });
+            }}
           >
-            {i + 1}
-          </button>
-        ))}
-      </nav>
+            <input
+              value={draft}
+              onChange={(event) => setDraft(event.target.value)}
+              placeholder={searchPlaceholder ?? `${title} 검색`}
+              aria-label={searchPlaceholder ?? `${title} 검색`}
+              className="min-w-0 flex-1 bg-transparent text-sm outline-none"
+            />
+            <button type="submit" aria-label="검색" className="grid size-9 place-items-center">
+              <span aria-hidden="true">⌕</span>
+            </button>
+          </form>
+        </div>
+
+        {keyword && (
+          <p className="pt-6 text-sm text-zinc-600">
+            ‘{keyword}’ 검색 결과 {filtered.length}건{" "}
+            <a href={build({ keyword: "" })} className="ml-2 underline">전체 보기</a>
+          </p>
+        )}
+
+        {visible.length ? (
+          <ul>
+            {visible.map((item) => (
+              <li key={item.id} className="border-b border-zinc-200">
+                <a href={item.href} className="group flex min-h-[144px] items-center gap-6 py-5 md:min-h-[200px] xl:min-h-[250px] xl:gap-8 xl:py-8">
+                  <div className="flex min-w-0 flex-1 flex-col gap-2 md:flex-row md:gap-8">
+                    <time className="shrink-0 text-sm text-zinc-500 md:w-40 md:text-base xl:w-52">{item.date}</time>
+                    <p className="line-clamp-2 text-base font-bold leading-snug group-hover:underline md:text-lg xl:max-w-[480px] xl:text-xl">{item.title}</p>
+                  </div>
+                  <MediaSlot label={item.category} className="hidden aspect-[278/186] w-[200px] shrink-0 rounded-xl md:block xl:w-[278px]" mediaClassName="transition-transform duration-200 ease-smooth can-hover:group-hover:scale-[1.08]" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="py-24 text-center text-zinc-500">검색 결과가 없습니다.</p>
+        )}
+
+        <Pagination current={Math.min(page, total)} total={total} hrefFor={(value) => build({ page: String(value) })} />
+      </section>
+
+      {quickLinks && quickLinks.length > 0 && (
+        <section aria-label="바로가기" className="mx-auto max-w-[1280px] px-gutter py-10">
+          <ul className="grid gap-4 md:grid-cols-3 md:gap-6">
+            {quickLinks.map((link) => (
+              <li key={link.title}>
+                <a href={link.href} className="group flex h-[160px] flex-col justify-between rounded-2xl bg-zinc-100 p-6 transition-colors duration-200 hover:bg-zinc-200 xl:h-[192px] xl:p-8">
+                  <div>
+                    <p className="text-lg font-bold xl:text-xl">{link.title}</p>
+                    <p className="mt-1 text-sm text-zinc-600">{link.text}</p>
+                  </div>
+                  <span aria-hidden="true" className="self-end motion-safe:can-hover:group-hover:animate-nudge-x">→</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </main>
   );
 }
