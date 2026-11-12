@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { SectionLandingContent } from "@/types/pageTemplates";
 import { PlaceholderVisual } from "./main/PlaceholderVisual";
+import { CtaBanner } from "./blocks/CtaBanner";
 
 /** `section-landing` template (docs/routes.md): hero + intro statement + tabbed
  * feature card grid + closing CTA. Used by /service/featuredServices, /tech/innovation. */
@@ -11,7 +12,7 @@ export function SectionLandingPage({ content }: { content: SectionLandingContent
   const tab = content.tabs[activeTab];
 
   return (
-    <main className="pb-24 pt-28 md:pt-32">
+    <main className="pt-28 md:pt-32">
       <section className="mx-auto max-w-5xl px-5 text-center md:px-8">
         <p className="text-sm font-medium text-zinc-500">{content.heroEyebrow}</p>
         <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-6xl">{content.heroTitle}</h1>
@@ -62,13 +63,9 @@ export function SectionLandingPage({ content }: { content: SectionLandingContent
         </div>
       </section>
 
-      <section className="mx-auto mt-24 max-w-3xl px-5 text-center md:px-8">
-        <h2 className="text-2xl font-bold">{content.ctaTitle}</h2>
-        <p className="mt-3 text-zinc-600">{content.ctaDescription}</p>
-        <a href={content.ctaHref} className="mt-6 inline-flex items-center rounded-full bg-zinc-900 px-6 py-3 text-sm font-semibold text-white hover:bg-zinc-800">
-          전체 서비스 보러가기
-        </a>
-      </section>
+      <div className="mt-24">
+        <CtaBanner title={content.ctaTitle} description={content.ctaDescription} href={content.ctaHref} ctaLabel="자세히 보기" />
+      </div>
     </main>
   );
 }

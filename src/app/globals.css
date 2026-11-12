@@ -33,6 +33,7 @@
 
   @keyframes nudge-down { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
   @keyframes nudge-x { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
+  @keyframes carousel-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 }
 
 /* Layout measurements shared by header, title band, anchor nav (PRD §3.3). */
@@ -48,6 +49,10 @@
 @custom-variant scrolled (html[data-scrolled="true"] &);
 @custom-variant scroll-down (html[data-scroll-dir="down"] &);
 @custom-variant scroll-up (html[data-scroll-dir="up"] &);
+
+/* Hover effects only where a real pointer hovers and the layout is desktop (>=1024),
+   matching the reference, which strips card hover transitions at <=1023px (PRD §6.7). */
+@custom-variant can-hover (@media (hover: hover) and (width >= 1024px));
 
 /* Typography scale: mobile / tablet (>=768) / desktop (>=1280) (PRD §3.2). */
 @utility text-page-title {
