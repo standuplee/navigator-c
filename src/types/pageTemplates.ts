@@ -143,7 +143,9 @@ export type NarrativeContent = {
 };
 
 /** `timeline-list` (docs/routes.md): tab-scoped year/event list. Used by /company/history. */
-export type TimelineEvent = { year: string; title: string; description?: string };
+/** One history entry. `month` ("06월") is optional; events with the same year are grouped
+ * under one year heading (reference: year column 403px | month 120px + title). */
+export type TimelineEvent = { year: string; month?: string; title: string; description?: string };
 export type TimelineTab = { id: string; label: string; events: TimelineEvent[] };
 export type TimelineContent = { title: string; tabs: TimelineTab[] };
 
@@ -159,3 +161,25 @@ export type SimpleTableRow = { date: string; title: string; href?: string };
 export type SimpleTableListContent = { title: string; rows: SimpleTableRow[] };
 
 export type { NewsCardItem };
+
+/** Brand resources / gallery (PRD §7.6, future Payload global `brand-resources`).
+ * Page = section groups (h2 32px band) → items laid out as title column (404px: name,
+ * text, optional download) | content column (780px) holding one visual block. */
+export type ResourceTile = { label: string; caption?: string; tone?: "light" | "dark" | "brand"; wide?: boolean; src?: string };
+export type ResourceSwatch = { name: string; hex: string; rgb?: string; cmyk?: string; textTone?: "light" | "dark" };
+export type ResourceVisual =
+  | { kind: "tiles"; tiles: ResourceTile[]; note?: string }
+  | { kind: "swatches"; swatches: ResourceSwatch[] }
+  | { kind: "bans"; items: { caption: string; src?: string }[] }
+  | { kind: "photos"; photos: { alt: string; src?: string; downloadHref?: string }[] };
+export type ResourceItem = {
+  id: string;
+  title: string;
+  subTitle?: string;
+  text: string;
+  download?: { label: string; href: string };
+  visual: ResourceVisual;
+};
+export type ResourceSection = { id: string; title: string; items: ResourceItem[] };
+export type ResourceConsent = { title: string; text: string; cancelLabel: string; confirmLabel: string };
+export type ResourcePageContent = { title: string; sections: ResourceSection[]; consent: ResourceConsent };

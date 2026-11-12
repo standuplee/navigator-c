@@ -1,14 +1,14 @@
 import { PageChrome } from "@/components/content/main/PageChrome";
-import { SimpleInfoPage } from "@/components/content/SimpleInfoPage";
-import { getSimpleInfo } from "@/lib/data/companyRepository";
+import { ResourcePage } from "@/components/content/company/ResourcePage";
+import { getBrandGuide, getBrandResourcesTabs } from "@/lib/data/companyRepository";
 
 export const metadata = { title: "브랜드 리소스 l NOVA" };
 
-export default async function BrandGuidePage() {
-  const content = await getSimpleInfo("brandGuide");
+export default async function BrandGuideRoute() {
+  const [content, tabs] = await Promise.all([getBrandGuide(), getBrandResourcesTabs()]);
   return (
-    <PageChrome title={content.title}>
-      <SimpleInfoPage content={content} />
+    <PageChrome title={content.title} tabs={tabs}>
+      <ResourcePage content={content} />
     </PageChrome>
   );
 }

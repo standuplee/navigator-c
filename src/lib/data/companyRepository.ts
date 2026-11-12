@@ -2,6 +2,7 @@ import { narrative } from "@/features/main-template/narrative";
 import { timeline } from "@/features/main-template/timeline";
 import { simpleInfoPages } from "@/features/main-template/simpleInfo";
 import { affiliates, contact, partnership } from "@/features/main-template/companyInfo";
+import { brandGuide, brandResourcesTabs, gallery } from "@/features/main-template/brandResources";
 
 /** Repository boundary for /company/* pages (docs/HANDOFF.md 작업 순서 2).
  * Components/pages only call these functions; swap the mock source for a CMS
@@ -28,4 +29,16 @@ export async function getContact() {
 
 export async function getPartnership() {
   return partnership;
+}
+
+export async function getBrandGuide() {
+  return brandGuide;
+}
+
+export async function getGallery() {
+  return gallery;
+}
+
+export async function getBrandResourcesTabs() {
+  return brandResourcesTabs;
 }

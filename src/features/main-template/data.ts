@@ -20,6 +20,7 @@ export const navMenuItems: NavMenuItem[] = [
     { label: "주요 계열사", href: "/company/affiliates" },
     { label: "연혁", href: "/company/history" },
     { label: "브랜드 리소스", href: "/company/brandGuide" },
+    { label: "갤러리", href: "/company/gallery" },
     { label: "제휴 제안", href: "/company/partnership" },
     { label: "Contact", href: "/company/contact" },
   ] },
@@ -112,5 +113,6 @@ export const footerGroups: FooterLinkGroup[] = [
   { title: "서비스", links: [{ label: "검색", href: "/service/search" }, { label: "광고", href: "/service/advertisement" }, { label: "커머스", href: "/service/commerce" }, { label: "지도", href: "/service/map" }, { label: "전체 서비스", href: "/service/all" }] },
   { title: "기술", links: [{ label: "주요 기술", href: "/tech/innovation" }, { label: "파운데이션 모델", href: "/tech/hyperclovax" }, { label: "공간지능", href: "/tech/spatialAI" }, { label: "로보틱스", href: "/tech/robotics" }] },
   { title: "미디어", links: [{ label: "보도자료", href: "/media/pressReleases" }, { label: "미디어 행사", href: "/media/mediaEvents" }, { label: "네이버 리포트", href: "/media/naverReports" }, { label: "서비스 속의 AI", href: "/media/aiInNaver" }] },
-  { title: "회사", links: [{ label: "소개", href: "/company/about" }, { label: "주요 계열사", href: "/company/affiliates" }, { label: "연혁", href: "/company/history" }, { label: "브랜드 리소스", href: "/company/brandGuide" }, { label: "제휴 제안", href: "/company/partnership" }, { label: "Contact", href: "/company/contact" }] },
+  { title: "회사", links: [{ label: "소개", href: "/company/about" }, { label: "주요 계열사", href: "/company/affiliates" }, { label: "연혁", href: "/company/history" }, { label: "브랜드 리소스", href: "/company/brandGuide" },
+    { label: "갤러리", href: "/company/gallery" }, { label: "제휴 제안", href: "/company/partnership" }, { label: "Contact", href: "/company/contact" }] },
 ];

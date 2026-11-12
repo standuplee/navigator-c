@@ -33,7 +33,12 @@
 
   @keyframes nudge-down { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
   @keyframes nudge-x { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
-  @keyframes carousel-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes carousel-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 }
 
 /* Layout measurements shared by header, title band, anchor nav (PRD §3.3). */
