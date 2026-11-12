@@ -1,71 +1,38 @@
-"use client";
-
-import { useState } from "react";
 import type { SectionLandingContent } from "@/types/pageTemplates";
-import { PlaceholderVisual } from "./main/PlaceholderVisual";
 import { CtaBanner } from "./blocks/CtaBanner";
+import { MediaSlot } from "./blocks/MediaSlot";
+import { Reveal } from "./blocks/Reveal";
+import { FeaturedList } from "./landing/FeaturedList";
+import { StickyHero } from "./landing/StickyHero";
 
-/** `section-landing` template (docs/routes.md): hero + intro statement + tabbed
- * feature card grid + closing CTA. Used by /service/featuredServices, /tech/innovation. */
+/** `section-landing` v2 (docs/PRD-navercorp-ui-parity.md §7.2): sticky two-step hero with
+ * parallax tiles → featured list (services) or domain stack (tech) → CTA banner.
+ * Used by /service/featuredServices (light) and /tech/innovation (dark). */
 export function SectionLandingPage({ content }: { content: SectionLandingContent }) {
-  const [activeTab, setActiveTab] = useState(0);
-  const tab = content.tabs[activeTab];
-
+  const dark = content.theme === "dark";
   return (
-    <main className="pt-28 md:pt-32">
-      <section className="mx-auto max-w-5xl px-5 text-center md:px-8">
-        <p className="text-sm font-medium text-zinc-500">{content.heroEyebrow}</p>
-        <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-6xl">{content.heroTitle}</h1>
-      </section>
+    <main className={dark ? "bg-ink-dark-bg text-white" : "bg-white text-ink"}>
+      <StickyHero line1={content.hero.line1} line2={content.hero.line2} tiles={content.hero.tiles} theme={content.theme} />
 
-      <section className="mx-auto mt-24 max-w-3xl px-5 text-center md:px-8">
-        <p className="text-sm font-medium text-zinc-500">{content.introEyebrow}</p>
-        <h2 className="mt-3 text-3xl font-bold">{content.introTitle}</h2>
-        <p className="mt-4 text-zinc-600">{content.introDescription}</p>
-      </section>
-
-      <section className="mx-auto mt-20 max-w-7xl px-5 md:px-8" aria-labelledby="landing-cards-heading">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <h2 id="landing-cards-heading" className="text-2xl font-bold">주요 {tab.label}</h2>
-          {content.tabs.length > 1 && (
-            <div role="tablist" className="inline-flex gap-1 rounded-full bg-zinc-100 p-1">
-              {content.tabs.map((t, index) => (
-                <button
-                  key={t.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={activeTab === index}
-                  className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-200 ${
-                    activeTab === index ? "bg-zinc-900 text-white" : "text-zinc-600 hover:bg-zinc-200"
-                  }`}
-                  onClick={() => setActiveTab(index)}
-                >
-                  {t.label}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-        <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
-          {tab.cards.map((card) => (
-            <a key={card.no} href={card.href} className="group overflow-hidden rounded-2xl border border-zinc-200">
-              <div className="relative aspect-[16/9] overflow-hidden">
-                <PlaceholderVisual label={`${card.category} 비주얼`} tone="light" className="absolute inset-0 h-full w-full transition-transform duration-200 ease-[cubic-bezier(.33,1,.68,1)] min-[1024px]:group-hover:scale-105 motion-reduce:scale-100!" />
-                <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-zinc-700">{card.no}</span>
+      {content.body.type === "featured" ? (
+        <FeaturedList items={content.body.items} />
+      ) : (
+        // Interim domain list; replaced by the page-stack interaction (PRD §7.4, stage 4-3).
+        <div className="mx-auto max-w-[1280px] px-gutter py-16 xl:py-24">
+          <h2 className="text-page-title">{content.body.title}</h2>
+          {content.body.domains.map((domain) => (
+            <Reveal key={domain.id} className="mt-16 grid gap-8 lg:grid-cols-2">
+              <div>
+                <h3 className="text-section-title">{domain.title}</h3>
+                <p className="mt-3 text-white/70">{domain.description}</p>
               </div>
-              <div className="p-6">
-                <p className="text-xs font-medium text-zinc-500">{card.category}</p>
-                <p className="mt-2 text-lg font-semibold leading-snug">{card.title}</p>
-                <p className="mt-2 text-sm text-zinc-600">{card.text}</p>
-              </div>
-            </a>
+              <MediaSlot kind={domain.media?.kind} src={domain.media?.src} label={domain.media?.label ?? domain.title} tone="dark" ratio="16/9" className="rounded-3xl" />
+            </Reveal>
           ))}
         </div>
-      </section>
+      )}
 
-      <div className="mt-24">
-        <CtaBanner title={content.ctaTitle} description={content.ctaDescription} href={content.ctaHref} ctaLabel="자세히 보기" />
-      </div>
+      <CtaBanner title={content.cta.title} description={content.cta.description} href={content.cta.href} ctaLabel={content.cta.ctaLabel} />
     </main>
   );
 }

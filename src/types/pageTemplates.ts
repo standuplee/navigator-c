@@ -1,19 +1,24 @@
 /** Brand-neutral page template types for the multi-page rebuild (docs/routes.md). */
 import type { NewsCardItem } from "@/types/mainTemplate";
 
-export type FeatureCard = { no: string; category: string; title: string; text: string; href: string };
-export type FeatureTab = { id: string; label: string; cards: FeatureCard[] };
-
+/** `section-landing` v2 (docs/PRD-navercorp-ui-parity.md §7.2, §7.4):
+ * sticky hero with a two-step title + parallax tiles, then either a featured list
+ * (/service/featuredServices) or the domain page-stack (/tech/innovation), then a CTA. */
+export type LandingFeaturedItem = { id: string; title: string; text: string; href?: string; media?: { src?: string; label?: string; kind?: "image" | "video" } };
+export type LandingStackDomain = {
+  id: string;
+  title: string;
+  description: string;
+  points: { title: string; text: string }[];
+  media?: { src?: string; label?: string; kind?: "image" | "video" };
+};
 export type SectionLandingContent = {
-  heroEyebrow: string;
-  heroTitle: string;
-  introEyebrow: string;
-  introTitle: string;
-  introDescription: string;
-  tabs: FeatureTab[];
-  ctaTitle: string;
-  ctaDescription: string;
-  ctaHref: string;
+  theme: "light" | "dark";
+  hero: { line1: [string, string]; line2: string; tiles: number };
+  body:
+    | { type: "featured"; items: LandingFeaturedItem[] }
+    | { type: "stack"; title: string; domains: LandingStackDomain[]; research?: { title: string; items: { title: string; text: string; href?: string }[] } };
+  cta: { title: string; description?: string; href: string; ctaLabel?: string };
 };
 
 /** `service-detail` v2 (docs/PRD-navercorp-ui-parity.md §7.1, §11).
