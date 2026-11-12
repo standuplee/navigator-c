@@ -6,8 +6,9 @@ import { safeRevalidatePath } from "@/lib/payload/safeRevalidate";
  * changed, never the components (docs/content-model.md, HANDOFF.md 작업 순서 2). */
 export const Stories: CollectionConfig = {
   slug: "stories",
-  labels: { singular: "스토리", plural: "스토리" },
+  labels: { singular: "간증", plural: "간증" },
   admin: {
+    group: "소식·미디어",
     useAsTitle: "title",
     defaultColumns: ["title", "category", "publishedAt", "_status"],
     preview: (doc) => `/testimony/${doc.seq}`,

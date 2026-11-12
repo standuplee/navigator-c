@@ -1,7 +1,17 @@
+import type { TechDetailContent } from "@/types/pageTemplates";
 import { techDetails, type TechDetailKey } from "@/features/main-template/techDetail";
+import { clean, present, readBySlug } from "@/lib/payload/read";
 
-/** Repository boundary for /tech/* detail pages (PRD §7.3, §11). Swap the body for a
- * Payload query later; pages and the template stay unchanged. */
-export async function getTechDetail(key: TechDetailKey) {
-  return techDetails[key];
+/** Repository boundary for the /fellowship/* activity pages (collection activity-pages,
+ * placeholder module as fallback). */
+export async function getTechDetail(key: TechDetailKey): Promise<TechDetailContent> {
+  return readBySlug(
+    "activity-pages",
+    key,
+    (doc) => {
+      const data = clean<TechDetailContent>(doc);
+      return { ...data, cta: present(data.cta, "title"), related: data.related ?? [] };
+    },
+    techDetails[key],
+  );
 }

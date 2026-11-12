@@ -1,4 +1,5 @@
-/** One-time seed: load the existing mock Stories/PressReleases into Payload so the
+/** One-time seed: load the existing mock content (stories, news, every page collection and
+ * global — see scripts/seedContent.ts) into Payload so the
  * switch from mock-returning repositories to Payload-backed ones doesn't start
  * from an empty admin. Idempotent — skips any `seq` that already exists.
  * Run with: npm run seed */
@@ -7,6 +8,7 @@ import config from "../payload.config";
 import { storyList, findStoryDetail } from "../src/features/main-template/stories";
 import { pressReleaseList, getPressRelease } from "../src/features/main-template/pressReleases";
 import { markdownToLexical, paragraphsToLexical } from "../src/lib/payload/lexical";
+import { seedContent } from "./seedContent";
 
 function dottedDateToISO(dotted: string): string {
   const [y, m, d] = dotted.split(".").map(Number);
@@ -59,6 +61,9 @@ async function run() {
     pressReleasesCreated += 1;
   }
 
+  const pages = await seedContent(payload);
+  const counts = pages.reduce<Record<string, number>>((acc, name) => ({ ...acc, [name]: (acc[name] ?? 0) + 1 }), {});
+  console.log(`Page content: ${Object.entries(counts).map(([name, count]) => `${name} +${count}`).join(", ") || "nothing new"}.`);
   console.log(`Seed complete — stories: +${storiesCreated} (skipped ${storyList.length - storiesCreated} existing), press releases: +${pressReleasesCreated} (skipped ${pressReleaseList.length - pressReleasesCreated} existing).`);
   process.exit(0);
 }

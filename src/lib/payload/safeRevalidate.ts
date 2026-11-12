@@ -4,9 +4,9 @@ import { revalidatePath } from "next/cache";
  * Collection hooks also run from standalone scripts (seeding, migrations) where
  * that scope doesn't exist — swallow the "static generation store missing" case
  * there instead of crashing the whole operation. */
-export function safeRevalidatePath(path: string) {
+export function safeRevalidatePath(path: string, type?: "layout" | "page") {
   try {
-    revalidatePath(path);
+    revalidatePath(path, type);
   } catch {
     // no request scope (e.g. a seed script) — nothing to revalidate.
   }

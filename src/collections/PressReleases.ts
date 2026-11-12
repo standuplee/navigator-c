@@ -4,8 +4,9 @@ import { safeRevalidatePath } from "@/lib/payload/safeRevalidate";
 /** Mirrors src/types/mainTemplate.ts NewsCardItem + src/types/content.ts ArticleDetail. */
 export const PressReleases: CollectionConfig = {
   slug: "press-releases",
-  labels: { singular: "보도자료", plural: "보도자료" },
+  labels: { singular: "소식", plural: "소식" },
   admin: {
+    group: "소식·미디어",
     useAsTitle: "title",
     defaultColumns: ["title", "category", "publishedAt", "_status"],
     preview: (doc) => `/news/${doc.seq}`,

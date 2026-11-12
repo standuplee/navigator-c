@@ -3,14 +3,14 @@ import config from "@payload-config";
 import type { NewsCardItem } from "@/types/mainTemplate";
 import type { ArticleDetail } from "@/types/content";
 import { lexicalToParagraphs } from "@/lib/payload/lexical";
+import { readAll } from "@/lib/payload/read";
 import { pressReleaseList as fallbackList, getPressRelease as fallbackGet } from "@/features/main-template/pressReleases";
 import { mediaEvents } from "@/features/main-template/mediaEvents";
 import { naverReportsList } from "@/features/main-template/naverReports";
 import { aiServiceCategories, aiServiceList, buildingAiList } from "@/features/main-template/aiInNaver";
 
-/** Repository boundary for /media/*. Press releases are Payload-backed (docs/progress.md
- * "방침 변경: Payload CMS 실제 설치"); mediaEvents/naverReports stay mock-only for now
- * (not yet promoted to CMS collections — see docs/content-model.md). */
+/** Repository boundary for /news (소식, Payload press-releases), /news/schedule (Payload
+ * events) and the reserve /media/* report and AI pages (placeholder modules only). */
 
 type PressReleaseDoc = {
   title: string;
@@ -71,8 +71,19 @@ export async function getPressRelease(seq?: string): Promise<ArticleDetail> {
   };
 }
 
+type EventDoc = { title: string; seq: string; date: string; displayDate?: string | null; place?: string | null; body?: unknown };
+
+/** /news/schedule rows — collection "events" (newest first), placeholder rows while empty. */
 export async function getMediaEvents() {
-  return mediaEvents;
+  return readAll(
+    "events",
+    (docs) => ({
+      title: mediaEvents.title,
+      rows: (docs as unknown as EventDoc[]).map((doc) => ({ date: doc.displayDate || toDottedDate(doc.date), title: doc.title, href: `/news/schedule/${doc.seq}` })),
+    }),
+    mediaEvents,
+    "-date",
+  );
 }
 
 export async function getNaverReportsList() {
@@ -115,11 +126,30 @@ function mockArticle(item: { category: string; title: string; date: string; tags
   };
 }
 
-export async function getMediaEvent(seq?: string) {
+export async function getMediaEvent(seq?: string): Promise<ArticleDetail & { tags: string[] }> {
+  try {
+    const payload = await getPayload({ config });
+    const result = await payload.find({ collection: "events", where: seq ? { seq: { equals: seq } } : undefined, sort: "-date", limit: 1 });
+    const doc = result.docs[0] as unknown as EventDoc | undefined;
+    if (doc) {
+      const date = doc.displayDate || toDottedDate(doc.date);
+      const paragraphs = lexicalToParagraphs(doc.body);
+      return {
+        category: "모임 일정",
+        title: doc.title,
+        date,
+        publishedAt: doc.date,
+        tags: [],
+        images: [],
+        paragraphs: doc.place ? [`장소: ${doc.place}`, ...paragraphs] : paragraphs,
+      };
+    }
+  } catch {
+    // fall through to the placeholder row
+  }
   const rows = mediaEvents.rows;
-  const index = Math.max(0, rows.findIndex((row) => row.href?.endsWith(`seq=${seq}`)));
-  const row = rows[index];
-  return mockArticle({ category: "미디어 행사", title: row.title, date: row.date });
+  const row = rows.find((entry) => entry.href?.endsWith(`/${seq}`)) ?? rows[0];
+  return mockArticle({ category: "모임 일정", title: row.title, date: row.date });
 }
 
 export async function getAiInNaver() {

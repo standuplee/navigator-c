@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { getMainTemplateContent } from "@/lib/data/mainTemplateRepository";
+import { getSiteChrome } from "@/lib/data/mainTemplateRepository";
 import { ScrollState } from "@/components/layouts/ScrollState";
 import { SiteHeader, type HeaderTheme } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
@@ -27,7 +27,7 @@ export async function PageChrome({
   titleDescription?: string;
   tabs?: TabAreaItem[];
 }) {
-  const content = await getMainTemplateContent();
+  const content = await getSiteChrome();
   return (
     <div className="min-h-screen bg-white text-zinc-900">
       <ScrollState />

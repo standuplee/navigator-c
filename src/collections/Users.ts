@@ -4,7 +4,8 @@ import type { CollectionConfig } from "payload";
 export const Users: CollectionConfig = {
   slug: "users",
   auth: true,
-  admin: { useAsTitle: "email" },
+  labels: { singular: "관리자", plural: "관리자" },
+  admin: { useAsTitle: "email", group: "설정" },
   access: {
     read: ({ req: { user } }) => Boolean(user),
     create: ({ req: { user } }) => (user as { role?: string } | undefined)?.role === "admin",
