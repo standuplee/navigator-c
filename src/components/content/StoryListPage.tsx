@@ -13,7 +13,7 @@ const CATEGORIES: ("전체" | StoryCategory)[] = ["전체", "Leader's View", "Cu
 
 export type StoryListQuery = { category?: string; keyword?: string; page?: string };
 
-const detailHref = (story: Story) => `/story/storyDetail?seq=${story.seq}`;
+const detailHref = (story: Story) => `/testimony/${story.seq}`;
 
 /** `story-list` v2 (docs/PRD-navercorp-ui-parity.md §7.8).
  * - Recommended stories: 740×493 cards on desktop (335×414 mobile) in the `recommend`

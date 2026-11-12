@@ -9,10 +9,10 @@ const related = pressReleaseList.slice(0, 6).map((item) => ({ id: item.id, title
 const rows = (names: string[]): TechItem[] =>
   names.map((name) => ({ title: name, description: `${name}이(가) 어떤 문제를 풀고 어디에 쓰이는지 두세 문장으로 설명하는 자리입니다.`, image: { label: name } }));
 
-export type TechDetailKey = "foundationModel" | "spatialAI" | "robotics" | "immersiveMedia";
+export type TechDetailKey = "gatherings" | "leisure" | "discipleship" | "events";
 
 export const techDetails: Record<TechDetailKey, TechDetailContent> = {
-  foundationModel: {
+  gatherings: {
     title: "파운데이션 모델",
     keycopy: "자체 데이터와 인프라로 만든 언어 모델",
     heroMedia: { kind: "video", label: "모델 소개 영상" },
@@ -36,7 +36,7 @@ export const techDetails: Record<TechDetailKey, TechDetailContent> = {
     cta: { title: "모델이 더 궁금하다면", description: "공식 사이트에서 자세한 정보를 확인하세요.", href: "#", ctaLabel: "공식 사이트 바로가기" },
     related,
   },
-  spatialAI: {
+  leisure: {
     title: "공간지능",
     keycopy: "현실과 디지털 세계를 연결하는 기술",
     heroMedia: { kind: "video", label: "공간지능 소개 영상" },
@@ -49,7 +49,7 @@ export const techDetails: Record<TechDetailKey, TechDetailContent> = {
     cta: { title: "공간지능이 더 궁금하다면", href: "#", ctaLabel: "공식 사이트 바로가기" },
     related,
   },
-  robotics: {
+  discipleship: {
     title: "로보틱스",
     keycopy: "사람과 자연스럽게 공존하는 로봇",
     heroMedia: { kind: "video", label: "로보틱스 소개 영상" },
@@ -62,7 +62,7 @@ export const techDetails: Record<TechDetailKey, TechDetailContent> = {
     cta: { title: "로보틱스가 더 궁금하다면", href: "#", ctaLabel: "공식 사이트 바로가기" },
     related,
   },
-  immersiveMedia: {
+  events: {
     title: "이머시브 미디어",
     keycopy: "기술이 만드는 감각의 확장",
     heroMedia: { kind: "video", label: "이머시브 미디어 소개 영상" },

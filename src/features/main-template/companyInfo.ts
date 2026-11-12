@@ -42,7 +42,7 @@ export const partnership: PartnershipContent = {
       cards: ["서비스·콘텐츠", "광고", "미디어", "브랜딩·마케팅", "기술·API", "공공기관", "비즈니스"].map((name) => ({
         title: `${name} 제휴`,
         text: `${name} 분야 제휴 제안`,
-        href: "/company/contact",
+        href: "/about/contact",
       })),
     },
     {
@@ -51,5 +51,5 @@ export const partnership: PartnershipContent = {
       cards: Array.from({ length: 5 }, (_, index) => ({ title: `계열사 ${index + 1}`, text: "계열사 제휴 창구", href: "#" })),
     },
   ],
-  cta: { label: "제휴 문의하기", href: "/company/contact" },
+  cta: { label: "제휴 문의하기", href: "/about/contact" },
 };

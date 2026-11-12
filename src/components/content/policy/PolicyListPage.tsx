@@ -30,7 +30,7 @@ export function PolicyListPage({ content, page }: { content: PolicyContent; page
           {rows.map((row) => (
             <tr key={row.seq} className="group relative flex flex-col gap-1 border-b border-zinc-200 px-2 py-5 transition-colors duration-200 hover:bg-zinc-50 md:table-row md:p-0">
               <td className="md:h-[67px] md:px-2">
-                <a href={`/policy/privacyDetail?seq=${row.seq}`} className="text-base font-medium text-ink after:absolute after:inset-0 group-hover:underline md:text-lg">
+                <a href={`/privacy/${row.seq}`} className="text-base font-medium text-ink after:absolute after:inset-0 group-hover:underline md:text-lg">
                   {row.title}
                 </a>
               </td>
@@ -42,7 +42,7 @@ export function PolicyListPage({ content, page }: { content: PolicyContent; page
       {content.note && <p className="mt-3 text-sm text-zinc-500">{content.note}</p>}
       {total > 1 && (
         <div className="mt-12 flex justify-center">
-          <Pagination current={current} total={total} hrefFor={(value) => `/policy/privacy?page=${value}`} label="개인정보 처리방침 목록 페이지" />
+          <Pagination current={current} total={total} hrefFor={(value) => `/privacy?page=${value}`} label="개인정보 처리방침 목록 페이지" />
         </div>
       )}
     </main>

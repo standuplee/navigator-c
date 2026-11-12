@@ -14,9 +14,9 @@ export function StoryDetailTemplate({ story, related = [] }: { story: StoryDetai
       title={story.title}
       date={story.date}
       hero={{ label: "대표 이미지" }}
-      listHref="/story"
+      listHref="/testimony"
       tags={story.tags}
-      tagHrefBase="/story?keyword="
+      tagHrefBase="/testimony?keyword="
       related={related}
     >
       <MarkdownRenderer markdown={story.markdown} />

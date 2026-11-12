@@ -3,22 +3,22 @@ import type { SectionLandingContent } from "@/types/pageTemplates";
 /** Placeholder section-landing content for /service/featuredServices and /tech/innovation
  * (PRD §7.2, §7.4). Counts follow the reference: 8 hero tiles, 4 featured items, 4 domains
  * with 3 points each. Neutral copy. */
-export const sectionLandings: Record<"service" | "tech", SectionLandingContent> = {
-  service: {
+export const sectionLandings: Record<"ministry" | "fellowship", SectionLandingContent> = {
+  ministry: {
     theme: "light",
     hero: { line1: ["검색에서", "탐색으로 진화"], line2: "On-Service AI", tiles: 8 },
     body: {
       type: "featured",
       items: [
-        { id: "featured-1", title: "요약 브리핑", text: "길고 복잡한 결과 대신 핵심만 정리해 보여줍니다.", href: "/service/search", media: { kind: "video", label: "요약 브리핑 영상" } },
-        { id: "featured-2", title: "자동화 광고", text: "입찰과 소재를 목표에 맞춰 자동으로 최적화합니다.", href: "/service/advertisement", media: { kind: "video", label: "자동화 광고 영상" } },
-        { id: "featured-3", title: "쇼핑 가이드", text: "취향과 이력을 반영해 상품 선택을 돕습니다.", href: "/service/commerce", media: { kind: "video", label: "쇼핑 가이드 영상" } },
-        { id: "featured-4", title: "3D 공간 정보", text: "현실에 가까운 입체 지도로 길을 안내합니다.", href: "/service/map", media: { kind: "video", label: "3D 공간 정보 영상" } },
+        { id: "featured-1", title: "요약 브리핑", text: "길고 복잡한 결과 대신 핵심만 정리해 보여줍니다.", href: "/ministry/bible-study", media: { kind: "video", label: "요약 브리핑 영상" } },
+        { id: "featured-2", title: "자동화 광고", text: "입찰과 소재를 목표에 맞춰 자동으로 최적화합니다.", href: "/ministry/church-contribution", media: { kind: "video", label: "자동화 광고 영상" } },
+        { id: "featured-3", title: "쇼핑 가이드", text: "취향과 이력을 반영해 상품 선택을 돕습니다.", href: "/ministry/workplace", media: { kind: "video", label: "쇼핑 가이드 영상" } },
+        { id: "featured-4", title: "3D 공간 정보", text: "현실에 가까운 입체 지도로 길을 안내합니다.", href: "/ministry/missions", media: { kind: "video", label: "3D 공간 정보 영상" } },
       ],
     },
-    cta: { title: "다양한 서비스가 더 궁금하다면", description: "전체 서비스를 한눈에 확인해 보세요.", href: "/service/all", ctaLabel: "전체 서비스 보기" },
+    cta: { title: "다양한 서비스가 더 궁금하다면", description: "전체 서비스를 한눈에 확인해 보세요.", href: "/ministry/all", ctaLabel: "전체 서비스 보기" },
   },
-  tech: {
+  fellowship: {
     theme: "dark",
     hero: { line1: ["혁신의 기술을", "일상의 서비스로"], line2: "Everyday Tech", tiles: 8 },
     body: {
@@ -78,6 +78,6 @@ export const sectionLandings: Record<"service" | "tech", SectionLandingContent> 
         ],
       },
     },
-    cta: { title: "기술이 더 궁금하다면", description: "분야별 기술 소개를 확인해 보세요.", href: "/tech/hyperclovax", ctaLabel: "자세히 보기" },
+    cta: { title: "기술이 더 궁금하다면", description: "분야별 기술 소개를 확인해 보세요.", href: "/fellowship/gatherings", ctaLabel: "자세히 보기" },
   },
 };

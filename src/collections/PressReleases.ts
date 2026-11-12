@@ -8,13 +8,13 @@ export const PressReleases: CollectionConfig = {
   admin: {
     useAsTitle: "title",
     defaultColumns: ["title", "category", "publishedAt", "_status"],
-    preview: (doc) => `/media/pressReleasesDetail?seq=${doc.seq}`,
+    preview: (doc) => `/news/${doc.seq}`,
   },
   versions: { drafts: true },
   access: { read: () => true },
   fields: [
     { name: "title", type: "text", required: true },
-    { name: "seq", type: "text", required: true, unique: true, admin: { description: "원본 URL 호환용 식별자 — /media/pressReleasesDetail?seq=<값>" } },
+    { name: "seq", type: "text", required: true, unique: true, admin: { description: "원본 URL 호환용 식별자 — /news/<값>" } },
     { name: "category", type: "text", defaultValue: "보도자료" },
     { name: "tags", type: "text", hasMany: true },
     { name: "publishedAt", type: "date", required: true, admin: { date: { pickerAppearance: "dayOnly" } } },
@@ -33,8 +33,8 @@ export const PressReleases: CollectionConfig = {
   hooks: {
     afterChange: [
       ({ doc }) => {
-        safeRevalidatePath("/media/pressReleases");
-        safeRevalidatePath(`/media/pressReleasesDetail?seq=${doc.seq}`);
+        safeRevalidatePath("/news");
+        safeRevalidatePath(`/news/${doc.seq}`);
       },
     ],
   },

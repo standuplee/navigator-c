@@ -60,10 +60,10 @@ const iconHero = (title: string, description: string, count: number) => ({
 });
 
 export type ServiceDetailKey =
-  | "search" | "advertisement" | "commerce" | "map" | "tools" | "cloud" | "fintech" | "contents" | "datacenterGak" | "community" | "portal" | "space1784";
+  | "bible-study" | "church-contribution" | "missions" | "workplace" | "military" | "channels" | "vision-center" | "campus" | "portal" | "space1784";
 
 export const serviceDetails: Record<ServiceDetailKey, ServiceDetailContent> = {
-  search: {
+  "bible-study": {
     title: "검색",
     hero: iconHero("검색", "질문 하나로 탐색부터 실행까지 이어지는 검색 경험", 3),
     layout: "sticky-visual",
@@ -74,7 +74,7 @@ export const serviceDetails: Record<ServiceDetailKey, ServiceDetailContent> = {
     ],
     related,
   },
-  tools: {
+  "workplace": {
     title: "도구",
     hero: iconHero("도구", "메모, 일정, 협업까지 하나로 연결되는 생산성 도구", 3),
     layout: "sticky-visual",
@@ -85,37 +85,7 @@ export const serviceDetails: Record<ServiceDetailKey, ServiceDetailContent> = {
     ],
     related,
   },
-  commerce: {
-    title: "커머스",
-    hero: iconHero("커머스", "쇼핑 이력과 취향을 반영한 맞춤형 쇼핑", 4),
-    layout: "sticky-visual",
-    products: [
-      product("commerce-store", "쇼핑 스토어", "추천 기술로 지금 필요한 상품을 먼저 보여주는 쇼핑 공간입니다.", {
-        detailServices: detailServices(["간편 결제", "빠른 배송", "멤버십", "선물하기", "라이브 쇼핑", "리뷰"]),
-      }),
-      product("commerce-guide", "쇼핑 가이드", "쇼핑 이력과 관심사를 바탕으로 상품 선택을 돕습니다."),
-      product("commerce-compare", "가격 비교", "여러 판매처의 가격과 혜택을 한눈에 비교합니다."),
-      product("commerce-resale", "리셀 플랫폼", "한정판 상품을 안전하게 사고팔 수 있는 거래 공간입니다."),
-      product("commerce-global", "글로벌 마켓", "해외 판매자와 구매자를 잇는 거래 공간입니다."),
-    ],
-    growTogether: growTogether("함께 성장하는 파트너"),
-    related,
-  },
-  fintech: {
-    title: "핀테크",
-    hero: iconHero("핀테크", "결제부터 자산 관리까지 더 간편한 금융 경험", 3),
-    layout: "sticky-visual",
-    products: [
-      product("fintech-pay", "간편 결제", "몇 번의 터치로 결제를 끝낼 수 있는 결제 서비스입니다.", {
-        detailServices: detailServices(["포인트", "송금", "청구서", "멤버십"]),
-      }),
-      product("fintech-stock", "증권 정보", "시세와 뉴스를 한곳에서 확인하는 투자 정보 서비스입니다."),
-      product("fintech-estate", "부동산 정보", "매물과 시세를 지도로 살펴보는 부동산 서비스입니다."),
-    ],
-    growTogether: growTogether("함께 성장하는 파트너"),
-    related,
-  },
-  contents: {
+  "channels": {
     title: "콘텐츠",
     hero: iconHero("콘텐츠", "읽고, 보고, 즐기는 모든 것", 7),
     layout: "sticky-visual",
@@ -124,7 +94,7 @@ export const serviceDetails: Record<ServiceDetailKey, ServiceDetailContent> = {
     ),
     related,
   },
-  community: {
+  "campus": {
     title: "커뮤니티",
     hero: iconHero("커뮤니티", "관심사로 모이고 함께 이야기하는 공간", 5),
     layout: "sticky-visual",
@@ -133,7 +103,7 @@ export const serviceDetails: Record<ServiceDetailKey, ServiceDetailContent> = {
     ),
     related,
   },
-  map: {
+  "missions": {
     title: "지도",
     hero: iconHero("지도", "공간 정보를 더 정확하고 입체적으로", 3),
     layout: "sticky-visual",
@@ -159,7 +129,7 @@ export const serviceDetails: Record<ServiceDetailKey, ServiceDetailContent> = {
     ],
     related,
   },
-  advertisement: {
+  "church-contribution": {
     title: "광고",
     hero: { variant: "fullscreen", title: "광고", description: "데이터 기반 자동화로 성과를 높이는 광고 솔루션" },
     layout: "stacked",
@@ -170,7 +140,7 @@ export const serviceDetails: Record<ServiceDetailKey, ServiceDetailContent> = {
     ],
     related,
   },
-  cloud: {
+  "military": {
     title: "클라우드",
     hero: { variant: "fullscreen", title: "클라우드", description: "필요한 만큼, 필요한 순간에 쓰는 클라우드 플랫폼" },
     layout: "stacked",
@@ -184,7 +154,7 @@ export const serviceDetails: Record<ServiceDetailKey, ServiceDetailContent> = {
     ],
     related,
   },
-  datacenterGak: {
+  "vision-center": {
     title: "데이터센터",
     hero: { variant: "fullscreen", title: "데이터센터", description: "서비스를 받치는 가장 단단한 기반", media: { kind: "video" } },
     layout: "stacked",

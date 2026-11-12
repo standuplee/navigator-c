@@ -32,7 +32,7 @@ export function ArticleChrome({
   listHref: string;
   listLabel?: string;
   tags?: string[];
-  /** e.g. "/story?keyword=" — the tag is appended URL-encoded. */
+  /** e.g. "/testimony?keyword=" — the tag is appended URL-encoded. */
   tagHrefBase?: string;
   related?: RelatedItem[];
   children: ReactNode;

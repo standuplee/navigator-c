@@ -105,10 +105,10 @@ export function SiteFooter({ brandName, groups }: { brandName: string; groups: F
         </div>
 
         <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-zinc-200 pt-6 text-sm text-zinc-500">
-          <a href="/company/contact" className="transition-colors duration-200 hover:text-zinc-900">Contact</a>
-          <a href="/company/partnership" className="transition-colors duration-200 hover:text-zinc-900">제휴 제안</a>
+          <a href="/about/contact" className="transition-colors duration-200 hover:text-zinc-900">Contact</a>
+          <a href="/faq" className="transition-colors duration-200 hover:text-zinc-900">제휴 제안</a>
           <a href="#" className="transition-colors duration-200 hover:text-zinc-900">이용약관</a>
-          <a href="/policy/privacy" className="font-semibold text-zinc-700 transition-colors duration-200 hover:text-zinc-900">개인정보 처리방침</a>
+          <a href="/privacy" className="font-semibold text-zinc-700 transition-colors duration-200 hover:text-zinc-900">개인정보 처리방침</a>
           <span className="w-full md:ml-auto md:w-auto">© {brandName}</span>
         </div>
       </div>

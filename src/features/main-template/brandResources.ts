@@ -10,8 +10,8 @@ const consent: ResourceConsent = {
 };
 
 export const brandResourcesTabs = [
-  { label: "브랜드 리소스", href: "/company/brandGuide" },
-  { label: "갤러리", href: "/company/gallery" },
+  { label: "브랜드 리소스", href: "/about/tools" },
+  { label: "갤러리", href: "/about/gallery" },
 ];
 
 export const brandGuide: ResourcePageContent = {

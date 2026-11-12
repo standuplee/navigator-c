@@ -51,4 +51,4 @@ temp/
 # Payload CMS (local admin, docs/progress.md "3단계 착수")
 payload.db
 payload-types.ts
-media/
+/media/

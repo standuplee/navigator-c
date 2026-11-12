@@ -8,7 +8,7 @@ import { ArticleChrome } from "../blocks/ArticleChrome";
  * small screens instead of squeezing their columns. */
 export function PolicyDocument({ version }: { version: PolicyVersion }) {
   return (
-    <ArticleChrome category="개인정보 처리방침" title={version.title} date={version.date} listHref="/policy/privacy">
+    <ArticleChrome category="개인정보 처리방침" title={version.title} date={version.date} listHref="/privacy">
       <div className="flex flex-col gap-5 text-base leading-[1.8] text-zinc-800 xl:text-lg">
         {version.blocks.map((block, index) => {
           switch (block.type) {

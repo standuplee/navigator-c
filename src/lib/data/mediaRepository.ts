@@ -37,7 +37,7 @@ function toNewsCardItem(doc: PressReleaseDoc): NewsCardItem {
     date: toDottedDate(doc.publishedAt),
     title: doc.title,
     tags: doc.tags ?? [],
-    href: `/media/pressReleasesDetail?seq=${doc.seq}`,
+    href: `/news/${doc.seq}`,
     tone: "light",
   };
 }

@@ -4,15 +4,15 @@ import type { ArticleDetail } from "@/types/content";
 /** Placeholder press-release content for the `content-list-filter-pagination` /
  * `article-detail` templates. Dummy copy only — no real press release text. */
 export const pressReleaseList: NewsCardItem[] = [
-  { id: "pr1", category: "보도자료", date: "2026.09.07", title: "검색 결과 요약 카드, 모바일 전면 적용", tags: ["검색", "업데이트"], href: "/media/pressReleasesDetail?seq=pr1", tone: "light" },
-  { id: "pr2", category: "보도자료", date: "2026.09.05", title: "온디바이스 추천 모델 경량화 연구 공개", tags: ["AI", "연구"], href: "/media/pressReleasesDetail?seq=pr2", tone: "light" },
-  { id: "pr3", category: "보도자료", date: "2026.09.03", title: "중소 파트너사 대상 광고 비용 지원 프로그램 확대", tags: ["광고", "상생"], href: "/media/pressReleasesDetail?seq=pr3", tone: "light" },
-  { id: "pr4", category: "보도자료", date: "2026.09.01", title: "지도 서비스에 실내 길찾기 기능 추가", tags: ["지도"], href: "/media/pressReleasesDetail?seq=pr4", tone: "light" },
-  { id: "pr5", category: "보도자료", date: "2026.08.29", title: "개발자 커뮤니티 밋업 다섯 번째 개최", tags: ["커뮤니티"], href: "/media/pressReleasesDetail?seq=pr5", tone: "light" },
-  { id: "pr6", category: "보도자료", date: "2026.08.27", title: "결제 실패율을 낮춘 커머스 체크아웃 리뉴얼", tags: ["커머스"], href: "/media/pressReleasesDetail?seq=pr6", tone: "light" },
-  { id: "pr7", category: "보도자료", date: "2026.08.24", title: "제휴 파트너 120곳과 함께하는 상생 프로그램 발표", tags: ["상생"], href: "/media/pressReleasesDetail?seq=pr7", tone: "light" },
-  { id: "pr8", category: "보도자료", date: "2026.07.07", title: "연내 전 서비스에 접근성 가이드라인 전면 적용", tags: ["접근성"], href: "/media/pressReleasesDetail?seq=pr8", tone: "light" },
-  { id: "pr9", category: "보도자료", date: "2026.06.18", title: "대규모 트래픽 대응을 위한 캐시 아키텍처 개편", tags: ["인프라"], href: "/media/pressReleasesDetail?seq=pr9", tone: "light" },
+  { id: "pr1", category: "보도자료", date: "2026.09.07", title: "검색 결과 요약 카드, 모바일 전면 적용", tags: ["검색", "업데이트"], href: "/news/pr1", tone: "light" },
+  { id: "pr2", category: "보도자료", date: "2026.09.05", title: "온디바이스 추천 모델 경량화 연구 공개", tags: ["AI", "연구"], href: "/news/pr2", tone: "light" },
+  { id: "pr3", category: "보도자료", date: "2026.09.03", title: "중소 파트너사 대상 광고 비용 지원 프로그램 확대", tags: ["광고", "상생"], href: "/news/pr3", tone: "light" },
+  { id: "pr4", category: "보도자료", date: "2026.09.01", title: "지도 서비스에 실내 길찾기 기능 추가", tags: ["지도"], href: "/news/pr4", tone: "light" },
+  { id: "pr5", category: "보도자료", date: "2026.08.29", title: "개발자 커뮤니티 밋업 다섯 번째 개최", tags: ["커뮤니티"], href: "/news/pr5", tone: "light" },
+  { id: "pr6", category: "보도자료", date: "2026.08.27", title: "결제 실패율을 낮춘 커머스 체크아웃 리뉴얼", tags: ["커머스"], href: "/news/pr6", tone: "light" },
+  { id: "pr7", category: "보도자료", date: "2026.08.24", title: "제휴 파트너 120곳과 함께하는 상생 프로그램 발표", tags: ["상생"], href: "/news/pr7", tone: "light" },
+  { id: "pr8", category: "보도자료", date: "2026.07.07", title: "연내 전 서비스에 접근성 가이드라인 전면 적용", tags: ["접근성"], href: "/news/pr8", tone: "light" },
+  { id: "pr9", category: "보도자료", date: "2026.06.18", title: "대규모 트래픽 대응을 위한 캐시 아키텍처 개편", tags: ["인프라"], href: "/news/pr9", tone: "light" },
 ];
 
 const detailBySeq: Record<string, ArticleDetail> = Object.fromEntries(

@@ -10,13 +10,13 @@ export const Stories: CollectionConfig = {
   admin: {
     useAsTitle: "title",
     defaultColumns: ["title", "category", "publishedAt", "_status"],
-    preview: (doc) => `/story/storyDetail?seq=${doc.seq}`,
+    preview: (doc) => `/testimony/${doc.seq}`,
   },
   versions: { drafts: true },
   access: { read: () => true },
   fields: [
     { name: "title", type: "text", required: true },
-    { name: "seq", type: "text", required: true, unique: true, admin: { description: "원본 URL 호환용 식별자 — /story/storyDetail?seq=<값>" } },
+    { name: "seq", type: "text", required: true, unique: true, admin: { description: "원본 URL 호환용 식별자 — /testimony/<값>" } },
     { name: "category", type: "select", required: true, options: ["Leader's View", "Culture", "Service", "People", "Tech", "Impact"] },
     { name: "tags", type: "text", hasMany: true },
     { name: "publishedAt", type: "date", required: true, admin: { date: { pickerAppearance: "dayOnly" } } },
@@ -35,8 +35,8 @@ export const Stories: CollectionConfig = {
   hooks: {
     afterChange: [
       ({ doc }) => {
-        safeRevalidatePath("/story");
-        safeRevalidatePath(`/story/storyDetail?seq=${doc.seq}`);
+        safeRevalidatePath("/testimony");
+        safeRevalidatePath(`/testimony/${doc.seq}`);
       },
     ],
   },
