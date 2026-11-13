@@ -8,7 +8,7 @@ export default async function StoryPage({ searchParams }: { searchParams: Promis
   const query = await searchParams;
   const stories = await getStoryList();
   return (
-    <PageChrome title="스토리" titleSize="compact">
+    <PageChrome title="간증" titleSize="compact">
       <StoryListPage stories={stories} query={query} />
     </PageChrome>
   );

@@ -1,4 +1,4 @@
-import type { Story } from "@/types/story";
+import type { Story } from "@/features/navercorp/storyTypes";
 
 const root = "/sites/navercorp-65983208/main-c98712e4";
 export const stories: Story[] = [

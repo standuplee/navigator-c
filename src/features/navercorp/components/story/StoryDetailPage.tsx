@@ -5,7 +5,7 @@ import { SiteShell } from "@/components/layouts/SiteShell";
 import { MobileNavigation } from "../main/main-c98712e4/MobileNavigation";
 import { SiteFooter } from "../main/main-c98712e4/SiteFooter";
 import { SiteHeader } from "../main/main-c98712e4/SiteHeader";
-import type { StoryDetail } from "@/types/story";
+import type { StoryDetail } from "@/features/navercorp/storyTypes";
 import { MarkdownRenderer } from "./MarkdownRenderer";
 
 export function StoryDetailPage({ story }: { story: StoryDetail }) {

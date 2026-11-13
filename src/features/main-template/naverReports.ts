@@ -1,15 +1,17 @@
 import type { NewsCardItem } from "@/types/mainTemplate";
 
-/** Placeholder report list for /media/naverReports (content-list-filter-pagination,
- * same template family as pressReleases). No real report titles/data. */
+/** Dummy ministry reports for /media/naverReports (사역 리포트). Placeholder titles. */
+const report = (id: string, category: string, date: string, title: string, tags: string[]): NewsCardItem => ({
+  id, category, date, title, tags, href: `/media/naverReportsDetail?seq=${id}`, tone: "light",
+});
+
 export const naverReportsList: NewsCardItem[] = [
-  { id: "rp1", category: "AI&Tech", date: "2026.10.06", title: "자율규제 연구 리포트 — 소비자 분쟁", tags: ["자율규제"], href: "/media/naverReportsDetail?seq=rp1", tone: "light" },
-  { id: "rp2", category: "Service&Business", date: "2026.09.30", title: "커머스 리포트 2026 — 판매자와 함께한 10년", tags: ["커머스"], href: "/media/naverReportsDetail?seq=rp2", tone: "light" },
-  { id: "rp3", category: "AI&Tech", date: "2026.03.26", title: "자율규제 연구 리포트", tags: ["자율규제"], href: "/media/naverReportsDetail?seq=rp3", tone: "light" },
-  { id: "rp4", category: "Social Impact", date: "2026.03.19", title: "케어콜 사회적가치 측정", tags: ["Social Impact"], href: "/media/naverReportsDetail?seq=rp4", tone: "light" },
-  { id: "rp5", category: "AI&Tech", date: "2025.12.19", title: "AI Case Study 리포트 — Business", tags: ["AI"], href: "/media/naverReportsDetail?seq=rp5", tone: "light" },
-  { id: "rp6", category: "AI&Tech", date: "2025.12.02", title: "AI RIDE 리포트", tags: ["AI", "SME"], href: "/media/naverReportsDetail?seq=rp6", tone: "light" },
-  { id: "rp7", category: "Service&Business", date: "2025.12.02", title: "광고 리포트 2025", tags: ["광고"], href: "/media/naverReportsDetail?seq=rp7", tone: "light" },
-  { id: "rp8", category: "Social Impact", date: "2025.11.19", title: "플랫폼의 소상공인 지원에 대한 실증 연구", tags: ["SME"], href: "/media/naverReportsDetail?seq=rp8", tone: "light" },
-  { id: "rp9", category: "Social Impact", date: "2025.10.27", title: "디지털 경제 리포트 2025 — 소비자 후생", tags: ["Social Impact"], href: "/media/naverReportsDetail?seq=rp9", tone: "light" },
+  report("rp1", "사역 보고", "2026.09.30", "2026 상반기 서울C지구 사역 보고", ["사역 보고"]),
+  report("rp2", "수양회", "2026.08.28", "2026 여름 캠핑 수양회 결산", ["수양회"]),
+  report("rp3", "훈련", "2026.08.25", "STP 2026 — 6주 성경 1독 기록", ["STP"]),
+  report("rp4", "선교", "2026.05.25", "캄보디아 단기선교 보고서", ["해외"]),
+  report("rp5", "훈련", "2026.02.20", "WTP 2026 — 암송과 나눔", ["WTP"]),
+  report("rp6", "사역 보고", "2026.01.10", "2025 연간 사역 보고", ["사역 보고"]),
+  report("rp7", "수양회", "2025.08.30", "2025 여름 캠핑 수양회 결산", ["수양회"]),
+  report("rp8", "선교", "2025.06.12", "해외 파송 선교사 소식 모음", ["해외"]),
 ];

@@ -33,7 +33,7 @@ function toDottedDate(iso: string): string {
 function toNewsCardItem(doc: PressReleaseDoc): NewsCardItem {
   return {
     id: doc.seq,
-    category: doc.category || "보도자료",
+    category: doc.category || "소식",
     date: toDottedDate(doc.publishedAt),
     title: doc.title,
     tags: doc.tags ?? [],
@@ -62,7 +62,7 @@ export async function getPressRelease(seq?: string): Promise<ArticleDetail> {
   if (!doc) return fallbackGet(seq);
   const dotted = toDottedDate(doc.publishedAt);
   return {
-    category: doc.category || "보도자료",
+    category: doc.category || "소식",
     title: doc.title,
     date: dotted,
     publishedAt: dotted,
@@ -102,9 +102,9 @@ export async function getNaverReport(seq?: string): Promise<ArticleDetail & { ta
     tags: item.tags ?? [],
     images: [{ src: "", alt: "리포트 표지", caption: "" }],
     paragraphs: [
-      "리포트의 배경과 목적을 소개하는 첫 문단 자리입니다.",
-      "주요 발견과 수치를 요약하는 문단 자리입니다. 실제 리포트 내용은 어드민에서 입력합니다.",
-      "리포트 원문은 아래 다운로드 버튼으로 내려받을 수 있습니다.",
+      "이 기간 동안 함께한 모임과 사람들, 그리고 하나님께서 하신 일을 정리한 보고입니다.",
+      "주일교제와 은혜의 샘 참석, 개인교제와 훈련 프로그램 참여, 새로 함께하게 된 형제자매들의 이야기를 담았습니다.",
+      "보고서 전문은 아래 다운로드 버튼으로 내려받을 수 있습니다.",
     ],
   };
 }
@@ -120,8 +120,8 @@ function mockArticle(item: { category: string; title: string; date: string; tags
     tags: item.tags ?? [],
     images: [{ src: "", alt: "본문 이미지", caption: "" }],
     paragraphs: [
-      "본문 첫 문단 자리입니다. 실제 내용은 어드민에서 입력합니다.",
-      "두 번째 문단 자리입니다. 일정, 장소, 참여 방법 같은 세부 정보를 적습니다.",
+      "오늘 본문을 천천히 두 번 읽고, 마음에 머문 한 구절을 적어 보았습니다.",
+      "그 말씀이 오늘 나의 하루와 어떻게 이어지는지 묵상하고, 짧은 기도로 마무리합니다. 함께 나누고 싶은 묵상은 주일교제 그룹 시간에 이야기해 주세요.",
     ],
   };
 }

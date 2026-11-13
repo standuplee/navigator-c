@@ -7,7 +7,7 @@ export const metadata = { title: "모임 일정 l navigators-c" };
 export default async function MediaEventsPage() {
   const content = await getMediaEvents();
   return (
-    <PageChrome title={content.title} tabs={[{ label: "미디어 행사", href: "/news/schedule" }]}>
+    <PageChrome title={content.title} tabs={[{ label: "모임 일정", href: "/news/schedule" }]}>
       <SimpleTableListPage content={content} />
     </PageChrome>
   );

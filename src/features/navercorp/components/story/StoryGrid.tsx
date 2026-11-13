@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { Story } from "@/types/story";
+import type { Story } from "@/features/navercorp/storyTypes";
 import { StoryCard } from "./StoryCard";
 import { StoryFilters } from "./StoryFilters";
 

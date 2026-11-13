@@ -74,12 +74,12 @@ export function AiInServicePage({
       <AnchorSection
         title={title}
         items={[
-          { id: "ai-services", label: "서비스 속의 AI" },
-          { id: "ai-building", label: "AI를 만드는 방식" },
+          { id: "ai-services", label: "QT 나눔" },
+          { id: "ai-building", label: "성경공부 가이드" },
         ]}
       >
         <section id="ai-services" className="pb-8">
-          <SectionHeader title="서비스 속의 AI" text="서비스 곳곳에서 사용자를 돕는 AI 기능을 소개합니다." border />
+          <SectionHeader title="QT 나눔" text="형제자매들이 매일 아침 묵상한 말씀을 나눕니다." border />
           <div className="mx-auto max-w-[1280px] px-gutter">
             <div className="flex flex-col-reverse gap-4 border-b border-zinc-200 md:flex-row md:items-center md:justify-between">
               <ul className="-mx-gutter flex h-[50px] items-center gap-6 overflow-x-auto px-gutter [scrollbar-width:none] md:mx-0 md:h-[60px] md:px-0 [&::-webkit-scrollbar]:hidden">
@@ -101,7 +101,7 @@ export function AiInServicePage({
                 })}
               </ul>
               <form role="search" className="flex h-11 w-full items-center rounded-lg bg-zinc-100 pl-4 md:w-[240px]" onSubmit={(event) => { event.preventDefault(); go({ keyword: draft.trim() }); }}>
-                <input value={draft} onChange={(event) => setDraft(event.target.value)} placeholder="AI 검색" aria-label="AI 검색" className="min-w-0 flex-1 bg-transparent text-sm outline-none" />
+                <input value={draft} onChange={(event) => setDraft(event.target.value)} placeholder="말씀 검색" aria-label="말씀 검색" className="min-w-0 flex-1 bg-transparent text-sm outline-none" />
                 <button type="submit" aria-label="검색" className="grid size-9 place-items-center"><span aria-hidden="true">⌕</span></button>
               </form>
             </div>
@@ -121,12 +121,12 @@ export function AiInServicePage({
             ) : (
               <p className="py-20 text-center text-zinc-500">검색 결과가 없습니다.</p>
             )}
-            <Pagination current={Math.min(page, cardTotal)} total={cardTotal} hrefFor={(value) => build({ page: String(value) }, "#ai-services")} label="서비스 속의 AI 페이지" />
+            <Pagination current={Math.min(page, cardTotal)} total={cardTotal} hrefFor={(value) => build({ page: String(value) }, "#ai-services")} label="QT 나눔 페이지" />
           </div>
         </section>
 
         <section id="ai-building" className="pb-8">
-          <SectionHeader title="AI를 만드는 방식" text="안전하고 신뢰할 수 있는 AI를 만들기 위한 원칙과 연구를 공유합니다." />
+          <SectionHeader title="성경공부 가이드" text="QT, 암송, 소그룹 인도까지 — 네비게이토 도구를 활용하는 방법입니다." />
           <div className="mx-auto max-w-[1280px] px-gutter">
             <ul className="border-t border-ink">
               {building.slice((bldPage - 1) * ROW_PAGE, bldPage * ROW_PAGE).map((item) => (
@@ -141,7 +141,7 @@ export function AiInServicePage({
                 </li>
               ))}
             </ul>
-            <Pagination current={Math.min(bldPage, rowTotal)} total={rowTotal} hrefFor={(value) => build({ bldPage: String(value) }, "#ai-building")} label="AI를 만드는 방식 페이지" />
+            <Pagination current={Math.min(bldPage, rowTotal)} total={rowTotal} hrefFor={(value) => build({ bldPage: String(value) }, "#ai-building")} label="성경공부 가이드 페이지" />
           </div>
         </section>
       </AnchorSection>

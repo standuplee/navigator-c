@@ -28,8 +28,8 @@ export default async function MainPage() {
         <NewsMasonryGrid
           items={content.newsCards}
           links={[
-            { label: "스토리 전체보기", href: "/testimony" },
-            { label: "보도자료 전체보기", href: "/news" },
+            { label: "간증 전체보기", href: "/testimony" },
+            { label: "소식 전체보기", href: "/news" },
           ]}
         />
         <PromotionCarousel slides={content.promotionSlides} />

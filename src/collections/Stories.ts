@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload";
 import { safeRevalidatePath } from "@/lib/payload/safeRevalidate";
+import { STORY_CATEGORIES } from "@/types/story";
 
 /** Mirrors src/types/story.ts — same shape the frontend already expects, so the
  * repository swap (src/lib/data/storyRepository.ts) only needs its implementation
@@ -18,7 +19,7 @@ export const Stories: CollectionConfig = {
   fields: [
     { name: "title", type: "text", required: true },
     { name: "seq", type: "text", required: true, unique: true, admin: { description: "원본 URL 호환용 식별자 — /testimony/<값>" } },
-    { name: "category", type: "select", required: true, options: ["Leader's View", "Culture", "Service", "People", "Tech", "Impact"] },
+    { name: "category", type: "select", required: true, options: [...STORY_CATEGORIES] },
     { name: "tags", type: "text", hasMany: true },
     { name: "publishedAt", type: "date", required: true, admin: { date: { pickerAppearance: "dayOnly" } } },
     { name: "thumbnail", type: "upload", relationTo: "media" },

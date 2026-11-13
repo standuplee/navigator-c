@@ -2,14 +2,14 @@
 
 import { useMemo, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import type { Story, StoryCategory } from "@/types/story";
+import { STORY_CATEGORIES, type Story, type StoryCategory } from "@/types/story";
 import { Carousel, CarouselArrows } from "./blocks/Carousel";
 import { MediaSlot } from "./blocks/MediaSlot";
 import { Pagination } from "./blocks/Pagination";
 import { AnchorSection } from "./blocks/AnchorNav";
 
 const PAGE_SIZE = 12;
-const CATEGORIES: ("전체" | StoryCategory)[] = ["전체", "Leader's View", "Culture", "Service", "People", "Tech", "Impact"];
+const CATEGORIES: ("전체" | StoryCategory)[] = ["전체", ...STORY_CATEGORIES];
 
 export type StoryListQuery = { category?: string; keyword?: string; page?: string };
 
@@ -52,10 +52,10 @@ export function StoryListPage({ stories, query = {} }: { stories: Story[]; query
   return (
     <main className="pb-16">
       {stories.length > 0 && (
-        <section aria-label="추천 스토리" className="mx-auto max-w-[1280px] overflow-hidden px-gutter pb-16 xl:pb-20">
+        <section aria-label="추천 간증" className="mx-auto max-w-[1280px] overflow-hidden px-gutter pb-16 xl:pb-20">
           <Carousel
             preset="recommend"
-            label="추천 스토리"
+            label="추천 간증"
             className="[&_.swiper]:!overflow-visible"
             slideClassName="!w-[335px] md:!w-[560px] xl:!w-[740px] transition-opacity duration-200 [&:not(.swiper-slide-active)]:opacity-60"
             arrowsAfter
@@ -74,10 +74,10 @@ export function StoryListPage({ stories, query = {} }: { stories: Story[]; query
         </section>
       )}
 
-      <AnchorSection items={[{ id: "story-list", label: "스토리" }]}>
-      <section id="story-list" aria-label="스토리 목록" className="mx-auto max-w-[1280px] px-gutter">
+      <AnchorSection items={[{ id: "story-list", label: "간증" }]}>
+      <section id="story-list" aria-label="간증 목록" className="mx-auto max-w-[1280px] px-gutter">
         <div className="flex flex-col-reverse gap-4 border-b border-zinc-200 md:flex-row md:items-center md:justify-between">
-          <nav aria-label="스토리 분류" className="-mx-gutter overflow-x-auto px-gutter [scrollbar-width:none] md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden">
+          <nav aria-label="간증 분류" className="-mx-gutter overflow-x-auto px-gutter [scrollbar-width:none] md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden">
             <ul className="flex h-[50px] items-center gap-6 md:h-[60px]">
               {CATEGORIES.map((item) => {
                 const value = item === "전체" ? "" : item;
@@ -107,7 +107,7 @@ export function StoryListPage({ stories, query = {} }: { stories: Story[]; query
               go({ keyword: draft.trim() });
             }}
           >
-            <input value={draft} onChange={(event) => setDraft(event.target.value)} placeholder="스토리 검색" aria-label="스토리 검색" className="min-w-0 flex-1 bg-transparent text-sm outline-none" />
+            <input value={draft} onChange={(event) => setDraft(event.target.value)} placeholder="간증 검색" aria-label="간증 검색" className="min-w-0 flex-1 bg-transparent text-sm outline-none" />
             <button type="submit" aria-label="검색" className="grid size-9 place-items-center">
               <span aria-hidden="true">⌕</span>
             </button>

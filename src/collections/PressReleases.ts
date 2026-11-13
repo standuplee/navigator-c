@@ -16,7 +16,7 @@ export const PressReleases: CollectionConfig = {
   fields: [
     { name: "title", type: "text", required: true },
     { name: "seq", type: "text", required: true, unique: true, admin: { description: "원본 URL 호환용 식별자 — /news/<값>" } },
-    { name: "category", type: "text", defaultValue: "보도자료" },
+    { name: "category", type: "text", defaultValue: "소식" },
     { name: "tags", type: "text", hasMany: true },
     { name: "publishedAt", type: "date", required: true, admin: { date: { pickerAppearance: "dayOnly" } } },
     { name: "thumbnail", type: "upload", relationTo: "media" },

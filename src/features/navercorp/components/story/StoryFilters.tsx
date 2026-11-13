@@ -1,6 +1,6 @@
 "use client";
 
-import type { StoryCategory } from "@/types/story";
+import type { StoryCategory } from "@/features/navercorp/storyTypes";
 
 export const storyCategories: ("All" | StoryCategory)[] = ["All", "Leader's View", "Culture", "Service", "People", "Tech", "Impact"];
 export function StoryFilters({ category, query, onCategory, onQuery }: { category: string; query: string; onCategory: (value: string) => void; onQuery: (value: string) => void }) {
