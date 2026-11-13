@@ -1,8 +1,9 @@
+import { withSampleImages } from "./sampleImages";
 import type { SectionLandingContent } from "@/types/pageTemplates";
 
 /** /ministry and /fellowship landings with the text of navigators-seoulc.org (main
  * "Navigator Ministries", sub2, sub3). Edited later in the admin (landing-pages). */
-export const sectionLandings: Record<"ministry" | "fellowship", SectionLandingContent> = {
+export const sectionLandings: Record<"ministry" | "fellowship", SectionLandingContent> = withSampleImages({
   ministry: {
     theme: "light",
     hero: { line1: ["그리스도를 알고,", "그를 알게 하라"], line2: "Navigator Ministries", tiles: 8 },
@@ -81,4 +82,4 @@ export const sectionLandings: Record<"ministry" | "fellowship", SectionLandingCo
     },
     cta: { title: "모임 일정이 궁금하다면", description: "정기모임과 행사 일정을 확인해 보세요.", href: "/news/schedule", ctaLabel: "모임 일정 보기" },
   },
-};
+});

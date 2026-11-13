@@ -1,3 +1,4 @@
+import { withSampleImages } from "./sampleImages";
 import type { ResourceConsent, ResourcePageContent } from "@/types/pageTemplates";
 
 /** /about/tools (네비게이토 도구 — the illustrations and materials of navigators-seoulc.org
@@ -15,7 +16,7 @@ export const brandResourcesTabs = [
   { label: "갤러리", href: "/about/gallery" },
 ];
 
-export const brandGuide: ResourcePageContent = {
+export const brandGuide: ResourcePageContent = withSampleImages({
   title: "네비게이토 도구",
   consent,
   sections: [
@@ -85,14 +86,14 @@ export const brandGuide: ResourcePageContent = {
       ],
     },
   ],
-};
+});
 
 const photos = (group: string, count: number) => ({
   kind: "photos" as const,
   photos: Array.from({ length: count }, (_, index) => ({ alt: `${group} 사진 ${index + 1}`, downloadHref: "#" })),
 });
 
-export const gallery: ResourcePageContent = {
+export const gallery: ResourcePageContent = withSampleImages({
   title: "갤러리",
   consent,
   sections: [
@@ -115,4 +116,4 @@ export const gallery: ResourcePageContent = {
       ],
     },
   ],
-};
+});

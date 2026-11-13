@@ -1,3 +1,4 @@
+import { withSampleImages } from "./sampleImages";
 import type { ServiceDetailContent, ServiceProduct } from "@/types/pageTemplates";
 import { pressReleaseList } from "./pressReleases";
 
@@ -11,6 +12,7 @@ const related = pressReleaseList.slice(0, 6).map((item) => ({
   href: item.href,
   date: item.date,
   category: item.category,
+  image: item.image,
 }));
 
 const LINKS = [
@@ -36,7 +38,7 @@ const iconHero = (title: string, description: string, count: number) => ({
 export type ServiceDetailKey =
   | "bible-study" | "church-contribution" | "missions" | "workplace" | "military" | "channels" | "vision-center" | "campus" | "portal" | "space1784";
 
-export const serviceDetails: Record<ServiceDetailKey, ServiceDetailContent> = {
+export const serviceDetails: Record<ServiceDetailKey, ServiceDetailContent> = withSampleImages({
   "bible-study": {
     title: "성경공부",
     hero: iconHero("성경공부", "“네가 진리의 말씀을 옳게 분변하며 부끄러울 것이 없는 일꾼으로 인정된 자로 자신을 하나님 앞에 드리기를 힘쓰라” 디모데후서 2:15", 3),
@@ -204,4 +206,4 @@ export const serviceDetails: Record<ServiceDetailKey, ServiceDetailContent> = {
     cta: { title: "다음 수양회가 궁금하다면", description: "일정은 모임 일정에서 확인할 수 있습니다.", href: "/news/schedule", ctaLabel: "모임 일정" },
     related,
   },
-};
+});

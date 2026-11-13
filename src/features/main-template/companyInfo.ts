@@ -1,9 +1,10 @@
+import { withSampleImages } from "./sampleImages";
 import type { AffiliatesContent, ContactContent, PartnershipContent } from "@/types/pageTemplates";
 
 /** /about/recommendations, /about/contact and /faq with the text of navigators-seoulc.org
  * (sub1 목사님 추천 · Contact us, sub4 QnA). The two personal phone numbers of the original
  * contact page are left out until it is decided whether to publish them. */
-export const affiliates: AffiliatesContent = {
+export const affiliates: AffiliatesContent = withSampleImages({
   title: "목사님 추천",
   items: [
     {
@@ -42,7 +43,7 @@ export const affiliates: AffiliatesContent = {
       image: { label: "명성훈 목사님" },
     },
   ],
-};
+});
 
 export const contact: ContactContent = {
   title: "Contact",

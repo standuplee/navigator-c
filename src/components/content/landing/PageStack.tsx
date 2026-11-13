@@ -89,6 +89,7 @@ export function PageStackDomain({ domain }: { domain: LandingStackDomain }) {
                     </div>
                     <MediaSlot
                       kind={domain.media?.kind}
+                      src={domain.media?.src}
                       label={`${domain.title} · ${point.title}`}
                       tone="dark"
                       className={`order-1 aspect-[335/419] rounded-3xl transition-opacity duration-[1060ms] ease-stack md:ml-auto md:aspect-auto md:h-[333px] md:w-[266px] lg:ml-0 lg:aspect-[477/447] lg:h-auto lg:w-auto ${hidden ? "opacity-0" : "opacity-100"}`}

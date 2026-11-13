@@ -1,3 +1,4 @@
+import { samplePick, withSampleImages } from "./sampleImages";
 /** Main page and site chrome content with the text of navigators-seoulc.org (main, sub1–sub4).
  * Fallback for the admin globals main-page / navigation / site-settings; components only depend
  * on the types in src/types/mainTemplate.ts. */
@@ -53,12 +54,12 @@ export const navMenuItems: NavMenuItem[] = [
   ] },
 ];
 
-export const headlineSlides: NewsCardItem[] = [
-  { id: "h1", category: "네비게이토란?", date: "Since 1933", title: "‘그리스도를 알고, 그를 알게 하라.’ — ‘항해자’라는 뜻의 국제적인 초교파 선교회", href: "/about", tone: "dark" },
-  { id: "h2", category: "Navigator Ministries", date: "캠퍼스 · 직장 · 군대 · 해외", title: "네비게이토는 전국의 캠퍼스와 직장, 군대 그리고 해외에서 제자와 일꾼을 키우고 있습니다", href: "/ministry", tone: "dark" },
-  { id: "h3", category: "서울C지구", date: "Since 1984", title: "1984년 중앙대 캠퍼스에서 시작된 네비게이토 서울C지구", href: "/about/history", tone: "dark" },
-  { id: "h4", category: "주일교제", date: "매주 주일 오후 2:30", title: "찬양과 은혜로운 간증, 그룹별 성경공부 — 상도동 비전관에서 만나요", href: "/fellowship/gatherings", tone: "dark" },
-];
+export const headlineSlides: NewsCardItem[] = withSampleImages([
+  { id: "h1", category: "네비게이토란?", date: "Since 1933", title: "‘그리스도를 알고, 그를 알게 하라.’ — ‘항해자’라는 뜻의 국제적인 초교파 선교회", href: "/about", tone: "dark", image: samplePick("hero", 0) },
+  { id: "h2", category: "Navigator Ministries", date: "캠퍼스 · 직장 · 군대 · 해외", title: "네비게이토는 전국의 캠퍼스와 직장, 군대 그리고 해외에서 제자와 일꾼을 키우고 있습니다", href: "/ministry", tone: "dark", image: samplePick("hero", 1) },
+  { id: "h3", category: "서울C지구", date: "Since 1984", title: "1984년 중앙대 캠퍼스에서 시작된 네비게이토 서울C지구", href: "/about/history", tone: "dark", image: samplePick("hero", 2) },
+  { id: "h4", category: "주일교제", date: "매주 주일 오후 2:30", title: "찬양과 은혜로운 간증, 그룹별 성경공부 — 상도동 비전관에서 만나요", href: "/fellowship/gatherings", tone: "dark", image: samplePick("sunday", 0) },
+]);
 
 export const shortcutCards: ShortcutCard[] = [
   { id: "s1", label: "정기모임", title: "주일교제 · 매주 주일 오후 2:30", href: "/fellowship/gatherings#sunday", tone: "light" },
@@ -69,7 +70,7 @@ export const shortcutCards: ShortcutCard[] = [
 /** NEWS & STORY: 15 cards like the reference (mobile shows the first 5): testimonies and
  * community news of a typical church fellowship, linking to /testimony and /news.
  * Text-only cards at index 1 and 2. Dummy content — replace in the admin. */
-export const newsCards: NewsCardItem[] = [
+export const newsCards: NewsCardItem[] = withSampleImages([
   { id: "n1", category: "간증", date: "2026.10.28", title: "안 믿던 내가 은혜의 샘에 처음 간 날", tags: ["은혜의 샘", "새내기"], href: "/testimony/t1", tone: "light" },
   { id: "n2", category: "공지", date: "2026.11.10", title: "12월 이브파티 준비팀 모집", href: "/news/n2611-1", tone: "light", kind: "text" },
   { id: "n3", category: "공지", date: "2026.11.06", title: "추수감사 주일 감사 나눔 안내", href: "/news", tone: "light", kind: "text" },
@@ -85,20 +86,20 @@ export const newsCards: NewsCardItem[] = [
   { id: "n13", category: "간증", date: "2026.04.06", title: "커플스터디로 시작한 우리 가정의 예배", tags: ["가정"], href: "/testimony/t6", tone: "light" },
   { id: "n14", category: "소식", date: "2026.09.12", title: "지역 무료 급식 봉사에 함께했습니다", tags: ["봉사", "섬김"], href: "/news", tone: "light" },
   { id: "n15", category: "간증", date: "2026.03.10", title: "1:1 개인교제, 한 사람이 나에게 쏟은 시간", tags: ["개인교제"], href: "/testimony/t7", tone: "light" },
-];
+]);
 
 export const promotionSlides: PromotionSlide[] = [
-  { id: "p1", title: "네비게이토 성경공부", description: "체계적인 네비게이토 성경공부를 통해 하나님을 알고 믿음이 자랄 수 있습니다.", ctaLabel: "자세히 보기", href: "/ministry/bible-study", backgroundColor: "#ffffff", tone: "light" },
-  { id: "p2", title: "소그룹 성경공부", description: "네비게이토 성경공부는 소그룹으로 진행되어 각 개인의 믿음을 잘 세워줍니다.", ctaLabel: "자세히 보기", href: "/fellowship/gatherings#sunday", backgroundColor: "#fff3e6", tone: "light" },
-  { id: "p3", title: "기도", description: "기도를 통해 살아계신 하나님을 경험할 수 있습니다. 또한 기도의 손은 기도로 하나님과 친밀히 교제할 수 있는 좋은 기도의 방법입니다.", ctaLabel: "자세히 보기", href: "/about/tools#hand-of-prayer", backgroundColor: "#edeff3", tone: "light" },
-  { id: "p4", title: "Wheel Life", description: "성령충만한 그리스도인의 삶을 사는 데 필요한 원리를 도슨 트로트맨은 휠라이프 예화로 잘 설명하였습니다.", ctaLabel: "자세히 보기", href: "/about/tools#wheel-life", backgroundColor: "#1a1d24", tone: "dark" },
-  { id: "p5", title: "전도와 양육", description: "네비게이토는 다른 사람을 주님께로 인도할 뿐만 아니라 1:1 개인 양육을 통해 각 사람을 주님의 제자로 세워줍니다.", ctaLabel: "자세히 보기", href: "/fellowship/discipleship", backgroundColor: "#f6f1e9", tone: "light" },
+  { id: "p1", title: "네비게이토 성경공부", description: "체계적인 네비게이토 성경공부를 통해 하나님을 알고 믿음이 자랄 수 있습니다.", ctaLabel: "자세히 보기", href: "/ministry/bible-study", backgroundColor: "#ffffff", tone: "light", image: samplePick("tabBible", 0) },
+  { id: "p2", title: "소그룹 성경공부", description: "네비게이토 성경공부는 소그룹으로 진행되어 각 개인의 믿음을 잘 세워줍니다.", ctaLabel: "자세히 보기", href: "/fellowship/gatherings#sunday", backgroundColor: "#fff3e6", tone: "light", image: samplePick("bible", 0) },
+  { id: "p3", title: "기도", description: "기도를 통해 살아계신 하나님을 경험할 수 있습니다. 또한 기도의 손은 기도로 하나님과 친밀히 교제할 수 있는 좋은 기도의 방법입니다.", ctaLabel: "자세히 보기", href: "/about/tools#hand-of-prayer", backgroundColor: "#edeff3", tone: "light", image: samplePick("tabPrayer", 0) },
+  { id: "p4", title: "Wheel Life", description: "성령충만한 그리스도인의 삶을 사는 데 필요한 원리를 도슨 트로트맨은 휠라이프 예화로 잘 설명하였습니다.", ctaLabel: "자세히 보기", href: "/about/tools#wheel-life", backgroundColor: "#1a1d24", tone: "dark", image: samplePick("tabPrayer", 1) },
+  { id: "p5", title: "전도와 양육", description: "네비게이토는 다른 사람을 주님께로 인도할 뿐만 아니라 1:1 개인 양육을 통해 각 사람을 주님의 제자로 세워줍니다.", ctaLabel: "자세히 보기", href: "/fellowship/discipleship", backgroundColor: "#f6f1e9", tone: "light", image: samplePick("tabDisciple", 0) },
 ];
 
 export const summaryPanels: SummaryPanel[] = [
-  { id: "sp1", label: "성경공부", title: "말씀을 알고, 제자로 자라는", titleEn: "Bible Study", description: "체계적인 네비게이토 성경공부를 통해 하나님을 알고 믿음이 자랄 수 있습니다. 소그룹으로 진행되어 각 개인의 믿음을 잘 세워줍니다.", href: "/ministry/bible-study", color: "#f88b01", tone: "dark" },
-  { id: "sp2", label: "말씀과 기도", title: "말씀의 손, 기도의 손", titleEn: "Word & Prayer", description: "기도를 통해 살아계신 하나님을 경험할 수 있습니다. 말씀과 기도로 하나님과 친밀히 교제합니다.", href: "/about/tools", color: "#1a1d24", tone: "dark" },
-  { id: "sp3", label: "제자훈련", title: "한 사람을 제자로 세우는", titleEn: "Discipleship", description: "다른 사람을 주님께로 인도할 뿐만 아니라 1:1 개인 양육을 통해 각 사람을 주님의 제자로 세워줍니다.", href: "/fellowship/discipleship", color: "#fff3e6", tone: "light" },
+  { id: "sp1", label: "성경공부", title: "말씀을 알고, 제자로 자라는", titleEn: "Bible Study", description: "체계적인 네비게이토 성경공부를 통해 하나님을 알고 믿음이 자랄 수 있습니다. 소그룹으로 진행되어 각 개인의 믿음을 잘 세워줍니다.", href: "/ministry/bible-study", color: "#f88b01", tone: "dark", image: samplePick("tabBible", 1) },
+  { id: "sp2", label: "말씀과 기도", title: "말씀의 손, 기도의 손", titleEn: "Word & Prayer", description: "기도를 통해 살아계신 하나님을 경험할 수 있습니다. 말씀과 기도로 하나님과 친밀히 교제합니다.", href: "/about/tools", color: "#1a1d24", tone: "dark", image: samplePick("tabPrayer", 0) },
+  { id: "sp3", label: "제자훈련", title: "한 사람을 제자로 세우는", titleEn: "Discipleship", description: "다른 사람을 주님께로 인도할 뿐만 아니라 1:1 개인 양육을 통해 각 사람을 주님의 제자로 세워줍니다.", href: "/fellowship/discipleship", color: "#fff3e6", tone: "light", image: samplePick("tabDisciple", 1) },
 ];
 
 export const partnerTabs: PartnerTabGroup[] = [

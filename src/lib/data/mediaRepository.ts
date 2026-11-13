@@ -7,6 +7,7 @@ import { readAll } from "@/lib/payload/read";
 import { pressReleaseList as fallbackList, getPressRelease as fallbackGet } from "@/features/main-template/pressReleases";
 import { mediaEvents } from "@/features/main-template/mediaEvents";
 import { naverReportsList } from "@/features/main-template/naverReports";
+import { sampleFor } from "@/features/main-template/sampleImages";
 import { aiServiceCategories, aiServiceList, buildingAiList } from "@/features/main-template/aiInNaver";
 
 /** Repository boundary for /news (소식, Payload press-releases), /news/schedule (Payload
@@ -39,6 +40,7 @@ function toNewsCardItem(doc: PressReleaseDoc): NewsCardItem {
     tags: doc.tags ?? [],
     href: `/news/${doc.seq}`,
     tone: "light",
+    image: typeof doc.thumbnail === "object" && doc.thumbnail?.url ? doc.thumbnail.url : undefined,
   };
 }
 
@@ -66,7 +68,7 @@ export async function getPressRelease(seq?: string): Promise<ArticleDetail> {
     title: doc.title,
     date: dotted,
     publishedAt: dotted,
-    images: [{ src: "", alt: `${doc.title} 대표 이미지`, caption: "" }],
+    images: [{ src: typeof doc.thumbnail === "object" && doc.thumbnail?.url ? doc.thumbnail.url : "", alt: `${doc.title} 대표 이미지`, caption: "" }],
     paragraphs: lexicalToParagraphs(doc.body),
   };
 }
@@ -100,7 +102,7 @@ export async function getNaverReport(seq?: string): Promise<ArticleDetail & { ta
     date: item.date,
     publishedAt: item.date,
     tags: item.tags ?? [],
-    images: [{ src: "", alt: "리포트 표지", caption: "" }],
+    images: [{ src: item.image ?? "", alt: "리포트 표지", caption: "" }],
     paragraphs: [
       "이 기간 동안 함께한 모임과 사람들, 그리고 하나님께서 하신 일을 정리한 보고입니다.",
       "주일교제와 은혜의 샘 참석, 개인교제와 훈련 프로그램 참여, 새로 함께하게 된 형제자매들의 이야기를 담았습니다.",
@@ -111,14 +113,14 @@ export async function getNaverReport(seq?: string): Promise<ArticleDetail & { ta
 
 /** Generic article built from a list entry — mock detail for events and AI articles until
  * they move to the CMS (same shape as press releases). */
-function mockArticle(item: { category: string; title: string; date: string; tags?: string[] }): ArticleDetail & { tags: string[] } {
+function mockArticle(item: { category: string; title: string; date: string; tags?: string[]; image?: string }): ArticleDetail & { tags: string[] } {
   return {
     category: item.category,
     title: item.title,
     date: item.date,
     publishedAt: item.date,
     tags: item.tags ?? [],
-    images: [{ src: "", alt: "본문 이미지", caption: "" }],
+    images: [{ src: item.image || sampleFor(`${item.title} ${item.category}`), alt: "본문 이미지", caption: "" }],
     paragraphs: [
       "오늘 본문을 천천히 두 번 읽고, 마음에 머문 한 구절을 적어 보았습니다.",
       "그 말씀이 오늘 나의 하루와 어떻게 이어지는지 묵상하고, 짧은 기도로 마무리합니다. 함께 나누고 싶은 묵상은 주일교제 그룹 시간에 이야기해 주세요.",

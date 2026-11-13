@@ -1,3 +1,4 @@
+import { withSampleImages } from "./sampleImages";
 import type { Story, StoryDetail } from "@/types/story";
 
 /** Dummy testimonies for /testimony (story-list / story-detail). Fictional people and
@@ -39,7 +40,7 @@ const entries: Entry[] = [
   },
 ];
 
-export const storyList: Story[] = entries.map(({ seq, category, date, title, tags, image }) => ({ seq, category, date, title, tags, image }));
+export const storyList: Story[] = withSampleImages(entries.map(({ seq, category, date, title, tags, image }) => ({ seq, category, date, title, tags, image })));
 
 const detailBySeq: Record<string, StoryDetail> = Object.fromEntries(
   entries.map(({ seq, category, date, title, tags, markdown }) => [seq, { seq, category, date, title, tags, markdown } satisfies StoryDetail])

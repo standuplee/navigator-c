@@ -1,3 +1,4 @@
+import { withSampleImages } from "./sampleImages";
 import type { NewsCardItem } from "@/types/mainTemplate";
 import type { ArticleDetail } from "@/types/content";
 
@@ -59,7 +60,7 @@ const entries: Entry[] = [
   ] },
 ];
 
-export const pressReleaseList: NewsCardItem[] = entries.map(({ id, category, date, title, tags }) => ({
+export const pressReleaseList: NewsCardItem[] = withSampleImages(entries.map(({ id, category, date, title, tags }) => ({
   id,
   category,
   date,
@@ -67,7 +68,7 @@ export const pressReleaseList: NewsCardItem[] = entries.map(({ id, category, dat
   tags,
   href: `/news/${id}`,
   tone: "light" as const,
-}));
+})));
 
 const detailBySeq: Record<string, ArticleDetail> = Object.fromEntries(
   entries.map((item) => [
@@ -77,12 +78,14 @@ const detailBySeq: Record<string, ArticleDetail> = Object.fromEntries(
       title: item.title,
       date: item.date,
       publishedAt: item.date,
-      images: [{ src: "", alt: `${item.title} 사진`, caption: "" }],
+      images: [{ src: "", alt: `${item.title} 사진`, caption: "" }], // filled from the list image below
       paragraphs: item.paragraphs,
     } satisfies ArticleDetail,
   ])
 );
 
 export function getPressRelease(seq?: string): ArticleDetail {
-  return (seq && detailBySeq[seq]) || detailBySeq[pressReleaseList[0].id];
+  const detail = (seq && detailBySeq[seq]) || detailBySeq[pressReleaseList[0].id];
+  const image = pressReleaseList.find((item) => item.title === detail.title)?.image ?? "";
+  return { ...detail, images: detail.images.map((figure) => ({ ...figure, src: figure.src || image })) };
 }

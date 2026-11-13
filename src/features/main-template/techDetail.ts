@@ -1,3 +1,4 @@
+import { withSampleImages } from "./sampleImages";
 import type { TechDetailContent } from "@/types/pageTemplates";
 import { pressReleaseList } from "./pressReleases";
 
@@ -11,7 +12,7 @@ const photo = (label: string) => ({ label });
 
 export type TechDetailKey = "gatherings" | "leisure" | "discipleship" | "events";
 
-export const techDetails: Record<TechDetailKey, TechDetailContent> = {
+export const techDetails: Record<TechDetailKey, TechDetailContent> = withSampleImages({
   gatherings: {
     title: "정기모임",
     keycopy: "주일 오후, 화요일 저녁 — 말씀으로 함께 모입니다",
@@ -145,4 +146,4 @@ export const techDetails: Record<TechDetailKey, TechDetailContent> = {
     cta: { title: "우리 함께 해요!", description: "궁금한 점은 인스타그램 DM으로 남겨주세요.", href: "/faq", ctaLabel: "자주 묻는 질문" },
     related,
   },
-};
+});

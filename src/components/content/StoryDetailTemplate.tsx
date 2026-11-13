@@ -7,13 +7,13 @@ import { MarkdownRenderer } from "./MarkdownRenderer";
 
 /** `story-detail` (PRD §7.9): shared article chrome with hero image, markdown body,
  * keyword chips linking back to the filtered list, and related stories. */
-export function StoryDetailTemplate({ story, related = [] }: { story: StoryDetail; related?: RelatedItem[] }) {
+export function StoryDetailTemplate({ story, image, related = [] }: { story: StoryDetail; image?: string; related?: RelatedItem[] }) {
   return (
     <ArticleChrome
       category={story.category}
       title={story.title}
       date={story.date}
-      hero={{ label: "대표 이미지" }}
+      hero={{ src: image || undefined, label: "대표 이미지" }}
       listHref="/testimony"
       tags={story.tags}
       tagHrefBase="/testimony?keyword="

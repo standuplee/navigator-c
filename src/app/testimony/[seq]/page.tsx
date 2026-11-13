@@ -14,10 +14,11 @@ export default async function StoryDetailRoute({ params }: { params: Promise<{ s
   const related = list
     .filter((item) => item.title !== story.title)
     .slice(0, 6)
-    .map((item) => ({ id: item.seq, title: item.title, href: `/testimony/${item.seq}`, date: item.date, category: item.category }));
+    .map((item) => ({ id: item.seq, title: item.title, href: `/testimony/${item.seq}`, date: item.date, category: item.category, image: item.image || undefined }));
+  const image = list.find((item) => item.seq === seq)?.image;
   return (
     <PageChrome headerTheme="transparent">
-      <StoryDetailTemplate story={story} related={related} />
+      <StoryDetailTemplate story={story} image={image} related={related} />
     </PageChrome>
   );
 }

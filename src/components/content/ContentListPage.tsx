@@ -79,7 +79,7 @@ export function ContentListPage({
           >
             {items.slice(0, 9).map((item) => (
               <a key={item.id} href={item.href} className="group block overflow-hidden rounded-2xl bg-zinc-100">
-                <MediaSlot label={item.category} ratio="379/252" mediaClassName="transition-transform duration-200 ease-smooth can-hover:group-hover:scale-[1.08]" />
+                <MediaSlot src={item.image} label={item.category} ratio="379/252" mediaClassName="transition-transform duration-200 ease-smooth can-hover:group-hover:scale-[1.08]" />
                 <div className="flex h-[220px] flex-col p-5 xl:h-[240px] xl:p-6">
                   <time className="text-xs text-zinc-500">{item.date}</time>
                   <p className="mt-2 line-clamp-3 text-base font-bold leading-snug xl:text-lg">{item.title}</p>
@@ -159,7 +159,7 @@ export function ContentListPage({
                     <time className="shrink-0 text-sm text-zinc-500 md:w-40 md:text-base xl:w-52">{item.date}</time>
                     <p className="line-clamp-2 text-base leading-snug transition-colors duration-200 ease-smooth hover:text-[#717680] md:text-lg xl:max-w-[480px] xl:text-xl">{item.title}</p>
                   </div>
-                  <MediaSlot label={item.category} className="hidden aspect-[278/186] w-[200px] shrink-0 rounded-xl md:block xl:w-[278px]" mediaClassName="transition-transform duration-400 ease-in-out-strong can-hover:group-hover:scale-[1.08]" />
+                  <MediaSlot src={item.image} label={item.category} className="hidden aspect-[278/186] w-[200px] shrink-0 rounded-xl md:block xl:w-[278px]" mediaClassName="transition-transform duration-400 ease-in-out-strong can-hover:group-hover:scale-[1.08]" />
                 </a>
               </li>
             ))}

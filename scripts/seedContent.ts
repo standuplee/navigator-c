@@ -3,6 +3,8 @@
  * exist (same slug / seq) and globals that were already saved are left alone — unless the
  * seed runs with --reset (see scripts/seedPayload.ts).
  * Called from scripts/seedPayload.ts (npm run seed). */
+import fs from "node:fs";
+import path from "node:path";
 import type { Payload } from "payload";
 import * as main from "../src/features/main-template/data";
 import { aboutStory } from "../src/features/main-template/aboutStory";
@@ -19,6 +21,47 @@ import type { ResourcePageContent } from "../src/types/pageTemplates";
 
 const UPLOAD_KEYS = new Set(["src", "image", "poster", "video"]);
 
+const mediaIds = new Map<string, number | string>();
+
+/** Uploads a sample photo (`/sample/…` under public/) to the media library once — reusing a
+ * file that is already there — and returns its id; undefined when the file is missing
+ * (scripts/download-navigators-assets.py not run yet). */
+export async function sampleMediaId(payload: Payload, publicPath: string): Promise<number | string | undefined> {
+  const cached = mediaIds.get(publicPath);
+  if (cached !== undefined) return cached;
+  const filename = path.basename(publicPath);
+  const filePath = path.resolve(process.cwd(), "public", publicPath.replace(/^\//, ""));
+  if (!fs.existsSync(filePath)) {
+    missingSamples.add(publicPath);
+    return undefined;
+  }
+  try {
+    const existing = await payload.find({ collection: "media", where: { filename: { equals: filename } }, limit: 1 });
+    const id = existing.docs[0]?.id ?? (await payload.create({ collection: "media", data: { alt: filename.replace(/\.\w+$/, "") }, filePath })).id;
+    mediaIds.set(publicPath, id);
+    return id;
+  } catch (error) {
+    console.warn(`[seed] media ${publicPath} skipped:`, error instanceof Error ? error.message : error);
+    return undefined;
+  }
+}
+
+export const missingSamples = new Set<string>();
+
+/** Replaces sample photo paths in upload slots with media ids (see sampleMediaId). */
+async function withMedia<T>(payload: Payload, value: T): Promise<T> {
+  const walk = async (input: unknown): Promise<unknown> => {
+    if (Array.isArray(input)) return Promise.all(input.map(walk));
+    if (!input || typeof input !== "object") return input;
+    const out: Record<string, unknown> = {};
+    for (const [key, raw] of Object.entries(input as Record<string, unknown>)) {
+      out[key] = UPLOAD_KEYS.has(key) && typeof raw === "string" && raw.startsWith("/sample/") ? await sampleMediaId(payload, raw) : await walk(raw);
+    }
+    return out;
+  };
+  return (await walk(value)) as T;
+}
+
 /** Content type → Payload data: `id` → `anchor`, upload slots (plain strings in the mock)
  * dropped. Unions are converted by the callers (they know which key is the discriminator). */
 function toDoc<T>(value: T): T {
@@ -27,7 +70,8 @@ function toDoc<T>(value: T): T {
     if (!input || typeof input !== "object") return input;
     const out: Record<string, unknown> = {};
     for (const [key, raw] of Object.entries(input as Record<string, unknown>)) {
-      if (UPLOAD_KEYS.has(key) && (typeof raw === "string" || raw === undefined)) continue;
+      // Sample photos stay (withMedia uploads them); other plain strings in upload slots are dropped.
+      if (UPLOAD_KEYS.has(key) && (raw === undefined || (typeof raw === "string" && !raw.startsWith("/sample/")))) continue;
       out[key === "id" ? "anchor" : key] = walk(raw);
     }
     return out;
@@ -51,7 +95,7 @@ async function once(payload: Payload, collection: string, where: Record<string, 
   try {
     const existing = await payload.find({ collection: collection as never, where: where as never, limit: 1 });
     if (existing.docs.length) return;
-    await payload.create({ collection: collection as never, data: data as never });
+    await payload.create({ collection: collection as never, data: (await withMedia(payload, data)) as never });
     log.push(collection);
   } catch (error) {
     console.warn(`[seed] ${collection} ${JSON.stringify(where)} skipped:`, error instanceof Error ? error.message : error);
@@ -65,7 +109,7 @@ async function globalOnce(payload: Payload, slug: string, data: unknown, log: st
   try {
     const current = (await payload.findGlobal({ slug: slug as never })) as { updatedAt?: string };
     if (current?.updatedAt && !overwriteGlobals) return;
-    await payload.updateGlobal({ slug: slug as never, data: data as never });
+    await payload.updateGlobal({ slug: slug as never, data: (await withMedia(payload, data)) as never });
     log.push(`global:${slug}`);
   } catch (error) {
     console.warn(`[seed] global ${slug} skipped:`, error instanceof Error ? error.message : error);

@@ -52,3 +52,6 @@ temp/
 payload.db
 payload-types.ts
 /media/
+
+# sample photos from navigators-seoulc.org (scripts/download-navigators-assets.py, ~47MB)
+/public/sample/

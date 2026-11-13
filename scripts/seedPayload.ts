@@ -12,7 +12,7 @@ import { getPayload } from "payload";
 import { storyList, findStoryDetail } from "../src/features/main-template/stories";
 import { pressReleaseList, getPressRelease } from "../src/features/main-template/pressReleases";
 import { markdownToLexical, paragraphsToLexical } from "../src/lib/payload/lexical";
-import { seedContent } from "./seedContent";
+import { missingSamples, sampleMediaId, seedContent } from "./seedContent";
 
 function dottedDateToISO(dotted: string): string {
   const [y, m, d] = dotted.split(".").map(Number);
@@ -50,6 +50,7 @@ async function run() {
         category: story.category,
         tags: story.tags,
         publishedAt: dottedDateToISO(story.date),
+        thumbnail: story.image ? ((await sampleMediaId(payload, story.image)) as never) : undefined,
         // Payload's generated richText field type wants exact literal keys on every
         // node; our hand-built JSON is structurally correct (verified against a live
         // document earlier) but TS can't prove it here — narrow cast, seed-script-only.
@@ -73,6 +74,7 @@ async function run() {
         category: item.category,
         tags: item.tags ?? [],
         publishedAt: dottedDateToISO(item.date),
+        thumbnail: item.image ? ((await sampleMediaId(payload, item.image)) as never) : undefined,
         body: paragraphsToLexical(article.paragraphs) as never,
         _status: "published",
       },
@@ -84,6 +86,9 @@ async function run() {
   const counts = pages.reduce<Record<string, number>>((acc, name) => ({ ...acc, [name]: (acc[name] ?? 0) + 1 }), {});
   console.log(`Page content: ${Object.entries(counts).map(([name, count]) => `${name} +${count}`).join(", ") || "nothing new"}.`);
   console.log(`Seed complete — stories: +${storiesCreated} (skipped ${storyList.length - storiesCreated} existing), press releases: +${pressReleasesCreated} (skipped ${pressReleaseList.length - pressReleasesCreated} existing).`);
+  if (missingSamples.size) {
+    console.warn(`${missingSamples.size} sample photos are missing in public/sample — run: python3 scripts/download-navigators-assets.py, then npm run seed -- --reset`);
+  }
   process.exit(0);
 }
 

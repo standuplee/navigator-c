@@ -63,7 +63,7 @@ export function StoryListPage({ stories, query = {} }: { stories: Story[]; query
           >
             {stories.slice(0, 10).map((story) => (
               <a key={story.seq} href={detailHref(story)} className="group block overflow-hidden rounded-3xl bg-zinc-100">
-                <MediaSlot label={story.category} className="aspect-[4/3] md:aspect-[740/353]" mediaClassName="transition-transform duration-200 ease-smooth can-hover:group-hover:scale-105" />
+                <MediaSlot src={story.image || undefined} label={story.category} className="aspect-[4/3] md:aspect-[740/353]" mediaClassName="transition-transform duration-200 ease-smooth can-hover:group-hover:scale-105" />
                 <div className="flex h-[163px] flex-col p-5 md:h-[150px] xl:h-[140px] xl:p-6">
                   <p className="text-sm text-zinc-500">{story.category}</p>
                   <p className="mt-2 line-clamp-2 text-base font-bold leading-snug xl:text-xl">{story.title}</p>
@@ -125,7 +125,7 @@ export function StoryListPage({ stories, query = {} }: { stories: Story[]; query
             {visible.map((story) => (
               <li key={story.seq} className="group flex flex-col overflow-hidden rounded-lg">
                 <a href={detailHref(story)} tabIndex={-1} aria-hidden="true" className="block overflow-hidden">
-                  <MediaSlot label={story.category} ratio="379/252" mediaClassName="transition-transform duration-200 ease-smooth can-hover:group-hover:scale-105" />
+                  <MediaSlot src={story.image || undefined} label={story.category} ratio="379/252" mediaClassName="transition-transform duration-200 ease-smooth can-hover:group-hover:scale-105" />
                 </a>
                 <div className="flex flex-1 flex-col bg-[#f2f4f5] p-5 transition-colors duration-200 ease-in-out-strong can-hover:group-hover:bg-[#e9eaeb] xl:p-6">
                   <p className="flex gap-2 text-xs">

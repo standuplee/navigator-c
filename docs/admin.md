@@ -5,6 +5,7 @@
 ## 처음 한 번
 
 ```bash
+python3 scripts/download-navigators-assets.py  # 샘플 사진 97장 → public/sample/ (처음 한 번)
 npm run dev          # 개발 서버 (SQLite payload.db, 스키마는 자동 반영)
 npm run seed         # 지금 화면에 보이는 임시 내용을 어드민에 채워 넣기 (여러 번 실행해도 안전)
 npm run seed -- --reset  # 예전 임시 내용을 지우고 지금 코드의 임시 내용으로 다시 채우기

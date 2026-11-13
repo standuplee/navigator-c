@@ -110,7 +110,7 @@ export function AiInServicePage({
                 {filtered.slice((page - 1) * CARD_PAGE, page * CARD_PAGE).map((item) => (
                   <li key={item.id}>
                     <a href={item.href} className="group block">
-                      <MediaSlot label={item.category} ratio="379/252" className="rounded-2xl" mediaClassName="transition-transform duration-200 ease-smooth can-hover:group-hover:scale-105" />
+                      <MediaSlot src={item.image} label={item.category} ratio="379/252" className="rounded-2xl" mediaClassName="transition-transform duration-200 ease-smooth can-hover:group-hover:scale-105" />
                       <p className="mt-5 text-sm text-zinc-500">{item.category}</p>
                       <p className="mt-2 line-clamp-2 text-lg font-bold leading-snug group-hover:underline">{item.title}</p>
                       <time className="mt-3 block text-sm text-zinc-400">{item.date}</time>
@@ -136,7 +136,7 @@ export function AiInServicePage({
                       <time className="shrink-0 text-sm text-zinc-500 md:w-40 md:text-base xl:w-52">{item.date}</time>
                       <p className="line-clamp-2 text-base font-bold leading-snug group-hover:underline md:text-lg xl:max-w-[480px] xl:text-xl">{item.title}</p>
                     </div>
-                    <MediaSlot label={item.category} className="hidden aspect-[278/186] w-[200px] shrink-0 rounded-xl md:block xl:w-[278px]" mediaClassName="transition-transform duration-200 ease-smooth can-hover:group-hover:scale-[1.08]" />
+                    <MediaSlot src={item.image} label={item.category} className="hidden aspect-[278/186] w-[200px] shrink-0 rounded-xl md:block xl:w-[278px]" mediaClassName="transition-transform duration-200 ease-smooth can-hover:group-hover:scale-[1.08]" />
                   </a>
                 </li>
               ))}

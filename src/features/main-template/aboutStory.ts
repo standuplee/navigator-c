@@ -1,8 +1,9 @@
+import { withSampleImages } from "./sampleImages";
 import type { AboutStoryContent } from "@/types/pageTemplates";
 
 /** /about scroll story with the text of navigators-seoulc.org sub1 (네비게이토란? · 서울C지구)
  * and sub2 (교계 기여). Edited later in the admin (global about-page). */
-export const aboutStory: AboutStoryContent = {
+export const aboutStory: AboutStoryContent = withSampleImages({
   hero: { text: "‘그리스도를 알고, 그를 알게 하라.’" },
   intro: {
     lead: "네비게이토란?",
@@ -115,4 +116,4 @@ export const aboutStory: AboutStoryContent = {
       { label: "문의", value: "인스타그램 @nav_cau" },
     ],
   },
-};
+});
