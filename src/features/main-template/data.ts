@@ -66,23 +66,25 @@ export const shortcutCards: ShortcutCard[] = [
   { id: "s3", label: "QnA", title: "안 믿는데 성경공부는 할 수 있나요?", href: "/faq", tone: "light" },
 ];
 
-/** 15 cards like the reference: mobile shows the first 5, tablet/desktop all. */
+/** NEWS & STORY: 15 cards like the reference (mobile shows the first 5): testimonies and
+ * community news of a typical church fellowship, linking to /testimony and /news.
+ * Text-only cards at index 1 and 2. Dummy content — replace in the admin. */
 export const newsCards: NewsCardItem[] = [
-  { id: "n1", category: "정기모임", date: "매주 주일", title: "주일교제 — 1부 찬양과 간증, 2부 그룹별 성경공부", tags: ["주일교제", "성경공부"], href: "/fellowship/gatherings#sunday", tone: "light" },
-  { id: "n2", category: "QnA", date: "", title: "대학생인데 학업과 병행을 잘 할 수 있나요?", href: "/faq", tone: "light", kind: "text" },
-  { id: "n3", category: "QnA", date: "", title: "직장인인데 캠퍼스 선교단체 함께 할 수 있나요?", href: "/faq", tone: "light", kind: "text" },
-  { id: "n4", category: "사역", date: "", title: "수준별, 체계적인 네비게이토 성경공부", tags: ["성경공부", "디모데후서 2:15"], href: "/ministry/bible-study", tone: "light" },
-  { id: "n5", category: "행사", date: "매년 여름", title: "아름다운 바닷가와 청량한 산에서 — 여름 캠핑 수양회", tags: ["수양회"], href: "/fellowship/events#summer-retreat", tone: "light" },
-  { id: "n6", category: "사역", date: "", title: "선한 목자 되신 하나님을 알아가는 즐거움 — 캠퍼스", tags: ["캠퍼스", "중앙대"], href: "/ministry/campus", tone: "light" },
-  { id: "n7", category: "양육·훈련", date: "", title: "예수님과 바울처럼, 1대1 양육 — 개인교제", tags: ["1:1 양육"], href: "/fellowship/discipleship#one-on-one", tone: "light" },
-  { id: "n8", category: "정기모임", date: "매주 화요일", title: "누구나 올 수 있는 복음서 스터디 — 은혜의 샘", tags: ["열린 모임"], href: "/fellowship/gatherings#grace-spring", tone: "light" },
-  { id: "n9", category: "행사", date: "매년 12월", title: "예수님의 탄생을 축하하는 이브파티", tags: ["크리스마스"], href: "/fellowship/events#christmas-eve", tone: "light" },
-  { id: "n10", category: "사역", date: "", title: "하나님과 동행하는 즐거운 직장생활", tags: ["직장"], href: "/ministry/workplace", tone: "light" },
-  { id: "n11", category: "양육·훈련", date: "방학", title: "성경 1독의 꿈을 이루는 Training Program", tags: ["STP", "WTP"], href: "/fellowship/discipleship#training", tone: "light" },
-  { id: "n12", category: "양육·훈련", date: "", title: "말씀으로 행복한 가정 — 커플스터디", tags: ["가정"], href: "/fellowship/discipleship#couples", tone: "light" },
-  { id: "n13", category: "사역", date: "", title: "영국, 캄보디아, 멕시코, 미국으로 — 해외 선교사 파송", tags: ["해외"], href: "/ministry/missions", tone: "light" },
-  { id: "n14", category: "함께 즐기기", date: "", title: "축구, 농구, 탁구, 피트니스 — 함께할 땐 할 수 있습니다", tags: ["스포츠"], href: "/fellowship/leisure#sports", tone: "light" },
-  { id: "n15", category: "About", date: "", title: "잔잔한 물가가 있는 상도동 비전관", tags: ["비전관"], href: "/about/vision-center", tone: "light" },
+  { id: "n1", category: "간증", date: "2026.10.28", title: "안 믿던 내가 은혜의 샘에 처음 간 날", tags: ["은혜의 샘", "새내기"], href: "/testimony/t1", tone: "light" },
+  { id: "n2", category: "공지", date: "2026.11.10", title: "12월 이브파티 준비팀 모집", href: "/news/n2611-1", tone: "light", kind: "text" },
+  { id: "n3", category: "공지", date: "2026.11.06", title: "추수감사 주일 감사 나눔 안내", href: "/news", tone: "light", kind: "text" },
+  { id: "n4", category: "소식", date: "2026.11.03", title: "가을 학기 은혜의 샘, 마가복음 완독", tags: ["복음서"], href: "/news/n2611-2", tone: "light" },
+  { id: "n5", category: "간증", date: "2026.09.15", title: "STP 6주, 성경 1독을 마치고", tags: ["STP", "성경 1독"], href: "/testimony/t2", tone: "light" },
+  { id: "n6", category: "행사", date: "2026.10.25", title: "가을 MT, 가평에서 보낸 1박 2일", tags: ["MT", "교제"], href: "/news/n2610-1", tone: "light" },
+  { id: "n7", category: "간증", date: "2026.08.20", title: "바닷가 캠핑 수양회에서 다시 만난 하나님", tags: ["수양회"], href: "/testimony/t3", tone: "light" },
+  { id: "n8", category: "소식", date: "2026.10.18", title: "새가족 환영회 — 이번 학기 함께하게 된 열두 명", tags: ["새가족"], href: "/news", tone: "light" },
+  { id: "n9", category: "간증", date: "2026.07.02", title: "첫 직장에서 지켜낸 아침 30분", tags: ["직장", "QT"], href: "/testimony/t4", tone: "light" },
+  { id: "n10", category: "행사", date: "2026.10.04", title: "가을 연합 찬양예배", tags: ["찬양", "예배"], href: "/news", tone: "light" },
+  { id: "n11", category: "간증", date: "2026.05.18", title: "캄보디아 단기선교, 열흘의 기록", tags: ["단기선교"], href: "/testimony/t5", tone: "light" },
+  { id: "n12", category: "소식", date: "2026.09.21", title: "새 학기 1:1 개인교제 스물네 쌍 시작", tags: ["양육"], href: "/news/n2609-1", tone: "light" },
+  { id: "n13", category: "간증", date: "2026.04.06", title: "커플스터디로 시작한 우리 가정의 예배", tags: ["가정"], href: "/testimony/t6", tone: "light" },
+  { id: "n14", category: "소식", date: "2026.09.12", title: "지역 무료 급식 봉사에 함께했습니다", tags: ["봉사", "섬김"], href: "/news", tone: "light" },
+  { id: "n15", category: "간증", date: "2026.03.10", title: "1:1 개인교제, 한 사람이 나에게 쏟은 시간", tags: ["개인교제"], href: "/testimony/t7", tone: "light" },
 ];
 
 export const promotionSlides: PromotionSlide[] = [

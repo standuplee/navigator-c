@@ -1,6 +1,7 @@
 /** Loads the placeholder page content into the new collections / globals so the admin
  * starts from the current site instead of empty forms. Idempotent: documents that already
- * exist (same slug / seq) and globals that were already saved are left alone.
+ * exist (same slug / seq) and globals that were already saved are left alone — unless the
+ * seed runs with --reset (see scripts/seedPayload.ts).
  * Called from scripts/seedPayload.ts (npm run seed). */
 import type { Payload } from "payload";
 import * as main from "../src/features/main-template/data";
@@ -57,10 +58,13 @@ async function once(payload: Payload, collection: string, where: Record<string, 
   }
 }
 
+/** Set by `npm run seed -- --reset`: saved globals are overwritten with the current content. */
+let overwriteGlobals = false;
+
 async function globalOnce(payload: Payload, slug: string, data: unknown, log: string[]) {
   try {
     const current = (await payload.findGlobal({ slug: slug as never })) as { updatedAt?: string };
-    if (current?.updatedAt) return;
+    if (current?.updatedAt && !overwriteGlobals) return;
     await payload.updateGlobal({ slug: slug as never, data: data as never });
     log.push(`global:${slug}`);
   } catch (error) {
@@ -82,8 +86,9 @@ function resourceDoc(page: ResourcePageContent, slug: string) {
   };
 }
 
-export async function seedContent(payload: Payload) {
+export async function seedContent(payload: Payload, { reset = false }: { reset?: boolean } = {}) {
   const log: string[] = [];
+  overwriteGlobals = reset;
 
   for (const [slug, content] of Object.entries(sectionLandings)) {
     await once(payload, "landing-pages", { slug: { equals: slug } }, { slug, ...toDoc({ ...content, body: [block(content.body as Record<string, unknown>, "type")] }) }, log);

@@ -3,7 +3,11 @@
  * switch from mock-returning repositories to Payload-backed ones doesn't start
  * from an empty admin. Idempotent — skips any `seq` that already exists.
  * Run with: npm run seed (with the dev server started at least once — it owns the schema;
- * this script only writes content and never pushes schema changes, see payload.config.ts). */
+ * this script only writes content and never pushes schema changes, see payload.config.ts).
+ *
+ * npm run seed -- --reset deletes every document in the content collections below and
+ * overwrites the globals, then seeds again — for replacing old demo content. Users and the
+ * media library are never touched. */
 import { getPayload } from "payload";
 import { storyList, findStoryDetail } from "../src/features/main-template/stories";
 import { pressReleaseList, getPressRelease } from "../src/features/main-template/pressReleases";
@@ -20,6 +24,18 @@ async function run() {
   process.env.PAYLOAD_DB_PUSH = "false";
   const { default: config } = await import("../payload.config");
   const payload = await getPayload({ config });
+
+  const reset = process.argv.includes("--reset");
+  if (reset) {
+    const collections = [
+      "stories", "press-releases", "events", "landing-pages", "service-pages", "activity-pages",
+      "recommendations", "history-entries", "resource-pages", "policies",
+    ] as const;
+    for (const collection of collections) {
+      const { docs } = await payload.delete({ collection, where: { id: { exists: true } } });
+      console.log(`[reset] ${collection}: deleted ${docs.length}`);
+    }
+  }
 
   let storiesCreated = 0;
   for (const story of storyList) {
@@ -64,7 +80,7 @@ async function run() {
     pressReleasesCreated += 1;
   }
 
-  const pages = await seedContent(payload);
+  const pages = await seedContent(payload, { reset });
   const counts = pages.reduce<Record<string, number>>((acc, name) => ({ ...acc, [name]: (acc[name] ?? 0) + 1 }), {});
   console.log(`Page content: ${Object.entries(counts).map(([name, count]) => `${name} +${count}`).join(", ") || "nothing new"}.`);
   console.log(`Seed complete — stories: +${storiesCreated} (skipped ${storyList.length - storiesCreated} existing), press releases: +${pressReleasesCreated} (skipped ${pressReleaseList.length - pressReleasesCreated} existing).`);
