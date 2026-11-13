@@ -53,5 +53,11 @@ export default buildConfig({
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "dev-only-insecure-secret",
   typescript: { outputFile: path.resolve(dirname, "payload-types.ts") },
-  db: sqliteAdapter({ client: { url: process.env.DATABASE_URI || "file:./payload.db" } }),
+  db: sqliteAdapter({
+    client: { url: process.env.DATABASE_URI || "file:./payload.db" },
+    // Dev schema sync runs in `next dev` only. Scripts (npm run seed) set PAYLOAD_DB_PUSH=false:
+    // a second push from another process makes drizzle-kit rebuild SQLite tables and fail on
+    // indexes that already exist ("index ... already exists").
+    push: process.env.PAYLOAD_DB_PUSH !== "false",
+  }),
 });

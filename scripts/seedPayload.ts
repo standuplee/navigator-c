@@ -2,9 +2,9 @@
  * global — see scripts/seedContent.ts) into Payload so the
  * switch from mock-returning repositories to Payload-backed ones doesn't start
  * from an empty admin. Idempotent — skips any `seq` that already exists.
- * Run with: npm run seed */
+ * Run with: npm run seed (with the dev server started at least once — it owns the schema;
+ * this script only writes content and never pushes schema changes, see payload.config.ts). */
 import { getPayload } from "payload";
-import config from "../payload.config";
 import { storyList, findStoryDetail } from "../src/features/main-template/stories";
 import { pressReleaseList, getPressRelease } from "../src/features/main-template/pressReleases";
 import { markdownToLexical, paragraphsToLexical } from "../src/lib/payload/lexical";
@@ -16,6 +16,9 @@ function dottedDateToISO(dotted: string): string {
 }
 
 async function run() {
+  // Must be set before the config module is evaluated, hence the dynamic import.
+  process.env.PAYLOAD_DB_PUSH = "false";
+  const { default: config } = await import("../payload.config");
   const payload = await getPayload({ config });
 
   let storiesCreated = 0;
