@@ -1,12 +1,15 @@
 import type { SimpleTableListContent } from "@/types/pageTemplates";
 
-/** Placeholder content for /media/mediaEvents. No real events. */
+/** /news/schedule rows from the meeting times on navigators-seoulc.org (sub3). The date column
+ * holds free text for recurring meetings; dated events are added in the admin (events). */
 export const mediaEvents: SimpleTableListContent = {
-  title: "미디어 행사",
+  title: "모임 일정",
   rows: [
-    { date: "2026.10.14", title: "개발자 컨퍼런스 NOVA DEV 2026", href: "/news/schedule/ev1" },
-    { date: "2026.08.20", title: "테크 나이트 밋업 다섯 번째", href: "/news/schedule/ev2" },
-    { date: "2026.05.12", title: "파트너사 대상 상생 데이", href: "/news/schedule/ev3" },
-    { date: "2026.03.03", title: "신제품 발표회", href: "/news/schedule/ev4" },
+    { date: "매주 주일 오후 2:30", title: "주일교제 — 1부 찬양과 간증, 2부 그룹별 성경공부", href: "/news/schedule/sunday" },
+    { date: "매주 화요일 오후 7시", title: "은혜의 샘 — 복음서 스터디 (누구나 참여 가능)", href: "/news/schedule/grace-spring" },
+    { date: "여름방학 화·목", title: "STP (Summer Training Program)", href: "/news/schedule/stp" },
+    { date: "겨울방학 화·목", title: "WTP (Winter Training Program)", href: "/news/schedule/wtp" },
+    { date: "매년 여름", title: "여름 캠핑 수양회", href: "/news/schedule/summer-retreat" },
+    { date: "매년 12월", title: "이브파티", href: "/news/schedule/christmas-eve" },
   ],
 };

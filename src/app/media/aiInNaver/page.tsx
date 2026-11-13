@@ -2,7 +2,7 @@ import { PageChrome } from "@/components/content/main/PageChrome";
 import { AiInServicePage, type AiQuery } from "@/components/content/AiInServicePage";
 import { getAiInNaver } from "@/lib/data/mediaRepository";
 
-export const metadata = { title: "서비스 속의 AI l NOVA" };
+export const metadata = { title: "서비스 속의 AI l navigators-c" };
 
 export default async function AiInServiceRoute({ searchParams }: { searchParams: Promise<AiQuery> }) {
   const query = await searchParams;

@@ -5,7 +5,7 @@ import { getStoryDetail, getStoryList } from "@/lib/data/storyRepository";
 export async function generateMetadata({ params }: { params: Promise<{ seq: string }> }) {
   const { seq } = await params;
   const story = await getStoryDetail(seq);
-  return { title: `${story.title} l NOVA` };
+  return { title: `${story.title} l navigators-c` };
 }
 
 export default async function StoryDetailRoute({ params }: { params: Promise<{ seq: string }> }) {

@@ -4,7 +4,7 @@ import { getAiArticle } from "@/lib/data/mediaRepository";
 
 export async function generateMetadata({ searchParams }: { searchParams: Promise<{ seq?: string }> }) {
   const { seq } = await searchParams;
-  return { title: `${(await getAiArticle("building", seq)).article.title} l NOVA` };
+  return { title: `${(await getAiArticle("building", seq)).article.title} l navigators-c` };
 }
 
 export default async function AiArticlePage({ searchParams }: { searchParams: Promise<{ seq?: string }> }) {

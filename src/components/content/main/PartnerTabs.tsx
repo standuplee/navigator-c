@@ -6,7 +6,7 @@ import type { PartnerTabGroup } from "@/types/mainTemplate";
 /** "함께 성장하는" (PRD §7.11, measured 792 / 613 / 650 tall): pill tabs (105×40, 14px; active
  * ink, others tinted) over six link cards per tab — 1 / 3 / 3 columns, 70 / 121 / 136px tall,
  * 20px labels. ARIA tab pattern: Left/Right move focus and selection. */
-export function PartnerTabs({ groups, title = "함께 성장하는 파트너" }: { groups: PartnerTabGroup[]; title?: string }) {
+export function PartnerTabs({ groups, title = "Navigator Ministries" }: { groups: PartnerTabGroup[]; title?: string }) {
   const [active, setActive] = useState(0);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 

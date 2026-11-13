@@ -106,7 +106,9 @@ export async function seedContent(payload: Payload) {
   await once(payload, "resource-pages", { slug: { equals: "gallery" } }, resourceDoc(gallery, "gallery"), log);
   for (const row of mediaEvents.rows) {
     const seq = row.href?.split("/").pop() ?? row.title;
-    await once(payload, "events", { seq: { equals: seq } }, { title: row.title, seq, date: dotted(row.date) }, log);
+    // Recurring meetings carry free text ("매주 주일 오후 2:30") — kept as the display date.
+    const isDate = /^\d{4}\.\d{2}\.\d{2}$/.test(row.date);
+    await once(payload, "events", { seq: { equals: seq } }, { title: row.title, seq, date: isDate ? dotted(row.date) : new Date().toISOString(), displayDate: isDate ? undefined : row.date }, log);
   }
   for (const version of privacyPolicy.versions) {
     await once(

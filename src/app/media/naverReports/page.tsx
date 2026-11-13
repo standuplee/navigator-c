@@ -2,7 +2,7 @@ import { PageChrome } from "@/components/content/main/PageChrome";
 import { ContentListPage, type ContentListQuery } from "@/components/content/ContentListPage";
 import { getNaverReportsList } from "@/lib/data/mediaRepository";
 
-export const metadata = { title: "리포트 l NOVA" };
+export const metadata = { title: "리포트 l navigators-c" };
 
 export default async function NaverReportsPage({ searchParams }: { searchParams: Promise<ContentListQuery> }) {
   const query = await searchParams;

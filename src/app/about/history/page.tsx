@@ -2,7 +2,7 @@ import { PageChrome } from "@/components/content/main/PageChrome";
 import { TimelinePage } from "@/components/content/TimelinePage";
 import { getTimeline } from "@/lib/data/companyRepository";
 
-export const metadata = { title: "연혁 l NOVA" };
+export const metadata = { title: "연혁 l navigators-c" };
 
 export default async function CompanyHistoryPage() {
   const content = await getTimeline();

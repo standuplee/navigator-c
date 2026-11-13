@@ -2,7 +2,7 @@ import { PageChrome } from "@/components/content/main/PageChrome";
 import { ContentListPage, type ContentListQuery } from "@/components/content/ContentListPage";
 import { getPressReleaseList } from "@/lib/data/mediaRepository";
 
-export const metadata = { title: "보도자료 l NOVA" };
+export const metadata = { title: "소식 l navigators-c" };
 
 const quickLinks = [
   { title: "미디어 행사 일정", text: "예정된 행사와 초청 안내", href: "/news/schedule" },

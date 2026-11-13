@@ -20,7 +20,7 @@ function NewsCard({ item, index }: { item: NewsCardItem; index: number }) {
       <a href={item.href} className="flex h-[112px] flex-col justify-between rounded-lg bg-[#f2f4f5] p-5 text-ink transition-colors duration-200 hover:bg-zinc-200 xl:h-[134px] xl:p-6">
         <span className="flex gap-3 text-xs text-zinc-500">
           <span>{item.category}</span>
-          <span>{item.date}</span>
+          {item.date ? <span>{item.date}</span> : null}
         </span>
         <span className="mt-3 line-clamp-2 text-base font-semibold leading-snug xl:text-xl">{item.title}</span>
       </a>
@@ -38,7 +38,7 @@ function NewsCard({ item, index }: { item: NewsCardItem; index: number }) {
       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/35 to-transparent p-5 pt-16 text-white xl:p-6 xl:pt-20">
         <p className="flex gap-3 text-xs text-white/80">
           <span>{item.category}</span>
-          <span>{item.date}</span>
+          {item.date ? <span>{item.date}</span> : null}
         </p>
         <p className="mt-2 line-clamp-2 text-lg font-semibold leading-snug xl:text-xl">{item.title}</p>
         {item.tags && item.tags.length > 0 && (

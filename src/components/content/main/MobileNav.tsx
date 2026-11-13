@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { NavMenuItem } from "@/types/mainTemplate";
+import { BrandLogo } from "./BrandLogo";
 
 /** Full-screen menu for mobile and tablet (<1024px), docs/PRD-navercorp-ui-parity.md §6.1.
  * Slides in from the right (.3s ease-out, docs/animations.md 1-7). Groups expand instantly
@@ -60,7 +61,7 @@ export function MobileNav({
       inert={!open}
     >
       <div className="flex h-12 shrink-0 items-center justify-between border-b border-zinc-200 px-gutter">
-        <span className="text-lg font-bold tracking-tight">{brandName}</span>
+        <BrandLogo brandName={brandName} className="h-6" />
         <div className="flex items-center gap-1">
           <button type="button" className="rounded-full px-3 py-1.5 text-sm font-medium text-zinc-600 hover:bg-zinc-100" onClick={() => onLangChange(lang === "KR" ? "EN" : "KR")}>
             {lang}

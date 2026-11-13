@@ -1,83 +1,84 @@
 import type { SectionLandingContent } from "@/types/pageTemplates";
 
-/** Placeholder section-landing content for /service/featuredServices and /tech/innovation
- * (PRD §7.2, §7.4). Counts follow the reference: 8 hero tiles, 4 featured items, 4 domains
- * with 3 points each. Neutral copy. */
+/** /ministry and /fellowship landings with the text of navigators-seoulc.org (main
+ * "Navigator Ministries", sub2, sub3). Edited later in the admin (landing-pages). */
 export const sectionLandings: Record<"ministry" | "fellowship", SectionLandingContent> = {
   ministry: {
     theme: "light",
-    hero: { line1: ["검색에서", "탐색으로 진화"], line2: "On-Service AI", tiles: 8 },
+    hero: { line1: ["그리스도를 알고,", "그를 알게 하라"], line2: "Navigator Ministries", tiles: 8 },
     body: {
       type: "featured",
       items: [
-        { id: "featured-1", title: "요약 브리핑", text: "길고 복잡한 결과 대신 핵심만 정리해 보여줍니다.", href: "/ministry/bible-study", media: { kind: "video", label: "요약 브리핑 영상" } },
-        { id: "featured-2", title: "자동화 광고", text: "입찰과 소재를 목표에 맞춰 자동으로 최적화합니다.", href: "/ministry/church-contribution", media: { kind: "video", label: "자동화 광고 영상" } },
-        { id: "featured-3", title: "쇼핑 가이드", text: "취향과 이력을 반영해 상품 선택을 돕습니다.", href: "/ministry/workplace", media: { kind: "video", label: "쇼핑 가이드 영상" } },
-        { id: "featured-4", title: "3D 공간 정보", text: "현실에 가까운 입체 지도로 길을 안내합니다.", href: "/ministry/missions", media: { kind: "video", label: "3D 공간 정보 영상" } },
+        { id: "bible-study", title: "성경공부", text: "수준별, 체계적인 네비게이토 성경공부를 통해 예수 그리스도와 복음, 성경에 대해 잘 알게 되고 주님의 제자와 일꾼으로 성장합니다.", href: "/ministry/bible-study", media: { kind: "image", label: "성경공부" } },
+        { id: "campus", title: "캠퍼스", text: "중앙대 기독교 동아리로서 학생들이 하나님을 알아가는 즐거움과 승리하는 대학생활을 누리도록 돕습니다.", href: "/ministry/campus", media: { kind: "image", label: "캠퍼스" } },
+        { id: "workplace", title: "직장", text: "직장인들이 하나님과 동행하며 인생의 진정한 비전을 설계할 수 있도록 돕고 있습니다.", href: "/ministry/workplace", media: { kind: "image", label: "직장" } },
+        { id: "military", title: "군대", text: "나라를 지키는 군인으로, 그리스도의 군사로서 군대 내 많은 영혼을 인도합니다.", href: "/ministry/military", media: { kind: "image", label: "군대" } },
+        { id: "missions", title: "해외", text: "영국, 캄보디아, 멕시코, 미국 등 세계 각국으로 선교사를 파송하고 있습니다.", href: "/ministry/missions", media: { kind: "image", label: "해외" } },
+        { id: "church-contribution", title: "교계 기여", text: "경건의 시간, 성경공부 교재, 암송카드, 말씀의 손과 기도의 손 — 제자 삼는 사역을 위해 계발한 도구들입니다.", href: "/ministry/church-contribution", media: { kind: "image", label: "교계 기여" } },
       ],
     },
-    cta: { title: "다양한 서비스가 더 궁금하다면", description: "전체 서비스를 한눈에 확인해 보세요.", href: "/ministry/all", ctaLabel: "전체 서비스 보기" },
+    cta: { title: "사역과 활동을 한눈에 보고 싶다면", description: "네비게이토 서울C지구의 사역과 활동을 모아 보세요.", href: "/ministry/all", ctaLabel: "한눈에 보기" },
   },
   fellowship: {
     theme: "dark",
-    hero: { line1: ["혁신의 기술을", "일상의 서비스로"], line2: "Everyday Tech", tiles: 8 },
+    hero: { line1: ["말씀으로", "함께 자라는"], line2: "Navigators Fellowship", tiles: 8 },
     body: {
       type: "stack",
-      title: "일상에서 체감하는 미래 기술",
+      title: "네비게이토 서울C지구의 활동",
       domains: [
         {
-          id: "domain-model",
-          title: "파운데이션 모델",
-          description: "자체 데이터와 인프라로 만든 언어 모델을 서비스 곳곳에 적용합니다.",
+          id: "gatherings",
+          title: "정기모임",
+          description: "주일 오후와 화요일 저녁, 말씀으로 함께 모입니다.",
           points: [
-            { title: "언어 모델", text: "이해하고 생성하는 대규모 언어 모델" },
-            { title: "전용 클라우드", text: "높은 보안의 AI 특화 클라우드" },
-            { title: "개발 도구", text: "업무에 맞춰 쓰는 AI 개발 도구" },
+            { title: "주일교제", text: "주일 오후 2:30 — 1부 찬양과 간증, 2부 그룹별 성경공부" },
+            { title: "은혜의 샘", text: "매주 화요일 오후 7시, 누구나 올 수 있는 복음서 스터디" },
+            { title: "온라인교제", text: "유튜브 라이브와 화상 성경공부로 함께하는 교제" },
           ],
-          media: { kind: "video", label: "파운데이션 모델" },
+          media: { kind: "image", label: "정기모임" },
         },
         {
-          id: "domain-spatial",
-          title: "공간지능",
-          description: "현실과 디지털 세계를 연결하는 기술을 연구합니다.",
+          id: "discipleship",
+          title: "양육·훈련",
+          description: "한 사람이 그리스도 안에서 성숙한 제자가 되도록 돕습니다.",
           points: [
-            { title: "AR / VR / MR", text: "공간에 겹쳐 보이는 정보" },
-            { title: "스마트 빌딩", text: "건물을 이해하는 디지털 트윈" },
-            { title: "스마트 시티", text: "도시 규모의 공간 데이터" },
+            { title: "개인교제", text: "예수님과 바울처럼, 1대1 양육" },
+            { title: "커플스터디", text: "말씀으로 행복한 가정" },
+            { title: "Training Program", text: "방학 제자훈련 STP · WTP" },
           ],
-          media: { kind: "video", label: "공간지능" },
+          media: { kind: "image", label: "양육·훈련" },
         },
         {
-          id: "domain-robotics",
-          title: "로보틱스",
-          description: "사람과 자연스럽게 공존하는 로봇을 만듭니다.",
+          id: "events",
+          title: "행사",
+          description: "해마다 기다려지는 은혜의 시간들입니다.",
           points: [
-            { title: "로봇 친화 빌딩", text: "로봇이 함께 일하는 업무 공간" },
-            { title: "하이퍼스케일 데이터센터", text: "로봇이 운영을 돕는 인프라" },
-            { title: "로봇 AI", text: "파운데이션 모델 기반 로봇 지능" },
+            { title: "여름 캠핑 수양회", text: "바닷가와 산에서 하나님을 만나는 시간" },
+            { title: "이브파티", text: "예수님의 탄생을 축하하는 크리스마스 파티" },
+            { title: "함께하는 섬김", text: "축제 부스 수익금 장학금 기부" },
           ],
-          media: { kind: "video", label: "로보틱스" },
+          media: { kind: "image", label: "행사" },
         },
         {
-          id: "domain-immersive",
-          title: "이머시브 미디어",
-          description: "기술로 감각을 확장하는 미디어 경험을 만듭니다.",
+          id: "leisure",
+          title: "함께 즐기기",
+          description: "하나님 안에서 더 자유하고 즐겁습니다.",
           points: [
-            { title: "몰입형 라이브", text: "현장감 있는 라이브 커머스" },
-            { title: "버추얼 스트리밍", text: "가상 공간 속 실시간 방송" },
-            { title: "시청 환경 최적화", text: "기기에 맞춘 화질과 소리" },
+            { title: "스포츠", text: "축구, 농구, 탁구, 피트니스, 웨이트" },
+            { title: "Enjoy", text: "에버랜드, 술 없는 MT, 피크닉" },
+            { title: "대학 교류", text: "다른 대학과의 스포츠 교제" },
           ],
-          media: { kind: "video", label: "이머시브 미디어" },
+          media: { kind: "image", label: "함께 즐기기" },
         },
       ],
       research: {
-        title: "기술 투자와 연구",
+        title: "함께하는 곳",
         items: [
-          { title: "기술 스타트업 투자", text: "초기 기술 기업에 투자하고 함께 성장합니다.", href: "#" },
-          { title: "AI 연구 협업", text: "학계와 함께 AI 연구를 이어갑니다.", href: "#" },
+          { title: "상도동 비전관", text: "서울시 동작구 상도로 39가길 1 — 주일교제와 성경공부", href: "/about/vision-center" },
+          { title: "중앙대 동아리방", text: "중앙대학교 107관(학생회관) 1층", href: "/about/contact" },
         ],
       },
     },
-    cta: { title: "기술이 더 궁금하다면", description: "분야별 기술 소개를 확인해 보세요.", href: "/fellowship/gatherings", ctaLabel: "자세히 보기" },
+    cta: { title: "모임 일정이 궁금하다면", description: "정기모임과 행사 일정을 확인해 보세요.", href: "/news/schedule", ctaLabel: "모임 일정 보기" },
   },
 };

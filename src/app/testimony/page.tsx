@@ -2,7 +2,7 @@ import { PageChrome } from "@/components/content/main/PageChrome";
 import { StoryListPage, type StoryListQuery } from "@/components/content/StoryListPage";
 import { getStoryList } from "@/lib/data/storyRepository";
 
-export const metadata = { title: "스토리 l NOVA" };
+export const metadata = { title: "간증 l navigators-c" };
 
 export default async function StoryPage({ searchParams }: { searchParams: Promise<StoryListQuery> }) {
   const query = await searchParams;

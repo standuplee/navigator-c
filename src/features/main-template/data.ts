@@ -1,7 +1,6 @@
-/** Brand-neutral mock data for the main page template.
- * Placeholder copy and colors only — no NAVER branding or copied copy.
- * Swap this module's source for a CMS-backed repository later (docs/content-model.md);
- * components only depend on the types in src/types/mainTemplate.ts. */
+/** Main page and site chrome content with the text of navigators-seoulc.org (main, sub1–sub4).
+ * Fallback for the admin globals main-page / navigation / site-settings; components only depend
+ * on the types in src/types/mainTemplate.ts. */
 import type {
   FooterLinkGroup,
   NavMenuItem,
@@ -12,7 +11,7 @@ import type {
   SummaryPanel,
 } from "@/types/mainTemplate";
 
-export const brandName = "NOVA";
+export const brandName = "navigators-c";
 
 /** Menu groups from the content mapping (route sheet "새 메뉴 그룹"). Labels are the page
  * names from navigators-seoulc.org; edit them in the admin (global `navigation`). */
@@ -55,67 +54,66 @@ export const navMenuItems: NavMenuItem[] = [
 ];
 
 export const headlineSlides: NewsCardItem[] = [
-  { id: "h1", category: "스토리", date: "2026.09.04", title: "분산 추론 인프라로 응답 속도를 3배 끌어올린 과정", href: "/testimony/s1", tone: "dark" },
-  { id: "h2", category: "보도자료", date: "2026.08.24", title: "제휴 파트너 120곳과 함께하는 상생 프로그램 발표", href: "/news/pr7", tone: "dark" },
-  { id: "h3", category: "보도자료", date: "2026.07.07", title: "연내 전 서비스에 접근성 가이드라인 전면 적용", href: "/news/pr8", tone: "dark" },
-  { id: "h4", category: "리포트", date: "2026.06.30", title: "올해 상반기 공동체 활동 리포트 공개", href: "/media/naverReports", tone: "dark" },
+  { id: "h1", category: "네비게이토란?", date: "Since 1933", title: "‘그리스도를 알고, 그를 알게 하라.’ — ‘항해자’라는 뜻의 국제적인 초교파 선교회", href: "/about", tone: "dark" },
+  { id: "h2", category: "Navigator Ministries", date: "캠퍼스 · 직장 · 군대 · 해외", title: "네비게이토는 전국의 캠퍼스와 직장, 군대 그리고 해외에서 제자와 일꾼을 키우고 있습니다", href: "/ministry", tone: "dark" },
+  { id: "h3", category: "서울C지구", date: "Since 1984", title: "1984년 중앙대 캠퍼스에서 시작된 네비게이토 서울C지구", href: "/about/history", tone: "dark" },
+  { id: "h4", category: "주일교제", date: "매주 주일 오후 2:30", title: "찬양과 은혜로운 간증, 그룹별 성경공부 — 상도동 비전관에서 만나요", href: "/fellowship/gatherings", tone: "dark" },
 ];
 
 export const shortcutCards: ShortcutCard[] = [
-  { id: "s1", label: "공지", title: "이번 학기 모임 일정 안내", href: "#", tone: "light" },
-  { id: "s2", label: "리소스", title: "브랜드 리소스 다운로드", href: "/about/tools", tone: "light" },
-  { id: "s3", label: "함께하기", title: "처음 오신 분을 위한 안내", href: "/about/contact", tone: "light" },
+  { id: "s1", label: "정기모임", title: "주일교제 · 매주 주일 오후 2:30", href: "/fellowship/gatherings#sunday", tone: "light" },
+  { id: "s2", label: "열린 모임", title: "은혜의 샘 · 매주 화요일 오후 7시", href: "/fellowship/gatherings#grace-spring", tone: "light" },
+  { id: "s3", label: "QnA", title: "안 믿는데 성경공부는 할 수 있나요?", href: "/faq", tone: "light" },
 ];
 
 /** 15 cards like the reference: mobile shows the first 5, tablet/desktop all. */
 export const newsCards: NewsCardItem[] = [
-  { id: "n1", category: "Product", date: "2026.09.07", title: "검색 결과 요약 카드, 모바일 전면 적용", tags: ["검색", "업데이트"], href: "/news/pr1", tone: "light" },
-  { id: "n2", category: "공지", date: "2026.09.06", title: "가을 학기 정기 모임 장소 변경 안내", href: "#", tone: "light", kind: "text" },
-  { id: "n3", category: "공지", date: "2026.09.05", title: "신입생 환영 모임 신청 접수", href: "#", tone: "light", kind: "text" },
-  { id: "n4", category: "Tech", date: "2026.09.05", title: "온디바이스 추천 모델 경량화 연구 공개", tags: ["AI", "연구"], href: "/news/pr2", tone: "light" },
-  { id: "n5", category: "Story", date: "2026.09.03", title: "신입 개발자가 겪은 첫 배포의 기록", tags: ["Culture"], href: "/testimony/s2", tone: "light" },
-  { id: "n6", category: "Product", date: "2026.09.01", title: "지도 서비스에 실내 길찾기 기능 추가", tags: ["지도"], href: "/news/pr4", tone: "light" },
-  { id: "n7", category: "보도자료", date: "2026.08.29", title: "중소 파트너사 대상 광고 비용 지원 프로그램 확대", tags: ["광고", "상생"], href: "/news/pr3", tone: "light" },
-  { id: "n8", category: "Tech", date: "2026.08.27", title: "대규모 트래픽 대응을 위한 캐시 아키텍처 개편", tags: ["인프라"], href: "/news/pr9", tone: "light" },
-  { id: "n9", category: "Story", date: "2026.08.24", title: "AI 큐레이션이 바꾼 쇼핑 경험", tags: ["커머스", "AI"], href: "/testimony/s3", tone: "light" },
-  { id: "n10", category: "보도자료", date: "2026.08.20", title: "개발자 커뮤니티 밋업 다섯 번째 개최", tags: ["커뮤니티"], href: "/news/pr5", tone: "light" },
-  { id: "n11", category: "Product", date: "2026.08.18", title: "결제 실패율을 낮춘 커머스 체크아웃 리뉴얼", tags: ["커머스"], href: "/news/pr6", tone: "light" },
-  { id: "n12", category: "Story", date: "2026.08.14", title: "여름 수련회, 함께한 사흘의 기록", tags: ["수련회"], href: "/testimony", tone: "light" },
-  { id: "n13", category: "보도자료", date: "2026.08.10", title: "접근성 가이드라인 2.0 공개", tags: ["접근성"], href: "/news", tone: "light" },
-  { id: "n14", category: "Story", date: "2026.08.06", title: "졸업생이 전하는 일터에서의 하루", tags: ["졸업생"], href: "/testimony", tone: "light" },
-  { id: "n15", category: "Tech", date: "2026.08.02", title: "검색 품질 평가 방법론 정리", tags: ["검색"], href: "/news", tone: "light" },
+  { id: "n1", category: "정기모임", date: "매주 주일", title: "주일교제 — 1부 찬양과 간증, 2부 그룹별 성경공부", tags: ["주일교제", "성경공부"], href: "/fellowship/gatherings#sunday", tone: "light" },
+  { id: "n2", category: "QnA", date: "", title: "대학생인데 학업과 병행을 잘 할 수 있나요?", href: "/faq", tone: "light", kind: "text" },
+  { id: "n3", category: "QnA", date: "", title: "직장인인데 캠퍼스 선교단체 함께 할 수 있나요?", href: "/faq", tone: "light", kind: "text" },
+  { id: "n4", category: "사역", date: "", title: "수준별, 체계적인 네비게이토 성경공부", tags: ["성경공부", "디모데후서 2:15"], href: "/ministry/bible-study", tone: "light" },
+  { id: "n5", category: "행사", date: "매년 여름", title: "아름다운 바닷가와 청량한 산에서 — 여름 캠핑 수양회", tags: ["수양회"], href: "/fellowship/events#summer-retreat", tone: "light" },
+  { id: "n6", category: "사역", date: "", title: "선한 목자 되신 하나님을 알아가는 즐거움 — 캠퍼스", tags: ["캠퍼스", "중앙대"], href: "/ministry/campus", tone: "light" },
+  { id: "n7", category: "양육·훈련", date: "", title: "예수님과 바울처럼, 1대1 양육 — 개인교제", tags: ["1:1 양육"], href: "/fellowship/discipleship#one-on-one", tone: "light" },
+  { id: "n8", category: "정기모임", date: "매주 화요일", title: "누구나 올 수 있는 복음서 스터디 — 은혜의 샘", tags: ["열린 모임"], href: "/fellowship/gatherings#grace-spring", tone: "light" },
+  { id: "n9", category: "행사", date: "매년 12월", title: "예수님의 탄생을 축하하는 이브파티", tags: ["크리스마스"], href: "/fellowship/events#christmas-eve", tone: "light" },
+  { id: "n10", category: "사역", date: "", title: "하나님과 동행하는 즐거운 직장생활", tags: ["직장"], href: "/ministry/workplace", tone: "light" },
+  { id: "n11", category: "양육·훈련", date: "방학", title: "성경 1독의 꿈을 이루는 Training Program", tags: ["STP", "WTP"], href: "/fellowship/discipleship#training", tone: "light" },
+  { id: "n12", category: "양육·훈련", date: "", title: "말씀으로 행복한 가정 — 커플스터디", tags: ["가정"], href: "/fellowship/discipleship#couples", tone: "light" },
+  { id: "n13", category: "사역", date: "", title: "영국, 캄보디아, 멕시코, 미국으로 — 해외 선교사 파송", tags: ["해외"], href: "/ministry/missions", tone: "light" },
+  { id: "n14", category: "함께 즐기기", date: "", title: "축구, 농구, 탁구, 피트니스 — 함께할 땐 할 수 있습니다", tags: ["스포츠"], href: "/fellowship/leisure#sports", tone: "light" },
+  { id: "n15", category: "About", date: "", title: "잔잔한 물가가 있는 상도동 비전관", tags: ["비전관"], href: "/about/vision-center", tone: "light" },
 ];
 
 export const promotionSlides: PromotionSlide[] = [
-  { id: "p1", title: "제품 업데이트 노트 공개", description: "매달 바뀌는 기능을 한 페이지에서 확인하세요.", ctaLabel: "자세히 보기", href: "#", backgroundColor: "#ffffff", tone: "light" },
-  { id: "p2", title: "누구나 참여하는 커뮤니티 이벤트", description: "이번 달 참여하고 혜택 받아가세요.", ctaLabel: "자세히 보기", href: "#", backgroundColor: "#edeff3", tone: "light" },
-  { id: "p3", title: "대화형 검색, 처음 써보세요", description: "질문 하나로 탐색부터 실행까지 한 번에.", ctaLabel: "자세히 보기", href: "#", backgroundColor: "#e8f6ff", tone: "light" },
-  { id: "p4", title: "끝까지 끝내주는 AI 경험", description: "질문 하나면 탐색부터 실행까지 한 번에 해결하세요.", ctaLabel: "자세히 보기", href: "#", backgroundColor: "#050b25", tone: "dark" },
-  { id: "p5", title: "업무 노트, 이렇게 씁니다", description: "기획자와 마케터가 직접 쓰는 기록법을 소개합니다.", ctaLabel: "자세히 보기", href: "#", backgroundColor: "#f6f1e9", tone: "light" },
+  { id: "p1", title: "네비게이토 성경공부", description: "체계적인 네비게이토 성경공부를 통해 하나님을 알고 믿음이 자랄 수 있습니다.", ctaLabel: "자세히 보기", href: "/ministry/bible-study", backgroundColor: "#ffffff", tone: "light" },
+  { id: "p2", title: "소그룹 성경공부", description: "네비게이토 성경공부는 소그룹으로 진행되어 각 개인의 믿음을 잘 세워줍니다.", ctaLabel: "자세히 보기", href: "/fellowship/gatherings#sunday", backgroundColor: "#fff3e6", tone: "light" },
+  { id: "p3", title: "기도", description: "기도를 통해 살아계신 하나님을 경험할 수 있습니다. 또한 기도의 손은 기도로 하나님과 친밀히 교제할 수 있는 좋은 기도의 방법입니다.", ctaLabel: "자세히 보기", href: "/about/tools#hand-of-prayer", backgroundColor: "#edeff3", tone: "light" },
+  { id: "p4", title: "Wheel Life", description: "성령충만한 그리스도인의 삶을 사는 데 필요한 원리를 도슨 트로트맨은 휠라이프 예화로 잘 설명하였습니다.", ctaLabel: "자세히 보기", href: "/about/tools#wheel-life", backgroundColor: "#1a1d24", tone: "dark" },
+  { id: "p5", title: "전도와 양육", description: "네비게이토는 다른 사람을 주님께로 인도할 뿐만 아니라 1:1 개인 양육을 통해 각 사람을 주님의 제자로 세워줍니다.", ctaLabel: "자세히 보기", href: "/fellowship/discipleship", backgroundColor: "#f6f1e9", tone: "light" },
 ];
 
 export const summaryPanels: SummaryPanel[] = [
-  { id: "sp1", label: "서비스", title: "검색에서 탐색으로 진화", titleEn: "On-Service AI", description: "사용자의 다양한 요구와 상황에 최적화된 맞춤형 경험으로 나아갑니다.", href: "/ministry", color: "#193194", tone: "dark" },
-  { id: "sp2", label: "기술", title: "혁신의 기술을 일상의 서비스로", titleEn: "Everyday Tech", description: "지속적인 연구개발 투자로 일상 속에 깊숙이 자리할 플랫폼의 미래를 준비합니다.", href: "/fellowship", color: "#2f80d5", tone: "dark" },
-  { id: "sp3", label: "스토리", title: "함께 만든 이야기", description: "공동체가 함께 걸어온 시간과 사람들의 이야기를 전합니다.", href: "/testimony", color: "#92e7fa", tone: "light" },
+  { id: "sp1", label: "성경공부", title: "말씀을 알고, 제자로 자라는", titleEn: "Bible Study", description: "체계적인 네비게이토 성경공부를 통해 하나님을 알고 믿음이 자랄 수 있습니다. 소그룹으로 진행되어 각 개인의 믿음을 잘 세워줍니다.", href: "/ministry/bible-study", color: "#f88b01", tone: "dark" },
+  { id: "sp2", label: "말씀과 기도", title: "말씀의 손, 기도의 손", titleEn: "Word & Prayer", description: "기도를 통해 살아계신 하나님을 경험할 수 있습니다. 말씀과 기도로 하나님과 친밀히 교제합니다.", href: "/about/tools", color: "#1a1d24", tone: "dark" },
+  { id: "sp3", label: "제자훈련", title: "한 사람을 제자로 세우는", titleEn: "Discipleship", description: "다른 사람을 주님께로 인도할 뿐만 아니라 1:1 개인 양육을 통해 각 사람을 주님의 제자로 세워줍니다.", href: "/fellowship/discipleship", color: "#fff3e6", tone: "light" },
 ];
 
 export const partnerTabs: PartnerTabGroup[] = [
-  { id: "partner", label: "파트너 지원", links: [
-    { label: "광고주 센터", href: "#" },
-    { label: "스토어 센터", href: "#" },
-    { label: "플레이스 센터", href: "#" },
-    { label: "비즈니스 스쿨", href: "#" },
-    { label: "임팩트 프로그램", href: "#" },
-    { label: "비즈니스 케어", href: "#" },
+  { id: "ministries", label: "우리의 사역", links: [
+    { label: "캠퍼스", href: "/ministry/campus" },
+    { label: "직장", href: "/ministry/workplace" },
+    { label: "군대", href: "/ministry/military" },
+    { label: "해외", href: "/ministry/missions" },
+    { label: "성경공부", href: "/ministry/bible-study" },
+    { label: "커플스터디", href: "/fellowship/discipleship#couples" },
+    { label: "교계기여", href: "/ministry/church-contribution" },
   ] },
-  { id: "developer", label: "개발자 지원", links: [
-    { label: "개발자 센터", href: "#" },
-    { label: "오픈 API", href: "#" },
-    { label: "오픈소스", href: "#" },
-    { label: "테크 블로그", href: "#" },
-    { label: "개발자 포럼", href: "#" },
-    { label: "클라우드 플랫폼", href: "#" },
+  { id: "channels", label: "채널", links: [
+    { label: "유튜브", href: "https://www.youtube.com/channel/UCplE5M_H4uWxQNuo5JyKpYQ" },
+    { label: "인스타그램", href: "https://www.instagram.com/nav_cau" },
+    { label: "자주 묻는 질문", href: "/faq" },
+    { label: "Contact", href: "/about/contact" },
   ] },
 ];
 

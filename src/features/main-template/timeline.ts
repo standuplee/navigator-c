@@ -1,30 +1,25 @@
 import type { TimelineContent } from "@/types/pageTemplates";
 
-/** Placeholder history content (/company/history). Real entries are entered in the admin. */
+/** /about/history with the dates from navigators-seoulc.org (sub1 네비게이토란? · 서울C지구).
+ * More entries are added in the admin (history-entries). */
 export const timeline: TimelineContent = {
   title: "연혁",
   tabs: [
     {
-      id: "history",
-      label: "주요 연혁",
+      id: "navigators",
+      label: "네비게이토",
       events: [
-        { year: "2026", month: "06월", title: "파운데이션 모델 라인업 공개" },
-        { year: "2026", month: "03월", title: "플레이스홀더 서비스 출시" },
-        { year: "2024", month: "11월", title: "글로벌 거점 확장" },
-        { year: "2024", month: "04월", title: "신규 사옥 입주" },
-        { year: "2021", month: "09월", title: "클라우드 리전 개설" },
-        { year: "2018", month: "05월", title: "기술 연구 조직 출범" },
-        { year: "2018", month: "01월", title: "플레이스홀더 파트너십 체결" },
-        { year: "1999", month: "06월", title: "회사 설립" },
+        { year: "현재", title: "140여 개국에서 활동", description: "전국 많은 캠퍼스와 직장, 군대 등에서 사역을 해 나가고 있습니다." },
+        { year: "1966", title: "한국 네비게이토 시작", description: "한국에서 처음으로 제자 삼는 사역을 시작했습니다." },
+        { year: "1933", title: "미국에서 시작", description: "도슨 트로트맨의 해군사역으로 ‘항해자’라는 뜻의 국제적인 초교파 선교회가 시작되었습니다." },
       ],
     },
     {
-      id: "awards",
-      label: "수상 내역",
+      id: "seoul-c",
+      label: "서울C지구",
       events: [
-        { year: "2025", month: "12월", title: "플레이스홀더 디자인 어워드 수상" },
-        { year: "2025", month: "07월", title: "플레이스홀더 기술상 수상" },
-        { year: "2023", month: "10월", title: "플레이스홀더 서비스 대상" },
+        { year: "현재", title: "중앙대 기독인 연합 기독교 분과장", description: "학교 축제 부스 운영 수익금을 장학금으로 기부하고, 해외 선교사를 파송하고 있습니다." },
+        { year: "1984", title: "중앙대 캠퍼스에서 시작", description: "네비게이토 서울 C지구가 중앙대 캠퍼스에서 시작되었습니다." },
       ],
     },
   ],

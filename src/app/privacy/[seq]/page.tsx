@@ -5,7 +5,7 @@ import { getPrivacyVersion } from "@/lib/data/policyRepository";
 export async function generateMetadata({ params }: { params: Promise<{ seq: string }> }) {
   const { seq } = await params;
   const version = await getPrivacyVersion(seq);
-  return { title: `${version.title} l NOVA` };
+  return { title: `${version.title} l navigators-c` };
 }
 
 export default async function PrivacyPolicyDetailRoute({ params }: { params: Promise<{ seq: string }> }) {

@@ -8,7 +8,7 @@ import { SiteFooter } from "@/components/content/main/SiteFooter";
 import { ScrollState } from "@/components/layouts/ScrollState";
 import { getMainTemplateContent } from "@/lib/data/mainTemplateRepository";
 
-export const metadata = { title: "NOVA — Main" };
+export const metadata = { title: "navigators-c" };
 
 /** Brand-neutral main page rebuild (docs/HANDOFF.md). The previous NAVER-faithful
  * clone under src/features/navercorp/components/main/main-c98712e4 is kept as

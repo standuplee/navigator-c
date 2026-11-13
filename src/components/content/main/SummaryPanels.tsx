@@ -15,7 +15,7 @@ export function SummaryPanels({ panels }: { panels: SummaryPanel[] }) {
 
   return (
     <section aria-labelledby="summary-heading" className="mx-auto max-w-[1280px] px-gutter pb-5 pt-20 md:py-20 xl:py-24">
-      <h2 id="summary-heading" className="text-[26px] font-semibold text-ink xl:text-[32px]">주요 서비스와 기술 요약</h2>
+      <h2 id="summary-heading" className="text-[26px] font-semibold text-ink xl:text-[32px]">성경공부 · 말씀과 기도 · 제자훈련</h2>
       <div className="mt-8 flex flex-col gap-4 md:gap-5 xl:mt-12 xl:h-[475px] xl:flex-row xl:gap-6">
         {panels.map((panel, index) => {
           const open = active === index;

@@ -5,7 +5,7 @@ import { getNaverReport, getNaverReportsList } from "@/lib/data/mediaRepository"
 export async function generateMetadata({ searchParams }: { searchParams: Promise<{ seq?: string }> }) {
   const { seq } = await searchParams;
   const report = await getNaverReport(seq);
-  return { title: `${report.title} l NOVA` };
+  return { title: `${report.title} l navigators-c` };
 }
 
 export default async function NaverReportDetailPage({ searchParams }: { searchParams: Promise<{ seq?: string }> }) {

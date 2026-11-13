@@ -9,7 +9,7 @@ export const SiteSettings: GlobalConfig = {
   admin: { group: "설정" },
   access: publicRead,
   fields: [
-    { name: "brandName", label: "단체명 (헤더·푸터)", type: "text", required: true, defaultValue: "네비게이토 서울C지구" },
+    { name: "brandName", label: "단체명 (헤더·푸터)", type: "text", required: true, defaultValue: "navigators-c" },
     { name: "copyright", label: "푸터 저작권 문구", type: "text" },
   ],
   hooks: { afterChange: [() => safeRevalidatePath("/", "layout")] },

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { FooterLinkGroup } from "@/types/mainTemplate";
+import { BrandLogo } from "./BrandLogo";
 
 /** Placeholder social channels — generic monograms, not any real platform's logo
  * (docs/HANDOFF.md rule 3: no brand assets). Swap for real channels per deployment. */
@@ -45,7 +46,7 @@ export function SiteFooter({ brandName, groups }: { brandName: string; groups: F
   return (
     <footer className="border-t border-zinc-200 bg-zinc-50 pb-12 pt-12 md:pt-16">
       <div className="mx-auto max-w-[1920px] px-gutter">
-        <p className="text-lg font-bold">{brandName}</p>
+        <BrandLogo brandName={brandName} className="h-7 xl:h-8" />
 
         <ul className="mt-8 grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-4 md:gap-8">
           {groups.map((group) => (
